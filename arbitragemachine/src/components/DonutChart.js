@@ -17,7 +17,7 @@ class DonutChart extends React.Component{
         const radius = halfSize - (this.state.strokeWidth * 0.5);
         const circumference = 2 * Math.PI * radius;
         const strokeVal = ((this.state.value * circumference)/ 100);
-        const dashVal = (strokeVal + ' ' + circumference);
+        const dashVal = (strokeVal * 11 + ' ' + circumference);
 
         const trackStyle = {strokeWidth: this.state.strokeWidth};
         const indicatorStyle = {strokeWidth: this.state.strokeWidth, strokeDasharray: dashVal};
