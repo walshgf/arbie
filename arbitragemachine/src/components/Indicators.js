@@ -1,5 +1,6 @@
 import React from 'react';
 import DonutChart from './DonutChart';
+import style from './Indicators.css';
 
 class Indicators extends React.Component {
     constructor() {
@@ -10,11 +11,11 @@ class Indicators extends React.Component {
 
     render() {
         return (
-            <div>
-                <label>BitCoin Arbitrage Percent
+            <div className="container">
+                <label className="icons">BitCoin Arbitrage Percent
                     <DonutChart value={this.bitcoinArbitrageValue} />
                 </label>
-                <label>Etherium Arbitrage Percent
+                <label className= "icons">Etherium Arbitrage Percent
                     <DonutChart value={this.etheriumArbitrageValue} />
                 </label>
             </div>
