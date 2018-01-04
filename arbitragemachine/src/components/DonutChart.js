@@ -6,10 +6,11 @@ class DonutChart extends React.Component{
         super(props);
         this.state = {
             value: this.props.value,
+            lowSeller: this.props.lowSeller,
+            highBuyer: this.props.highBuyer,
             valueLabel: 'Completed',
             size: 116,
             strokeWidth: 26,
-            test: 50,
         };
     }
     render() {
@@ -34,7 +35,12 @@ class DonutChart extends React.Component{
                         <tspan className="donutchart--text_label" x={halfSize} y={halfSize+10}>{this.props.valueLabel}</tspan>
                     </text>
                 </svg>
-                <div>Arbitrage Percentage: {this.props.value} %</div>
+                <div>
+                    <p>Arbitrage Percentage: {this.state.value} %</p>
+                    <p>Buy from: {this.state.lowSeller}</p>
+                    <p>Sell to: {this.state.highBuyer}</p>
+                </div>
+    
             </div>            
             
         );
