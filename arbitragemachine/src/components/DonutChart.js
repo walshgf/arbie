@@ -24,6 +24,8 @@ class DonutChart extends React.Component{
         const indicatorStyle = {strokeWidth: this.state.strokeWidth, strokeDasharray: dashVal};
         const rotateVal = 'rotate(-90 '+halfSize+','+halfSize+')';
 
+        const decisionToTrade = this.state.value >= 5 ? 'Trade' : 'Hold';
+
         return (
             <div>
                 <svg width={this.state.size} height={this.state.size} className ="donutchart">
@@ -36,6 +38,7 @@ class DonutChart extends React.Component{
                     </text>
                 </svg>
                 <div>
+                    <p><b>We Recommend You {decisionToTrade}</b></p>
                     <p>Arbitrage Percentage: {this.state.value} %</p>
                     <p>Buy from: {this.state.lowSeller}</p>
                     <p>Sell to: {this.state.highBuyer}</p>
