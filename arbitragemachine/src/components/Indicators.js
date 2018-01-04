@@ -1,25 +1,23 @@
 import React from 'react';
 import DonutChart from './DonutChart';
 
-class Indicators {
-    getInitialState() {
-        return {
-            bitcoinArbitrageValue: 55,
-            etheriumArbitrageValue: 12,
-        };
+class Indicators extends React.Component {
+    constructor() {
+        super();
+        this.bitcoinArbitrageValue = 12;
+        this.etheriumArbitrageValue = 15;
     }
-    updateVal(e){
-        this.setState({bitcoinArbitrageValue: e.target.value})
-    }
+    
     render() {
         return (
             <div>
                 <label>BitCoin Arbitrage Percent</label>
-                <DonutChart value={this.state.bitcoinArbitrageValue} />
-                <br />
+                <DonutChart value={this.bitcoinArbitrageValue} />
                 <label>Etherium Arbitrage Percent</label>
-                <DonutChart value={this.state.etheriumArbitrageValue} />
+                <DonutChart value={this.etheriumArbitrageValue} />
             </div>
         );
     }
 }
+
+export default Indicators;
