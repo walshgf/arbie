@@ -7,8 +7,8 @@
  audio:not([controls]) { display: none; }
  [hidden] { display: none; }
  
- html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
- body { margin: 0; font-size: 13px; line-height: 1.231; }
+ html { height: 100%; font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+ body { height: 100%; margin: 0; font-size: 13px; line-height: 1.231; }
  body, button, input, select, textarea { font-family: sans-serif; color: #222; }
  
  ::-moz-selection { background: #fe57a1; color: #fff; text-shadow: none; }
@@ -81,7 +81,7 @@
  
  #header-container{ border-bottom: 20px solid #232c36; }
  #footer-container{ border-top:    20px solid #232c36; }
- #main aside      { border-top:    20px solid #232c36; }
+ #main aside      { border-top:    20px solid #232c36; height: 100%;}
  
  #header-container,
  #footer-container,
@@ -263,4 +263,8 @@
    @page { margin: 0.5cm; }
    p, h2, h3 { orphans: 3; widows: 3; }
    h2, h3 { page-break-after: avoid; }
+ }
+
+ .fullscreen {
+     height: 100%;
  }

@@ -39,7 +39,7 @@ class DonutChart extends React.Component{
                 </svg>
                 <div>
                     <p><b>We Recommend You {decisionToTrade}</b></p>
-                    <p>Arbitrage Percentage: {this.state.value} %</p>
+                    <p>Arbitrage Percentage: {this.state.value}%</p>
                     <p>Buy from: {this.state.lowSeller}</p>
                     <p>Sell to: {this.state.highBuyer}</p>
                 </div>
