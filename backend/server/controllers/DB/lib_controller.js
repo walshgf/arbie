@@ -1,4 +1,4 @@
-const api_lib = require('../api_lib');
+const api_lib = require('./api_lib');
 
 module.exports = (route) => {
   route.post('/create/exchange', api_lib.add_exchange);

@@ -1,6 +1,6 @@
-const Exchange = require('../db/models/exchange');
-const Currency = require('../db/models/currencyModel');
-const Arbitrage = require('../db/models/arbitrageModel');
+const Exchange = require('../../../db/models/exchange');
+const Currency = require('../../../db/models/currencyModel');
+const Arbitrage = require('../../../db/models/arbitrageModel');
 
 //Arbitrage Percentage
 const arb_percent = 5;
