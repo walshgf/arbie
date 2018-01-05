@@ -56,7 +56,7 @@ function findLargestAsk(array, signal){
 
 //function to determine if arbitrage is available
 function percentageOfArbitrageAvailable(bid, ask) {
-    return (bid / ask);
+    return (bid / ask) * 100;
 }
 
 
