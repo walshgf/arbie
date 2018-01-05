@@ -5,8 +5,11 @@ mongoose.modelSchemas = {};
 const ExchangeSchema = mongoose.Schema({
   name: {
     type: String,
-    require: true,
-    unique: true
+    require: true
+  },
+  state: {
+    type: String,
+    require: true
   },
   currencies: [{
     type: mongoose.SchemaTypes.ObjectId,
