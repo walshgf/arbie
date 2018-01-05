@@ -160,17 +160,21 @@ class Indicators extends React.Component {
             const bitcoinLargestAskPrice = bitcoinLargestAskObject.largestAsk;
             const bitcoinLargestAskExchange = bitcoinLargestAskObject.exchange;
 
-            const percentageOfBitcoinArbitrageProfitable = this.percentageOfArbitrageAvailable(bitcoinSmallestBidPrice, bitcoinLargestAskPrice);
+            const percentageOfBitcoinArbitrageProfitable = Math.floor(this.percentageOfArbitrageAvailable(bitcoinSmallestBidPrice, bitcoinLargestAskPrice));
 
             const ethereumSmallestBidObject = this.findSmallestBid(this.state.apiData, "ETH_USD");
             const ethereumSmallestBidPrice = ethereumSmallestBidObject.smallestBid;
             const ethereumSmallestBidExchange = ethereumSmallestBidObject.exchange;
 
+            const ethereumLargestBidObject = this.findLargestBid(this.state.apiData, "ETH_USD");
+            const ethereumLargestBidPrice = ethereumLargestBidObject.smallestBid;
+            const ethereumLargestBidExchange = ethereumLargestBidObject.exchange;
+
             const ethereumLargestAskObject = this.findLargestAsk(this.state.apiData, "ETH_USD");
             const ethereumLargestAskPrice = ethereumLargestAskObject.largestAsk;
             const ethereumLargestAskExchange = ethereumLargestAskObject.exchange;
 
-            const percentageOfEthereumArbitrageProfitable = this.percentageOfArbitrageAvailable(ethereumSmallestBidPrice, ethereumLargestAskPrice);
+            const percentageOfEthereumArbitrageProfitable = Math.floor(this.percentageOfArbitrageAvailable(ethereumSmallestBidPrice, ethereumLargestAskPrice));
 
             this.bitcoinArbitrageValue = percentageOfBitcoinArbitrageProfitable;
             this.bitcoinLowSeller = bitcoinSmallestBidExchange ;
@@ -185,9 +189,9 @@ class Indicators extends React.Component {
                     high:this.bitcoinLowSeller
                 },
                 eth: {
-                    argVal:this.bitcoinArbitrageValue,
-                    low:this.bitcoinLowSeller,
-                    high:this.bitcoinHighBuyer
+                    argVal:this.ethereumArbitrageValue,
+                    low:this.ethereumLowSeller,
+                    high:this.ethereumHighBuyer
                 }
             });
             this.setState({apiData: []});
