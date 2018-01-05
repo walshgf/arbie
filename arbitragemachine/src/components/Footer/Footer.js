@@ -4,7 +4,7 @@ import '../Navigation/Navigation.css';
 export default function Footer() {
     return (
         <div id="footer-container">
-            <footer class="wrapper">
+            <footer className="wrapper">
                 <h3>Disclaimer</h3>
                 <div className="disclaimer">
                     <p className="footer--text">By accepting this material, you acknowledge, understand and accept the following:</p>
