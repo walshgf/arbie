@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-const mongoose = require('mongoose'); // ('mongoose') version doesn't see node_modules on my machine 
-=======
-const mongoose = require('../../node_modules/mongoose'); // ('mongoose') version doesn't see node_modules on my machine 
->>>>>>> 78acd53d18f8aac0848f535589b56cfd8fe0c832
+const mongoose = require('mongoose'); 
 mongoose.models = {};
 mongoose.modelSchemas = {};
 
