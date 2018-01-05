@@ -10,7 +10,7 @@ const getTickerBTC = (req, res) => {
                 obj.ask = response.data.ask;
                 obj.time = new Date(response.data.volume.timestamp);
                 obj.exchange = "GEMINI";
-                obj.currency = "ETH";
+                obj.currency = "BTC";
                 res.json(obj);
             })
             .catch((err) => {

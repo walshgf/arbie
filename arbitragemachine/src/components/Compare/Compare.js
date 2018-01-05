@@ -5,16 +5,43 @@ const server = require('./config').server;
 
  
 // make a call to the server, using server location from config file (in src)
-let apiData = [];
-axios.get(`${server}/show/exchanges`)
-.then(function(response){
-    console.log(response.data);
-    console.log(response.status);
-    apiData = response.data || data;
-});
+// let apiData = [];
+// axios.get(`${server}/show/exchanges`)
+// .then(function(response){
+//     console.log(response.data);
+//     console.log(response.status);
+//     apiData = response.data || data;
+// });
 // axios.get(`${server}/get-producttickergdax`) // returns GDAX BTC
 // axios.get(`${server}/get-poloniexBTC`) // returns Poloniex BTC
 // axios.get(`${server}/get-poloniexETH`) // returns Poloniex ETH
+
+const apiData = [];
+
+axios.get(`${server}/get-producttickergdax`)
+.then((res) => {
+    apiData.push(res.data);
+});
+
+axios.get(`${server}/get-geminiBTC`)
+.then((res) => {
+    apiData.push(res.data);
+});
+
+axios.get(`${server}/get-geminiETH`)
+.then((res) => {
+    apiData.push(res.data);
+});
+axios.get(`${server}/get-poloniexBTC`)
+.then((res) => {
+    apiData.push(res.data);
+});
+axios.get(`${server}/get-poloniexETH`)
+.then((res) => {
+    apiData.push(res.data);
+});
+
+console.log(apiData);
 
 
 // find smallest bid
