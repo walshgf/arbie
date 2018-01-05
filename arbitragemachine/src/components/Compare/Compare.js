@@ -1,13 +1,14 @@
 import React from 'react';
 let axios = require('axios');
-const server = require('../config').server;
+const server = require('./config').server;
 
+let apiData = [];
 // make a call to the server, using server location from config file (in src)
 axios.get(`${server}/show/exchanges`)
 .then(function(response){
     console.log(response.data);
     console.log(response.status);
-    const apiData = response.data;
+    apiData = response.data;
 });
 
 // find smallest bid
