@@ -12,6 +12,9 @@ axios.get(`${server}/show/exchanges`)
     console.log(response.status);
     apiData = response.data || data;
 });
+// axios.get(`${server}/get-producttickergdax`) // returns GDAX BTC
+// axios.get(`${server}/get-poloniexBTC`) // returns Poloniex BTC
+// axios.get(`${server}/get-poloniexETH`) // returns Poloniex ETH
 
 
 // find smallest bid
