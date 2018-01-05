@@ -2,7 +2,11 @@ import React from 'react';
 import DonutChart from './DonutChart';
 import './Indicators.css';
 import {
+    bitcoinSmallestBidObject,
+    bitcoinLargestAskObject,
     isBitcoinArbitrageProfitable,
+    ethereumSmallestBidObject,
+    ethereumLargestAskObject,
     isEthereumArbitrageProfitable
     } from '../Compare/Compare';
 

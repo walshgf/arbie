@@ -52,13 +52,13 @@ function isArbitrageAvailable(bid, ask) {
     return ((bid / ask) >= 1.05) ? true : false;
 }
 
-const bitcoinSmallestBid = findSmallestBid(apiData, 'BTC_USD');
-const bitcoinLargestAsk = findLargestAsk(apiData, 'BTC_USD');
-export const isBitcoinArbitrageProfitable = isArbitrageAvailable(bitcoinSmallestBid.smallestBid, bitcoinLargestAsk.largestAsk);
+export const bitcoinSmallestBidObject = findSmallestBid(apiData, 'BTC_USD');
+export const bitcoinLargestAskObject = findLargestAsk(apiData, 'BTC_USD');
+export const isBitcoinArbitrageProfitable = isArbitrageAvailable(bitcoinSmallestBidObject.smallestBid, bitcoinLargestAskObject.largestAsk);
 
-const ethereumSmallestBid = findSmallestBid(apiData, 'ETH_USD');
-const ethereumLargestAsk = findLargestAsk(apiData, 'ETH_USD');
-export const isEthereumArbitrageProfitable = isArbitrageAvailable(ethereumSmallestBid.smallestBid, ethereumLargestAsk.largestAsk);
+export const ethereumSmallestBidObject = findSmallestBid(apiData, 'ETH_USD');
+export const ethereumLargestAskObject = findLargestAsk(apiData, 'ETH_USD');
+export const isEthereumArbitrageProfitable = isArbitrageAvailable(ethereumSmallestBidObject.smallestBid, ethereumLargestAskObject.largestAsk);
 
 /* previous code before refactor
 class BidAsk {
