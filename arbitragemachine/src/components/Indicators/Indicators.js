@@ -1,6 +1,6 @@
 import React from 'react';
 import DonutChart from './DonutChart';
-import style from './Indicators.css';
+import './Indicators.css';
 
 class Indicators extends React.Component {
     constructor() {

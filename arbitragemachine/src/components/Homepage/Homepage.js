@@ -1,5 +1,5 @@
 import React from 'react';
-import style from '../Navigation/Navigation.css';
+import '../Navigation/Navigation.css';
 
 export default function Homepage() {
     return (
