@@ -18,7 +18,7 @@ axios.get(`${server}/show/exchanges`)
 function findSmallestBid(array, signal){
     let smallestBidObject = {smallestBid : null, exchange : null};
 
-    array.forEach(function(trade){
+    array.forEach((trade) => {
         if (trade.currencies.name == signal) {
             if (smallestBidObject.smallestBid === null) {
                 let smallestBidObject = {
@@ -58,7 +58,7 @@ function findLargestAsk(array, signal){
 function percentageOfArbitrageAvailable(bid, ask) {
     return (bid / ask) * 100;
 }
-
+ageOfEthereumArbitrageProfitable = percentageOfArbitrageAvailable(ethereumSmallestBidPrice, ethereumLargestAskPrice);
 
 const bitcoinSmallestBidObject = findSmallestBid(apiData, "BTC_USD");
 export const bitcoinSmallestBidPrice = bitcoinSmallestBidObject.smallestBid;
@@ -78,4 +78,4 @@ const ethereumLargestAskObject = findLargestAsk(apiData, "ETH_USD");
 export const ethereumLargestAskPrice = ethereumLargestAskObject.largestAsk;
 export const ethereumLargestAskExchange = ethereumLargestAskObject.exchange;
 
-export const percentageOfEthereumArbitrageProfitable = percentageOfArbitrageAvailable(ethereumSmallestBidPrice, ethereumLargestAskPrice);
+export const percent
