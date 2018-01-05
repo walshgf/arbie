@@ -44,42 +44,42 @@ console.log(apiData);
 
 // find smallest bid
 function findSmallestBid(array, signal){
-    let smallestBidObject = {smallestBid : null, exchange : null};
+    let smallestBidObject = {smallestBid : null, exchange : null, name: null};
 
     array.forEach((trade) => {
-        if (trade.currencies.name === signal) {
             if (smallestBidObject.smallestBid === null) {
                 smallestBidObject = {
-                    smallestBid: trade.currencies.bid, 
-                    exchange: trade.name
+                    smallestBid: trade.bid, 
+                    exchange: trade.exchange,
+                    name: trade.name
                 };
-            } else if (smallestBidObject.smallestBid > trade.currencies.bid) {
-                smallestBidObject.smallestBid = trade.currencies.bid;
-                smallestBidObject.exchange = trade.name;
+            } else if (smallestBidObject.smallestBid > trade.bid) {
+                smallestBidObject.smallestBid = trade.bid;
+                smallestBidObject.exchange = trade.exchange;
+                smallestBidObject.name = trade.name;
             }
-        }
     })
     return smallestBidObject;
 }
 
-// find largest ask
+// find largest bid
 function findLargestAsk(array, signal){
-    let largestAskObject = {largestAsk: null, exchange : null};
+    let largestAskObject = {largestAsk : null, exchange : null, name: null};
 
     array.forEach((trade) => {
-        if (trade.currencies.name === signal) {
             if (largestAskObject.largestAsk === null) {
                 largestAskObject = {
-                    largestAsk : trade.currencies.ask,
-                    exchange : trade.name,
+                    largestAsk: trade.bid, 
+                    exchange: trade.exchange,
+                    name: trade.name
                 };
-            } else if (largestAskObject.largestAsk < trade.currencies.ask) {
-                largestAskObject.largestAsk = trade.currencies.ask;
-                largestAskObject.exchange = trade.name;
+            } else if (largestAskObject.largestAsk > trade.bid) {
+                largestAskObject.largestAsk = trade.bid;
+                largestAskObject.exchange = trade.exchange;
+                largestAskObject.name = trade.name;
             }
-        }
     })
-    return  largestAskObject;
+    return largestAskObject;
 }
 
 //function to determine if arbitrage is available
