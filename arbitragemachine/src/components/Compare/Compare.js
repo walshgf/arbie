@@ -19,7 +19,7 @@ function findSmallestBid(array, signal){
     let smallestBidObject = {smallestBid : null, exchange : null};
 
     array.forEach(function(trade){
-        if (trade.currencies.name === signal) {
+        if (trade.currencies.name == signal) {
             if (smallestBidObject.smallestBid === null) {
                 let smallestBidObject = {
                     smallestBid: trade.currencies.bid, 
@@ -39,7 +39,7 @@ function findLargestAsk(array, signal){
     let largestAskObject = {largestAsk: null, exchange : null};
 
     array.forEach((trade) => {
-        if (trade.currencies.name === signal) {
+        if (trade.currencies.name == signal) {
             if (largestAskObject.largestAsk === null) {
                 let largestAskObject = {
                     largestAsk : trade.currencies.ask,
@@ -60,21 +60,21 @@ function percentageOfArbitrageAvailable(bid, ask) {
 }
 
 
-const bitcoinSmallestBidObject = findSmallestBid(apiData, 'BTC_USD');
+const bitcoinSmallestBidObject = findSmallestBid(apiData, "BTC_USD");
 export const bitcoinSmallestBidPrice = bitcoinSmallestBidObject.smallestBid;
 export const bitcoinSmallestBidExchange = bitcoinSmallestBidObject.exchange;
 
-const bitcoinLargestAskObject = findLargestAsk(apiData, 'BTC_USD');
+const bitcoinLargestAskObject = findLargestAsk(apiData, "BTC_USD");
 export const bitcoinLargestAskPrice = bitcoinLargestAskObject.largestAsk;
 export const bitcoinLargestAskExchange = bitcoinLargestAskObject.exchange;
 
 export const percentageOfBitcoinArbitrageProfitable = percentageOfArbitrageAvailable(bitcoinSmallestBidPrice, bitcoinLargestAskPrice);
 
-const ethereumSmallestBidObject = findSmallestBid(apiData, 'ETH_USD');
+const ethereumSmallestBidObject = findSmallestBid(apiData, "ETH_USD");
 export const ethereumSmallestBidPrice = ethereumSmallestBidObject.smallestBid;
 export const ethereumSmallestBidExchange = ethereumSmallestBidObject.exchange;
 
-export const ethereumLargestAskObject = findLargestAsk(apiData, 'ETH_USD');
+const ethereumLargestAskObject = findLargestAsk(apiData, "ETH_USD");
 export const ethereumLargestAskPrice = ethereumLargestAskObject.largestAsk;
 export const ethereumLargestAskExchange = ethereumLargestAskObject.exchange;
 
