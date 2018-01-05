@@ -19,6 +19,10 @@ const ArbitrageSchema = mongoose.Schema({
     type: Number,
     require: true
   },
+  price: {
+    type: Number,
+    reguire: true
+  }
   //Timestamp at creation
   recieved: {
     type: Date,
