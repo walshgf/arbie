@@ -14,9 +14,9 @@ export default function Navigation() {
                         <h1 id="title"><img className="logo" src={logo} />Arbie - Trade Up</h1>
                     <nav>
                         <ul>
-                            <li><Link to="/home">Arbie</Link></li>
-                            <li><Link to="/chart">Chart</Link></li>
-                            <li><Link to="/team">Team</Link></li>
+                            <li><Link to="/home">About Arbie</Link></li>
+                            <li><Link to="/">Trading Tip</Link></li>
+                            <li><Link to="/team">Meet the Team</Link></li>
                         </ul>
                     </nav>
                 </header>
