@@ -11,7 +11,7 @@ export default function Navigation() {
         <BrowserRouter>
             <div id="header-container">
                 <header className="wrapper clearfix">
-                        <h1 id="title"><img className="logo" src={logo} />Arbie - Trade Up</h1>
+                        <h1 id="title"><img className="logo" alt="logo" src={logo} />Arbie - Trade Up</h1>
                     <nav>
                         <ul>
                             <li><Link to="/home">About Arbie</Link></li>

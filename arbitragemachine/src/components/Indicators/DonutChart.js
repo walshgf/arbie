@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './DonutChart.css';
+import './DonutChart.css';
 
 class DonutChart extends React.Component{
     constructor(props) {

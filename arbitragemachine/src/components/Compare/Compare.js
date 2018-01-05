@@ -1,5 +1,3 @@
-import React from 'react';
-import { data } from './apiData';
 let axios = require('axios');
 const server = require('./config').server;
 
@@ -49,7 +47,7 @@ function findSmallestBid(array, signal){
     let smallestBidObject = {smallestBid : null, exchange : null};
 
     array.forEach((trade) => {
-        if (trade.currencies.name == signal) {
+        if (trade.currencies.name === signal) {
             if (smallestBidObject.smallestBid === null) {
                 smallestBidObject = {
                     smallestBid: trade.currencies.bid, 
@@ -69,7 +67,7 @@ function findLargestAsk(array, signal){
     let largestAskObject = {largestAsk: null, exchange : null};
 
     array.forEach((trade) => {
-        if (trade.currencies.name == signal) {
+        if (trade.currencies.name === signal) {
             if (largestAskObject.largestAsk === null) {
                 largestAskObject = {
                     largestAsk : trade.currencies.ask,
