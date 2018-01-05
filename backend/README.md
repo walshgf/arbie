@@ -461,6 +461,7 @@ npm start
         "exchange": "test_exchange",
         "state": "buy",
         "name": "BTC_USD",
+        "price": 5000,
         "percentage": 5,
         "__v": 0
     },
@@ -470,6 +471,7 @@ npm start
         "exchange": "test_exchange 3",
         "state": "sell",
         "name": "BTC_USD",
+        "price": 7000,
         "percentage": 5,
         "__v": 0
     }
@@ -489,6 +491,7 @@ npm start
         "exchange": "test_exchange",
         "state": "buy",
         "name": "BTC_USD",
+        "price": 5000,
         "percentage": 5,
         "__v": 0
     }
@@ -508,6 +511,7 @@ npm start
         "exchange": "test_exchange 3",
         "state": "sell",
         "name": "BTC_USD",
+        "price": 7000,
         "percentage": 5,
         "__v": 0
     }

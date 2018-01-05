@@ -1,4 +1,4 @@
-const mongoose = require('../../server/node_modules/mongoose'); // ('mongoose') version doesn't see node_modules on my machine 
+const mongoose = require('../../node_modules/mongoose'); // ('mongoose') version doesn't see node_modules on my machine 
 mongoose.models = {};
 mongoose.modelSchemas = {};
 
@@ -19,6 +19,10 @@ const ArbitrageSchema = mongoose.Schema({
     type: Number,
     require: true
   },
+  price: {
+    type: Number,
+    reguire: true
+  }
   //Timestamp at creation
   recieved: {
     type: Date,
