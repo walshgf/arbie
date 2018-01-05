@@ -9,11 +9,11 @@ export default function Homepage() {
                 <article>
                     <header>
                         <h2>About Arbie</h2>
-                        <p>Arbie is a Web App to Provide Trading Signals, Enabling Inter-Exchange Arbitrage of Bitcoin and Ethereum Cryptocurrencies.</p>
+                        <p>Arbie is a web app which provides trading signals, enabling users to make use of inter-exchange arbitrage for Bitcoin and Ethereum cryptocurrencies.</p>
                     </header>
                     <section>
                         <h2>What is Arbitrage?</h2>
-                        <p>Arbitrage is basically buying a security in one market and simultaneously selling it in another market at a higher price, profiting from a temporary difference in prices. This is considered riskless profit for the investor/trader. <a href ="https://www.investopedia.com/ask/answers/04/041504.asp#ixzz53H4ptAmk">Read more: What is arbitrage?</a></p>
+                        <p>"Arbitrage is basically buying a security in one market and simultaneously selling it in another market at a higher price, profiting from a temporary difference in prices. This is considered riskless profit for the investor/trader." <a href ="https://www.investopedia.com/ask/answers/04/041504.asp#ixzz53H4ptAmk">Read more from the source</a></p>
                     </section>
                 </article>
                 

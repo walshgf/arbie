@@ -1,7 +1,7 @@
 import React from 'react';
 
 class BidAsk {
-    constructor(btcAskPrice, btcBidPrice, ethAskPrice, ethBidPrice, exchange, timeStamp) {
+    constructor(btcAskPrice = 0, btcBidPrice = 0, ethAskPrice = 0, ethBidPrice = 0, exchange = 'test', timeStamp) {
         this.btcAskPrice = btcAskPrice;
         this.btcBidPrice = btcBidPrice;
         this.ethAskPrice = ethAskPrice;
@@ -11,8 +11,8 @@ class BidAsk {
     }
 }
 // create one variable for each exchange
-const exchange1 = new BidAsk(btcAskPrice, btcBidPrice, ethAskPrice, ethBidPrice, exchange, timeStamp);
-const exchange2 = new BidAsk(btcAskPrice, btcBidPrice, ethAskPrice, ethBidPrice, exchange, timeStamp);
+const exchange1 = new BidAsk(0, 0, 0, 0, "grape", '01/01/2018');
+const exchange2 = new BidAsk(1, 1, 1, 1, "apple", '01/01/2018');
 const arrayOfExchanges = [exchange1, exchange2];
 
 
@@ -32,8 +32,8 @@ function findSmallestBitcoinBid(array){
     return ({smallestBid, exchange});
 }
 
-// find smallest bid for Etherium
-function findSmallestEtheriumBid(array){
+// find smallest bid for Ethereum
+function findSmallestEthereumBid(array){
     let smallestBid;
     let exchange;
     for (let i = 0; i < array.length; i++) {
@@ -64,8 +64,8 @@ function findLargestBitcoinAsk(array){
     return ({largestAsk, exchange});
 }
 
-// find largest ask for Etherium
-function findLargestEtheriumAsk(array){
+// find largest ask for Ethereum
+function findLargestEthereumAsk(array){
     let largestAsk;
     let exchange;
     for (let i = 0; i < array.length; i++) {
@@ -88,4 +88,4 @@ function isArbitrageAvailable(bid, ask) {
 //execution of function to determine relative value
 export const isBitcoinArbitrageProfitable = isArbitrageAvailable(findSmallestBitcoinBid(arrayOfExchanges).smallestBid, findLargestBitcoinAsk(arrayOfExchanges).largestAsk);
 
-export const isEtheriumArbitrageProfitable = isArbitrageAvailable(findSmallestEtheriumBid(arrayOfExchanges).smallestBid, findLargestEtheriumAsk(arrayOfExchanges).largestAsk);
+export const isEthereumArbitrageProfitable = isArbitrageAvailable(findSmallestEthereumBid(arrayOfExchanges).smallestBid, findLargestEthereumAsk(arrayOfExchanges).largestAsk);
