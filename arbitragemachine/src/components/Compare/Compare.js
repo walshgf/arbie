@@ -1,18 +1,7 @@
+import React from 'react';
 let axios = require('axios');
 const server = require('./config').server;
 
- 
-// make a call to the server, using server location from config file (in src)
-// let apiData = [];
-// axios.get(`${server}/show/exchanges`)
-// .then(function(response){
-//     console.log(response.data);
-//     console.log(response.status);
-//     apiData = response.data || data;
-// });
-// axios.get(`${server}/get-producttickergdax`) // returns GDAX BTC
-// axios.get(`${server}/get-poloniexBTC`) // returns Poloniex BTC
-// axios.get(`${server}/get-poloniexETH`) // returns Poloniex ETH
 
 const apiData = [];
 
@@ -81,7 +70,15 @@ function findLargestAsk(array, signal){
     })
     return largestAskObject;
 }
-
+class Compare extends React.Component{
+    constructor() {
+        super();
+        this.state = {
+            smallestBid : null,
+            largestAsk : null,
+        };
+    }
+}
 //function to determine if arbitrage is available
 function percentageOfArbitrageAvailable(bid, ask) {
     return (bid / ask) * 100;
