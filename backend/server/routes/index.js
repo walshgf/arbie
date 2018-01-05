@@ -4,8 +4,8 @@ const getGemini = require('../controllers/GEMINI/gemini');
 
 module.exports = (app) => {
 
-    //DatatBase Library
-    require('./lib_controller')(app);
+    //Database Library
+    require('../controllers/DB/lib_controller')(app);
 
     app
         .route('/get-productsgdax')

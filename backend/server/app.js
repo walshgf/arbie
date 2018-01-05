@@ -15,9 +15,15 @@ routes(server);
 
 const PORT = 5000;
 
-server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/arbie')
+.then((res) => {
+  server.listen(port,(req, res) =>{
+    console.log(`Server is listening to port:${port}`);
+  });
+})
+.catch((err) => {
+  console.error('ERROR: Cannot Connect To Mongo DB');
 });
-
 
 
