@@ -23,7 +23,7 @@ export default function Team() {
 
             <img className="author" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAArjAAAAJDQ3MTAxM2I3LWRmY2EtNGY3YS1hMjAxLWVhZDY5NDI3YzE4MA.jpg" alt="Abby Tiffany"/>
             <div><b>Abby Tiffany</b></div>
-            <div className="bio">Abby grew up in Virginia and currently lives in Seattle, Washington. Before being accepted to Lambda, Abby worked in banking. She wants to work with Blockchain technology after graduating from the program in May 2018. Abby, who majored in American Sign Language in undergrad, hopes to write kick-ass back-end code for many years.</div>
+            <div className="bio">Abby grew up in Fairfax, Virginia and currently lives in Seattle, Washington. Before being accepted to Lambda, Abby worked in banking. She wants to work with Blockchain technology after graduating from the program in May 2018. Abby, who majored in American Sign Language in undergrad, hopes to write kick-ass back-end code for many years.</div>
 
         </div>
     );
