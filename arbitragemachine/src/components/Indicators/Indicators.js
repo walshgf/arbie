@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter, Link } from 'react-browser-router';
 import DonutChart from './DonutChart';
 import './Indicators.css';
 import {
@@ -28,13 +29,16 @@ class Indicators extends React.Component {
 
     render() {
         return (
-            <div className="container">
-               <label className="icons">Largest Possible BitCoin Arbitrage Percent <br/><br/>
-                    <DonutChart value={this.bitcoinArbitrageValue} lowSeller={this.bitcoinLowSeller} highBuyer={this.bitcoinHighBuyer} />
-                </label>
-                <label className= "icons">Largest Possible Ethereum Arbitrage Percent <br/><br/>
-                    <DonutChart value={this.ethereumArbitrageValue} lowSeller={this.ethereumLowSeller} highBuyer={this.ethereumHighBuyer} />
-                </label>
+            <div>
+                <BrowserRouter><Link to="/historicalData" className="link">See Historical Data</Link></BrowserRouter>
+                <div className="container">
+                    <label className="icons">Largest Possible BitCoin Arbitrage Percent <br/><br/>
+                        <DonutChart value={this.bitcoinArbitrageValue} lowSeller={this.bitcoinLowSeller} highBuyer={this.bitcoinHighBuyer} />
+                    </label>
+                    <label className= "icons">Largest Possible Ethereum Arbitrage Percent <br/><br/>
+                        <DonutChart value={this.ethereumArbitrageValue} lowSeller={this.ethereumLowSeller} highBuyer={this.ethereumHighBuyer} />
+                    </label>
+                </div>
             </div>
         );
     }
