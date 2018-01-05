@@ -2,31 +2,33 @@ import React from 'react';
 import DonutChart from './DonutChart';
 import './Indicators.css';
 import {
-    bitcoinSmallestBidObject,
-    bitcoinLargestAskObject,
-    isBitcoinArbitrageProfitable,
-    ethereumSmallestBidObject,
-    ethereumLargestAskObject,
-    isEthereumArbitrageProfitable
+    bitcoinSmallestBidExchange,
+    bitcoinLargestAskExchange,
+    percentageOfBitcoinArbitrageProfitable,
+    ethereumSmallestBidExchange,
+    ethereumLargestAskExchange,
+    percentageOfEthereumArbitrageProfitable
     } from '../Compare/Compare';
 
 
 class Indicators extends React.Component {
     constructor() {
         super();
-        this.bitcoinArbitrageValue = 5;
-        this.bitcoinLowSeller = 'CoinBase';
-        this.bitcoinHighBuyer = 'Gemini';
-        this.ethereumArbitrageValue = 4;
-        this.ethereumLowSeller = 'Kraken';
-        this.ethereumHighBuyer = 'Coinbase';
+        this.bitcoinArbitrageValue = percentageOfBitcoinArbitrageProfitable || 5;
+        this.bitcoinLowSeller = bitcoinSmallestBidExchange ||'CoinBase';
+        this.bitcoinHighBuyer = bitcoinLargestAskExchange || 'Gemini';
+        this.ethereumArbitrageValue = percentageOfEthereumArbitrageProfitable || 4;
+        this.ethereumLowSeller = ethereumSmallestBidExchange || 'Kraken';
+        this.ethereumHighBuyer = ethereumLargestAskExchange || 'Coinbase';
+        /*
+        this
+        */
 
     }
 
     render() {
         return (
             <div className="container">
-            <div>{isBitcoinArbitrageProfitable}, {isEthereumArbitrageProfitable}</div>
                <label className="icons">BitCoin Arbitrage Percent
                     <DonutChart value={this.bitcoinArbitrageValue} lowSeller={this.bitcoinLowSeller} highBuyer={this.bitcoinHighBuyer} />
                 </label>
