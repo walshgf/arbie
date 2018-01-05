@@ -1,5 +1,65 @@
 import React from 'react';
+let axios = require('axios');
+const server = require('../config').server;
 
+// make a call to the server, using server location from config file (in src)
+axios.get(`${server}/show/exchanges`)
+.then(function(response){
+    console.log(response.data);
+    console.log(response.status);
+    const apiData = response.data;
+});
+
+// find smallest bid
+function findSmallestBid(array, signal){
+    let smallestBid;
+    let exchange;
+    array.forEach(function(trade){
+        if (trade.currencies.name === signal) {
+            if (smallestBid === 'undefined') {
+                smallestBid = trade.currencies.bid;
+                exchange = trade.name;
+            } else if (smallestBid > trade.currencies.bid) {
+                smallestBid = trade.currencies.bid;
+                exchange = trade.name;
+            }
+        }
+    })
+    return {smallestBid, exchange};
+}
+
+// find largest ask
+function findLargestAsk(array, signal){
+    let largestAsk;
+    let exchange;
+    array.forEach((trade) => {
+        if (trade.currencies.name === signal) {
+            if (largestAsk === 'undefined') {
+                largestAsk = trade.currencies.ask;
+                exchange = trade.name;
+            } else if (largestAsk < trade.currencies.ask) {
+                largestAsk = trade.currencies.ask;
+                exchange = trade.name;
+            }
+        }
+    })
+    return {largestAsk, exchange};
+}
+
+//function to determine if arbitrage is available
+function isArbitrageAvailable(bid, ask) {
+    return ((bid / ask) >= 1.05) ? true : false;
+}
+
+const bitcoinSmallestBid = findSmallestBid(apiData, 'BTC_USD');
+const bitcoinLargestAsk = findLargestAsk(apiData, 'BTC_USD');
+export const isBitcoinArbitrageProfitable = isArbitrageAvailable(bitcoinSmallestBid.smallestBid, bitcoinLargestAsk.largestAsk);
+
+const ethereumSmallestBid = findSmallestBid(apiData, 'ETH_USD');
+const ethereumLargestAsk = findLargestAsk(apiData, 'ETH_USD');
+export const isEthereumArbitrageProfitable = isArbitrageAvailable(ethereumSmallestBid.smallestBid, ethereumLargestAsk.largestAsk);
+
+/* previous code before refactor
 class BidAsk {
     constructor(bitcoinAskPrice = 0, bitcoinBidPrice = 0, ethereumAskPrice = 0, ethereumBidPrice = 0, exchange = 'test', timeStamp) {
         this.bitcoinAskPrice = bitcoinAskPrice;
@@ -16,7 +76,7 @@ const exchange2 = new BidAsk(1, 1, 1, 1, "apple", '01/01/2018');
 const arrayOfExchanges = [exchange1, exchange2];
 
 
-// find smallest bid for Ethereum
+// find smallest bid
 function findSmallestBid(array, signal){
     const currency = signal + 'BidPrice';
     let smallestBid;
@@ -33,7 +93,7 @@ function findSmallestBid(array, signal){
     return {smallestBid, exchange};
 }
 
-// find largest ask for Bitcoin
+// find largest ask
 function findLargestAsk(array, signal){
     const currency = signal + 'AskPrice';
     let largestAsk;
@@ -64,3 +124,4 @@ export const isBitcoinArbitrageProfitable = isArbitrageAvailable(smallestBitcoin
 const smallestEthereumBidObject = findSmallestBid(arrayOfExchanges, ethereum)
 const largestEthereumAskObject = findLargestAsk(arrayOfExchanges, ethereum);
 export const isEthereumArbitrageProfitable = isArbitrageAvailable(smallestEthereumBidObject.smallestBid, largestEthereumAskObject.largestAsk);
+*/
