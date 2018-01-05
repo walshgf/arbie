@@ -1,4 +1,4 @@
-const mongoose = require('../../node_modules/mongoose'); // ('mongoose') version doesn't see node_modules on my machine 
+const mongoose = require('mongoose'); // ('mongoose') version doesn't see node_modules on my machine 
 mongoose.models = {};
 mongoose.modelSchemas = {};
 
