@@ -1,6 +1,8 @@
 const Gdax = require('gdax');
 const publicClient = new Gdax.PublicClient();
 
+// {exchange name, currency name, bid, ask.. ect}
+
 const getProducts = (req, res) => {
 
     publicClient.getProducts((err, response, data) => {
@@ -19,6 +21,7 @@ const getProductTradeBTC = (req, res) => {
         if (error) {
             res.json(error);
         } else {
+
             res.json(data);
         }
     });
@@ -39,7 +42,17 @@ const getProductTradeETH = (req, res) => {
 const getProductTicker = (req, res) => {
 
     const callback = (err, response, data) => {
-        err ? res.json(err) : res.json(data);
+        if (err) {
+            res.json(error);
+        } else {
+            let obj = {};
+            obj.bid = data.bid;
+            obj.ask = data.ask;
+            obj.time = data.time;
+            obj.exchange = "GDAX";
+            obj.currency = "BTC";
+            res.json(obj);
+        }
     };
 
     publicClient.getProductTicker(callback);

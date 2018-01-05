@@ -22,11 +22,6 @@ module.exports = (app) => {
     app
         .route('/get-producttradeethgdax')
         .get(getGdax.getProductTradeETH);
-
-    app
-        .route('/get-test')
-        .get(getGdax.getProductHistoricRates);
-
     app
         .route('/get-poloniexETH')
         .get(getPoloniex.returnTickerETH);

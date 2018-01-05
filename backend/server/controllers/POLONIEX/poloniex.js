@@ -1,26 +1,51 @@
 const Poloniex = require('poloniex-api-node');
 let poloniex = new Poloniex();
 
+//{exchange name, currency name, bid, ask.. ect}
 
 const returnTickerETH = (req, res) => {
 
-    poloniex.returnTicker((err, ticker) => {
+    poloniex.returnTicker((err, data) => {
         if (err) {
             res.json(err);
         } else {
-            res.json(ticker.USDT_ETH);
+            let obj = {};
+            obj.bid = data.USDT_ETH.highestBid;
+            obj.ask = data.USDT_ETH.lowestAsk;
+            obj.time = new Date();
+            obj.exchange = "POLONIEX";
+            obj.currency = "ETH";
+            res.json(obj);
         }
     });
 
 };
 
+
+/**
+ * {
+	bid: "whatever",
+	ask: "whatever",
+	time: "whatever",
+	exchange: "whatever",
+	currency: "whatever"
+}
+ */
+
+
 const returnTickerBTC = (req, res) => {
 
-    poloniex.returnTicker((err, ticker) => {
+    poloniex.returnTicker((err, data) => {
         if (err) {
             res.json(err);
         } else {
-            res.json(ticker.USDT_BTC);
+            let obj = {};
+            obj.bid = data.USDT_BTC.highestBid;
+            obj.ask = data.USDT_BTC.lowestAsk;
+            obj.time = new Date();
+            obj.exchange = "POLONIEX";
+            obj.currency = "BTC";
+            res.json(obj);
         }
     });
 
