@@ -1,8 +1,6 @@
 const Poloniex = require('poloniex-api-node');
 let poloniex = new Poloniex();
 
-//{exchange name, currency name, bid, ask.. ect}
-
 const returnTickerETH = (req, res) => {
 
     poloniex.returnTicker((err, data) => {
@@ -20,17 +18,6 @@ const returnTickerETH = (req, res) => {
     });
 
 };
-
-
-/**
- * {
-	bid: "whatever",
-	ask: "whatever",
-	time: "whatever",
-	exchange: "whatever",
-	currency: "whatever"
-}
- */
 
 
 const returnTickerBTC = (req, res) => {

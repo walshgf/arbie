@@ -1,7 +1,6 @@
 const Gdax = require('gdax');
 const publicClient = new Gdax.PublicClient();
 
-// {exchange name, currency name, bid, ask.. ect}
 
 const getProducts = (req, res) => {
 

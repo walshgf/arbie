@@ -22,7 +22,7 @@ const ArbitrageSchema = mongoose.Schema({
   price: {
     type: Number,
     reguire: true
-  }
+  },
   //Timestamp at creation
   recieved: {
     type: Date,
