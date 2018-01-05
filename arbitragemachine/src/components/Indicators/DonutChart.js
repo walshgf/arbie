@@ -30,7 +30,7 @@ class DonutChart extends React.Component{
             <div>
                 <svg width={this.state.size} height={this.state.size} className ="donutchart">
                 <circle r={radius} cx={halfSize} cy={halfSize} transform={rotateVal} style={trackStyle} className="donutchart--track"/>
-                    <circle r={radius} cx={halfSize} cy={halfSize} transform={rotateVal} style={indicatorStyle} className="donutchart--indicator"/>
+                    <circle r={radius} cx={halfSize} cy={halfSize} transform={rotateVal} style={indicatorStyle} className={this.state.value >= 5 ? "donutchart--indicator--green" : "donutchart--indicator--red"}/>
                     <text className="donutchart--text" x={halfSize} y={halfSize} style={{textAnchor:'middle'}} >
                         <tspan className="donutchart--text_val">{this.props.value}</tspan>
                         <tspan className="donutchart--text_percent">%</tspan>
