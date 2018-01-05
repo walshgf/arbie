@@ -18,4 +18,5 @@ function isArbitrageAvailable(bid, ask) {
 }
 
 //execution of function to determine relative value
-export const canProfitFromArbitrage = isArbitrageAvailable(exchange1.btcBidPrice, exchange2.btcAskPrice);
+export const canProfitFromArbitrageOneToTwo = isArbitrageAvailable(exchange1.btcBidPrice, exchange2.btcAskPrice);
+export const canProfitFromArbitrageTwoToOne = isArbitrageAvailable(exchange2.btcBidPrice, exchange1.btcAskPrice);
