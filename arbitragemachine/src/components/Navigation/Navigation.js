@@ -15,7 +15,7 @@ export default function Navigation() {
                     <ul>
                         <li><Link to="/home">Arbie</Link></li>
                         <li><Link to="/chart">Chart</Link></li>
-                        <li><Link to="/">Team</Link></li>
+                        <li><Link to="/team">Team</Link></li>
                     </ul>
                 </nav>
             </header>

@@ -15,14 +15,6 @@ export default function Homepage() {
                         <h2>The Chart</h2>
                         <p>It would be nice to have a graph here, and link it to the full page app.</p>
                     </section>
-                    <section>
-                        <h2>The Team</h2>
-                        <p>Kairat Abylkasymov</p>
-                        <p>Brandon Fizer</p>
-                        <p>Abby Tiffany</p>
-                        <p>Lorin Fields</p>
-                        <p>Troy Bradley</p>
-                    </section>
                 </article>
                 
                 <aside>
