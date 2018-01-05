@@ -45,11 +45,12 @@ const getProductTicker = (req, res) => {
             res.json(error);
         } else {
             let obj = {};
-            obj.bid = data.bid;
-            obj.ask = data.ask;
+            obj.bid = Number(data.bid);
+            obj.ask = Number(data.ask);
             obj.time = data.time;
             obj.exchange = "GDAX";
-            obj.currency = "BTC";
+            obj.name = "BTC_USD";
+
             res.json(obj);
         }
     };

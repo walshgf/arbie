@@ -6,11 +6,11 @@ const getTickerBTC = (req, res) => {
         .get(`https://api.gemini.com/v1/pubticker/btcusd`)
             .then((response) => {
                 let obj = {};
-                obj.bid = response.data.bid;
-                obj.ask = response.data.ask;
+                obj.bid = Number(response.data.bid);
+                obj.ask = Number(response.data.ask);
                 obj.time = new Date(response.data.volume.timestamp);
                 obj.exchange = "GEMINI";
-                obj.currency = "BTC";
+                obj.name = "BTC_USD";
                 res.json(obj);
             })
             .catch((err) => {
@@ -25,11 +25,11 @@ const getTickerETH = (req, res) => {
         .get(`https://api.gemini.com/v1/pubticker/ethusd`)
             .then((response) => {
                 let obj = {};
-                obj.bid = response.data.bid;
-                obj.ask = response.data.ask;
+                obj.bid = Number(response.data.bid);
+                obj.ask = Number(response.data.ask);
                 obj.time = new Date(response.data.volume.timestamp);
                 obj.exchange = "GEMINI";
-                obj.currency = "ETH";
+                obj.name = "ETH_USD";
                 res.json(obj);
             })
             .catch((err) => {

@@ -8,11 +8,11 @@ const returnTickerETH = (req, res) => {
             res.json(err);
         } else {
             let obj = {};
-            obj.bid = data.USDT_ETH.highestBid;
-            obj.ask = data.USDT_ETH.lowestAsk;
+            obj.bid = Number(data.USDT_ETH.highestBid);
+            obj.ask = Number(data.USDT_ETH.lowestAsk);
             obj.time = new Date();
             obj.exchange = "POLONIEX";
-            obj.currency = "ETH";
+            obj.name = "ETH_USD";
             res.json(obj);
         }
     });
@@ -31,7 +31,7 @@ const returnTickerBTC = (req, res) => {
             obj.ask = data.USDT_BTC.lowestAsk;
             obj.time = new Date();
             obj.exchange = "POLONIEX";
-            obj.currency = "BTC";
+            obj.name = "BTC_USD";
             res.json(obj);
         }
     });

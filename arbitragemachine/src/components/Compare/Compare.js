@@ -1,6 +1,11 @@
+import Indicators from '../Indicators/Indicators';
+
 let axios = require('axios');
 const server = require('./config').server;
 
+//#########################
+    //MOVED TO Indicators
+//#########################
  
 // make a call to the server, using server location from config file (in src)
 // let apiData = [];
@@ -42,24 +47,63 @@ axios.get(`${server}/get-poloniexETH`)
 console.log(apiData);
 
 
+// // find smallest bid
+// function findSmallestBid(array, signal){
+//     let smallestBidObject = {smallestBid : null, exchange : null};
+
+//     array.forEach((trade) => {
+//         if (trade.currencies.name === signal) {
+//             if (smallestBidObject.smallestBid === null) {
+//                 smallestBidObject = {
+//                     smallestBid: trade.currencies.bid, 
+//                     exchange: trade.name
+//                 };
+//             } else if (smallestBidObject.smallestBid > trade.currencies.bid) {
+//                 smallestBidObject.smallestBid = trade.currencies.bid;
+//                 smallestBidObject.exchange = trade.name;
+//             }
+//         }
+//     })
+//     return smallestBidObject;
+// }
 // find smallest bid
 function findSmallestBid(array, signal){
-    let smallestBidObject = {smallestBid : null, exchange : null};
+    let smallestBidObject = {smallestBid : null, exchange : null, name: null};
 
     array.forEach((trade) => {
-        if (trade.currencies.name === signal) {
             if (smallestBidObject.smallestBid === null) {
                 smallestBidObject = {
-                    smallestBid: trade.currencies.bid, 
-                    exchange: trade.name
+                    smallestBid: trade.bid, 
+                    exchange: trade.exchange,
+                    name: trade.name
                 };
-            } else if (smallestBidObject.smallestBid > trade.currencies.bid) {
-                smallestBidObject.smallestBid = trade.currencies.bid;
-                smallestBidObject.exchange = trade.name;
+            } else if (smallestBidObject.smallestBid > trade.bid) {
+                smallestBidObject.smallestBid = trade.bid;
+                smallestBidObject.exchange = trade.exchange;
+                smallestBidObject.name = trade.name;
             }
-        }
     })
     return smallestBidObject;
+}
+
+// find largest bid
+function findLargestBid(array, signal){
+    let largestBidObject = {largestBid : null, exchange : null, name: null};
+
+    array.forEach((trade) => {
+            if (largestBidObject.smallestBid === null) {
+                largestBidObject = {
+                    smallestBid: trade.bid, 
+                    exchange: trade.exchange,
+                    name: trade.name
+                };
+            } else if (largestBidObject.smallestBid > trade.bid) {
+                largestBidObject.smallestBid = trade.bid;
+                largestBidObject.exchange = trade.exchange;
+                largestBidObject.name = trade.name;
+            }
+    })
+    return largestBidObject;
 }
 
 // find largest ask
