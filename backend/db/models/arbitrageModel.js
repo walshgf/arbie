@@ -2,22 +2,21 @@ const mongoose = require('mongoose');
 mongoose.models = {};
 mongoose.modelSchemas = {};
 
-const CurrencySchema = mongoose.Schema({
-  name:{
+const ArbitrageSchema = mongoose.Schema({
+  exchange: {
     type: String,
     require: true
   },
-  bid: {
-    type: Number,
-    require: true
-  },
-  ask: {
-    type: Number,
-    require: true
-  },
-  //API Timestamp
-  timestamp: {
+  state: {
     type: String,
+    require: true
+  },
+  name: {
+    type: String,
+    require: true
+  },
+  percentage: {
+    type: Number,
     require: true
   },
   //Timestamp at creation
@@ -27,4 +26,4 @@ const CurrencySchema = mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model("Currency", CurrencySchema);
+module.exports = mongoose.model("Arbitrage", ArbitrageSchema);
