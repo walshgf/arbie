@@ -19,6 +19,11 @@ const server = require('./config').server;
 // axios.get(`${server}/get-poloniexBTC`) // returns Poloniex BTC
 // axios.get(`${server}/get-poloniexETH`) // returns Poloniex ETH
 
+import React from 'react';
+let axios = require('axios');
+const server = require('./config').server;
+
+
 const apiData = [];
 
 axios.get(`${server}/get-producttickergdax`)
@@ -87,6 +92,7 @@ function findSmallestBid(array, signal){
 }
 
 // find largest bid
+<<<<<<< HEAD
 function findLargestBid(array, signal){
     let largestBidObject = {largestBid : null, exchange : null, name: null};
 
@@ -107,25 +113,35 @@ function findLargestBid(array, signal){
 }
 
 // find largest ask
+=======
+>>>>>>> 5fd303a94bab39cb4ab93b7b49dbeafb2070a866
 function findLargestAsk(array, signal){
-    let largestAskObject = {largestAsk: null, exchange : null};
+    let largestAskObject = {largestAsk : null, exchange : null, name: null};
 
     array.forEach((trade) => {
-        if (trade.currencies.name === signal) {
             if (largestAskObject.largestAsk === null) {
                 largestAskObject = {
-                    largestAsk : trade.currencies.ask,
-                    exchange : trade.name,
+                    largestAsk: trade.bid, 
+                    exchange: trade.exchange,
+                    name: trade.name
                 };
-            } else if (largestAskObject.largestAsk < trade.currencies.ask) {
-                largestAskObject.largestAsk = trade.currencies.ask;
-                largestAskObject.exchange = trade.name;
+            } else if (largestAskObject.largestAsk > trade.bid) {
+                largestAskObject.largestAsk = trade.bid;
+                largestAskObject.exchange = trade.exchange;
+                largestAskObject.name = trade.name;
             }
-        }
     })
-    return  largestAskObject;
+    return largestAskObject;
 }
-
+class Compare extends React.Component{
+    constructor() {
+        super();
+        this.state = {
+            smallestBid : null,
+            largestAsk : null,
+        };
+    }
+}
 //function to determine if arbitrage is available
 function percentageOfArbitrageAvailable(bid, ask) {
     return (bid / ask) * 100;
