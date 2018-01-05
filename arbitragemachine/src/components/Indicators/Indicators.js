@@ -1,28 +1,44 @@
 import React from 'react';
+import { BrowserRouter, Link } from 'react-browser-router';
 import DonutChart from './DonutChart';
 import './Indicators.css';
+import {
+    bitcoinSmallestBidExchange,
+    bitcoinLargestAskExchange,
+    percentageOfBitcoinArbitrageProfitable,
+    ethereumSmallestBidExchange,
+    ethereumLargestAskExchange,
+    percentageOfEthereumArbitrageProfitable
+    } from '../Compare/Compare';
+
 
 class Indicators extends React.Component {
     constructor() {
         super();
-        this.bitcoinArbitrageValue = 5;
-        this.bitcoinLowSeller = 'CoinBase';
-        this.bitcoinHighBuyer = 'Gemini';
-        this.etheriumArbitrageValue = 4;
-        this.etheriumLowSeller = 'Kraken';
-        this.etheriumHighBuyer = 'Coinbase';
+        this.bitcoinArbitrageValue = percentageOfBitcoinArbitrageProfitable || 5;
+        this.bitcoinLowSeller = bitcoinSmallestBidExchange ||'CoinBase';
+        this.bitcoinHighBuyer = bitcoinLargestAskExchange || 'Gemini';
+        this.ethereumArbitrageValue = percentageOfEthereumArbitrageProfitable || 4;
+        this.ethereumLowSeller = ethereumSmallestBidExchange || 'Kraken';
+        this.ethereumHighBuyer = ethereumLargestAskExchange || 'Coinbase';
+        /*
+        this
+        */
 
     }
 
     render() {
         return (
-            <div className="container">
-                <label className="icons">BitCoin Arbitrage Percent
-                    <DonutChart value={this.bitcoinArbitrageValue} lowSeller={this.bitcoinLowSeller} highBuyer={this.bitcoinHighBuyer} />
-                </label>
-                <label className= "icons">Etherium Arbitrage Percent
-                    <DonutChart value={this.etheriumArbitrageValue} lowSeller={this.etheriumLowSeller} highBuyer={this.etheriumHighBuyer} />
-                </label>
+            <div>
+                <BrowserRouter><Link to="/historicalData" className="link">See Historical Data</Link></BrowserRouter>
+                <div className="container">
+                    <label className="icons">Largest Possible BitCoin Arbitrage Percent <br/><br/>
+                        <DonutChart value={this.bitcoinArbitrageValue} lowSeller={this.bitcoinLowSeller} highBuyer={this.bitcoinHighBuyer} />
+                    </label>
+                    <label className= "icons">Largest Possible Ethereum Arbitrage Percent <br/><br/>
+                        <DonutChart value={this.ethereumArbitrageValue} lowSeller={this.ethereumLowSeller} highBuyer={this.ethereumHighBuyer} />
+                    </label>
+                </div>
             </div>
         );
     }
