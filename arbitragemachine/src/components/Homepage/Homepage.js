@@ -12,8 +12,8 @@ export default function Homepage() {
                         <p>Arbie is a Web App to Provide Trading Signals, Enabling Inter-Exchange Arbitrage of Bitcoin and Ethereum Cryptocurrencies.</p>
                     </header>
                     <section>
-                        <h2>The Chart</h2>
-                        <p>It would be nice to have a graph here, and link it to the full page app.</p>
+                        <h2>What is Arbitrage?</h2>
+                        <p>Arbitrage is basically buying a security in one market and simultaneously selling it in another market at a higher price, profiting from a temporary difference in prices. This is considered riskless profit for the investor/trader. <a href ="https://www.investopedia.com/ask/answers/04/041504.asp#ixzz53H4ptAmk">Read more: What is arbitrage?</a></p>
                     </section>
                 </article>
                 

@@ -141,8 +141,12 @@
      color:white;
      font-size: .5em;
      padding: 0;
-     margin: 0;
+     margin: auto;
      line-height: 90%;
+     text-align: center;
+ }
+ .footer--text {
+     text-align: left;
  }
  
  /* ===============

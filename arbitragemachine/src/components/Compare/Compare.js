@@ -14,7 +14,7 @@ const exchange2 = new BidAsk(btcAskPrice, btcBidPrice, exchange, timeStamp);
 
 //function to determine if arbitrage is available
 function isArbitrageAvailable(bid, ask) {
-    return ((bid / ask) < 1.05) ? false : true;
+    return ((bid / ask) >= 1.05) ? true : false;
 }
 
 //execution of function to determine relative value
