@@ -9,9 +9,9 @@ const getProducts = (req, res) => {
         } else {
             res.json(data);
         }
-    })
+    });
 
-}
+};
 
 const getProductTradeBTC = (req, res) => {
 
@@ -34,26 +34,26 @@ const getProductTradeETH = (req, res) => {
             res.json(data);
         }
     });
-}
+};
 
 const getProductTicker = (req, res) => {
-    
+
     const callback = (err, response, data) => {
         err ? res.json(err) : res.json(data);
-    }
+    };
 
     publicClient.getProductTicker(callback);
-}
+};
 
 const getProductHistoricRates = (req, res) => {
 
     const callback = (err, response, data) => {
         err ? res.json(err) : res.json(data);
-    }
+    };
 
     publicClient.getProductHistoricRates("BTC-USD", callback);
 
-}
+};
 
 module.exports = {
     getProducts,
@@ -61,4 +61,4 @@ module.exports = {
     getProductTradeETH,
     getProductTicker,
     getProductHistoricRates,
-}
+};

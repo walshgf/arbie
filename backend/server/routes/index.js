@@ -40,4 +40,4 @@ module.exports = (app) => {
         .route('/get-geminiETH')
         .get(getGemini.getTickerETH);
 
-}
+};
