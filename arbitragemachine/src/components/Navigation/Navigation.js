@@ -4,13 +4,14 @@ import {
     Link
     } from 'react-browser-router';
 import './Navigation.css';
+import logo from  './arbieLogo.png'
 
 export default function Navigation() {
     return (
         <BrowserRouter>
             <div id="header-container">
                 <header class="wrapper clearfix">
-                    <h1 id="title">Arbie - We Have the Deets!</h1>
+                        <h1 id="title"><img className="logo" src={logo} />Arbie - Trade Up</h1>
                     <nav>
                         <ul>
                             <li><Link to="/home">Arbie</Link></li>

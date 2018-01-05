@@ -29,7 +29,7 @@ function findSmallestBitcoinBid(array){
             exchange = array[i].exchange;
         }
     }
-    return ({smallestBid, exchange});
+    return {smallestBid, exchange};
 }
 
 // find smallest bid for Ethereum
@@ -45,7 +45,7 @@ function findSmallestEthereumBid(array){
             exchange = array[i].exchange;
         }
     }
-    return ({smallestBid, exchange});
+    return {smallestBid, exchange};
 }
 
 // find largest ask for Bitcoin
@@ -61,7 +61,7 @@ function findLargestBitcoinAsk(array){
             exchange = array[i].exchange;
         }
     }
-    return ({largestAsk, exchange});
+    return {largestAsk, exchange};
 }
 
 // find largest ask for Ethereum
@@ -77,7 +77,7 @@ function findLargestEthereumAsk(array){
             exchange = array[i].exchange;
         }
     }
-    return ({largestAsk, exchange});
+    return {largestAsk, exchange};
 }
 
 //function to determine if arbitrage is available
@@ -86,6 +86,8 @@ function isArbitrageAvailable(bid, ask) {
 }
 
 //execution of function to determine relative value
-export const isBitcoinArbitrageProfitable = isArbitrageAvailable(findSmallestBitcoinBid(arrayOfExchanges).smallestBid, findLargestBitcoinAsk(arrayOfExchanges).largestAsk);
+const smallestBitcoinBidObject = findSmallestBitcoinBid(arrayOfExchanges);
+const largestBitcoinAskObject = findLargestBitcoinAsk(arrayOfExchanges);
+export const isBitcoinArbitrageProfitable = isArbitrageAvailable(smallestBitcoinBidObject.smallestBid, largestBitcoinAskObject.largestAsk);
 
 export const isEthereumArbitrageProfitable = isArbitrageAvailable(findSmallestEthereumBid(arrayOfExchanges).smallestBid, findLargestEthereumAsk(arrayOfExchanges).largestAsk);

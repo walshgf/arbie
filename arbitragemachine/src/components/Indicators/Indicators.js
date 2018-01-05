@@ -22,8 +22,7 @@ class Indicators extends React.Component {
     render() {
         return (
             <div className="container">
-                <div>show up{isBitcoinArbitrageProfitable}, {isEthereumArbitrageProfitable}</div>
-                <label className="icons">BitCoin Arbitrage Percent
+               <label className="icons">BitCoin Arbitrage Percent
                     <DonutChart value={this.bitcoinArbitrageValue} lowSeller={this.bitcoinLowSeller} highBuyer={this.bitcoinHighBuyer} />
                 </label>
                 <label className= "icons">Ethereum Arbitrage Percent

@@ -37,3 +37,9 @@ body {
     stroke-dasharray: 0 10000;
     transition: stroke-dasharray .3s ease;
 }
+#data {
+    display: block;
+}
+#hidden {
+    display: none;
+}

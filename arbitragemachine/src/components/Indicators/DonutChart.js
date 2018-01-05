@@ -40,8 +40,10 @@ class DonutChart extends React.Component{
                 <div>
                     <p><b>We Recommend You {decisionToTrade}</b></p>
                     <p>Arbitrage Percentage: {this.state.value}%</p>
+                    <div id ={this.state.value >= 5 ? 'data' : 'hidden'}>
                     <p>Buy from: {this.state.lowSeller}</p>
                     <p>Sell to: {this.state.highBuyer}</p>
+                    </div>
                 </div>
     
             </div>            
