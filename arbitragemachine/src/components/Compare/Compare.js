@@ -21,7 +21,7 @@ function findSmallestBid(array, signal){
     array.forEach((trade) => {
         if (trade.currencies.name == signal) {
             if (smallestBidObject.smallestBid === null) {
-                let smallestBidObject = {
+                smallestBidObject = {
                     smallestBid: trade.currencies.bid, 
                     exchange: trade.name
                 };
@@ -41,7 +41,7 @@ function findLargestAsk(array, signal){
     array.forEach((trade) => {
         if (trade.currencies.name == signal) {
             if (largestAskObject.largestAsk === null) {
-                let largestAskObject = {
+                largestAskObject = {
                     largestAsk : trade.currencies.ask,
                     exchange : trade.name,
                 };
@@ -58,7 +58,6 @@ function findLargestAsk(array, signal){
 function percentageOfArbitrageAvailable(bid, ask) {
     return (bid / ask) * 100;
 }
-ageOfEthereumArbitrageProfitable = percentageOfArbitrageAvailable(ethereumSmallestBidPrice, ethereumLargestAskPrice);
 
 const bitcoinSmallestBidObject = findSmallestBid(apiData, "BTC_USD");
 export const bitcoinSmallestBidPrice = bitcoinSmallestBidObject.smallestBid;
@@ -78,4 +77,4 @@ const ethereumLargestAskObject = findLargestAsk(apiData, "ETH_USD");
 export const ethereumLargestAskPrice = ethereumLargestAskObject.largestAsk;
 export const ethereumLargestAskExchange = ethereumLargestAskObject.exchange;
 
-export const percent
+export const percentageOfEthereumArbitrageProfitable = percentageOfArbitrageAvailable(ethereumSmallestBidPrice, ethereumLargestAskPrice);
