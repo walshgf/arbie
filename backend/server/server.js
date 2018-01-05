@@ -8,7 +8,7 @@ const corsOptions = {
     "origin": "http://localhost:3000",
     "credentials": true
 };
-
+server.use(bodyParser.json());
 server.use(cors(corsOptions));
 
 routes(server);
