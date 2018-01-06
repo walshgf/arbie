@@ -19,11 +19,11 @@ c:/'program files'/mongodb/server/3.4/bin/mongod.exe --dbpath [Folder you want t
 mongod --dbpath [Folder you want to store the data]
 ```
 ```
-//Install Modules from /backend/server
+//Install Modules from /backend
 npm i
 ```
 ```
-//Start server from /backend/server
+//Start server from /backend
 npm start
 ```
 ---
