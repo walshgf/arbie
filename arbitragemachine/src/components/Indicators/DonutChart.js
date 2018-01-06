@@ -28,21 +28,21 @@ class DonutChart extends React.Component{
         const halfSize = (this.state.size * 0.5);
         const radius = halfSize - (this.state.strokeWidth * 0.5);
         const circumference = 2 * Math.PI * radius;
-        const strokeVal = ((this.state.value * circumference)/ 100);
+        const strokeVal = ((this.props.value * circumference)/ 100);
         const dashVal = (strokeVal * 11 + ' ' + circumference);
 
         const trackStyle = {strokeWidth: this.state.strokeWidth};
         const indicatorStyle = {strokeWidth: this.state.strokeWidth, strokeDasharray: dashVal};
         const rotateVal = 'rotate(-90 '+halfSize+','+halfSize+')';
 
-        const decisionToTrade = this.state.value >= 5 ? 'Trade' : 'Hold';
+        const decisionToTrade = this.props.value >= 5 ? 'Trade' : 'Hold';
 
 
         return (
             <div>
                 <svg width={this.state.size} height={this.state.size} className ="donutchart">
                 <circle r={radius} cx={halfSize} cy={halfSize} transform={rotateVal} style={trackStyle} className="donutchart--track"/>
-                    <circle r={radius} cx={halfSize} cy={halfSize} transform={rotateVal} style={indicatorStyle} className={this.state.value >= 5 ? "donutchart--indicator--green" : "donutchart--indicator--red"}/>
+                    <circle r={radius} cx={halfSize} cy={halfSize} transform={rotateVal} style={indicatorStyle} className={this.props.value >= 5 ? "donutchart--indicator--green" : "donutchart--indicator--red"}/>
                     <text className="donutchart--text" x={halfSize} y={halfSize} style={{textAnchor:'middle'}} >
                         <tspan className="donutchart--text_val">{(this.props.value).toFixed(0)}</tspan>
                         <tspan className="donutchart--text_percent">%</tspan>
