@@ -10,6 +10,7 @@
     "cors": "^2.8.4",
     "express": "^4.16.2",
     "gdax": "^0.4.2",
+    "jwt-simple": "^0.5.1",
     "mongo": "^0.1.0",
     "mongod": "^2.0.0",
     "mongodb": "^3.0.1",
@@ -19,7 +20,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/app.js"
+    "start": "nodemon server/app.js"
   },
   "author": "",
   "license": "ISC"

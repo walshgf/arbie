@@ -7,6 +7,9 @@ module.exports = (app) => {
     //Database Library
     require('../controllers/DB/lib_controller')(app);
 
+    //Authorization
+    require('../controllers/AUTH/auth_controller')(app);
+
     app
         .route('/get-productsgdax')
         .get(getGdax.getProducts);

@@ -27,6 +27,10 @@ const UserSchema = new mongoose.Schema({
   created_at: {
     type: Date, 
     default: Date.now()
+  },
+  key: {
+    type: Number,
+    default: 0
   }
 });
 
