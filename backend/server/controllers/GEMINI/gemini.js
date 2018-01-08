@@ -6,6 +6,7 @@ const getTickerBTC = (req, res) => {
         .get(`https://api.gemini.com/v1/pubticker/btcusd`)
             .then((response) => {
                 let obj = {};
+                if(!response.data) return res.json("no data");
                 obj.bid = Number(response.data.bid);
                 obj.ask = Number(response.data.ask);
                 obj.time = new Date(response.data.volume.timestamp);
@@ -25,6 +26,7 @@ const getTickerETH = (req, res) => {
         .get(`https://api.gemini.com/v1/pubticker/ethusd`)
             .then((response) => {
                 let obj = {};
+                if(!response.data) return res.json("no data");
                 obj.bid = Number(response.data.bid);
                 obj.ask = Number(response.data.ask);
                 obj.time = new Date(response.data.volume.timestamp);

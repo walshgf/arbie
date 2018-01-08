@@ -1,10 +1,11 @@
 const Gdax = require('gdax');
 const publicClient = new Gdax.PublicClient();
+const AuthClient = new Gdax.AuthenticatedClient();
 
 
 const getProducts = (req, res) => {
 
-    publicClient.getProducts((err, response, data) => {
+    AuthClient.getProducts((err, response, data) => {
         if (err) {
             res.json(err);
         } else {
@@ -16,7 +17,7 @@ const getProducts = (req, res) => {
 
 const getProductTradeBTC = (req, res) => {
 
-    publicClient.getProductTrades('BTC-USD', (error, response, data) => {
+    AuthClient.getProductTrades('BTC-USD', (error, response, data) => {
         if (error) {
             res.json(error);
         } else {
@@ -29,7 +30,7 @@ const getProductTradeBTC = (req, res) => {
 
 const getProductTradeETH = (req, res) => {
 
-    publicClient.getProductTrades("ETH-USD", (error, response, data) => {
+    AuthClient.getProductTrades("ETH-USD", (error, response, data) => {
         if (error) {
             res.json(error);
         } else {
@@ -45,17 +46,17 @@ const getProductTicker = (req, res) => {
             res.json(error);
         } else {
             let obj = {};
+            if(!data) return res.json("no data");
             obj.bid = Number(data.bid);
             obj.ask = Number(data.ask);
             obj.time = data.time;
             obj.exchange = "GDAX";
             obj.name = "BTC_USD";
-
             res.json(obj);
         }
     };
 
-    publicClient.getProductTicker(callback);
+    AuthClient.getProductTicker(callback);
 };
 
 const getProductHistoricRates = (req, res) => {
@@ -64,7 +65,7 @@ const getProductHistoricRates = (req, res) => {
         err ? res.json(err) : res.json(data);
     };
 
-    publicClient.getProductHistoricRates("BTC-USD", callback);
+    AuthClient.getProductHistoricRates("BTC-USD", callback);
 
 };
 
