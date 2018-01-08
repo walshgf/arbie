@@ -51,9 +51,11 @@ npm start
 ### Create A New Arbitrage Entry
   ```javascript
   axios.post('[Server Address]/create/arb', {
-    exchange: [Exchange Name], 
-    state: ["buy" || "sell"],
-    name: [Currency Name],
+    buy_exchange: [Exchange Name], 
+    sell_exchange: [Exchange Name], 
+    currency_type: [Currency Name],
+    buy_price: [Buy Price],
+    sell_price: [Sell Price],
     percentage: [Arbitrage Percent]
   }); // returns 1 | 0
   ```

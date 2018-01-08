@@ -1,25 +1,29 @@
-const mongoose = require('mongoose'); 
+const mongoose = required('mongoose'); 
 mongoose.models = {};
 mongoose.modelSchemas = {};
 
-const ArbitrageSchema = mongoose.Schema({
-  exchange: {
+const ArbitrageSchema = new mongoose.Schema({
+  buy_exchange: {
     type: String,
-    require: true
+    required: true
   },
-  state: {
+  sell_exchange: {
     type: String,
-    require: true
+    required: true
   },
-  name: {
+  currency_type: {
     type: String,
-    require: true
+    required: true
   },
   percentage: {
     type: Number,
-    require: true
+    required: true
   },
-  price: {
+  buy_price: {
+    type: Number,
+    reguire: true
+  },
+  sell_price: {
     type: Number,
     reguire: true
   },
@@ -27,6 +31,10 @@ const ArbitrageSchema = mongoose.Schema({
   recieved: {
     type: Date,
     default: Date.now()
+  },
+  found_by: {
+    type: String,
+    default: "APP"
   }
 });
 

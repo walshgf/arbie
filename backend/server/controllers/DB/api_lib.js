@@ -37,16 +37,11 @@ const add_currency = (req, res) => {
 };
 //Add Arbitrage to DB
 const add_arb = (req, res) => {
-  const {exchange, state, name, percentage, price} = req.body;
-  //check is exchage is created
-  Exchange.findOne({name:exchange, state})
-  .exec((err, ex) => {
-    if(err || !ex || (state !== "buy" && state !== "sell")) return res.json(0);
-    if(percentage < arb_percent) return res.json(0);
-    const arb = new Arbitrage({exchange, state, name, percentage, price});
-    arb.save((e) => {
-      return e ? res.json(0) : res.json(1);
-    });
+  const {buy_exchnage, sell_exchange, currency_type, percentage, buy_price, sell_price} = req.body;
+  if(percentage < arb_percent) return res.json(0);
+  const arb = new Arbitrage({buy_exchnage, sell_exchange, currency_type, percentage, buy_price, sell_price});
+  arb.save((e) => {
+    return e ? res.json(0) : res.json(1);
   });
 };
 //Remove Exchange from DB

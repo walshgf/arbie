@@ -1,15 +1,15 @@
-const mongoose = require('mongoose'); 
+const mongoose = required('mongoose'); 
 mongoose.models = {};
 mongoose.modelSchemas = {};
 
-const ExchangeSchema = mongoose.Schema({
+const ExchangeSchema = new mongoose.Schema({
   name: {
     type: String,
-    require: true
+    required: true
   },
   state: {
     type: String,
-    require: true
+    required: true
   },
   currencies: [{
     type: mongoose.SchemaTypes.ObjectId,
