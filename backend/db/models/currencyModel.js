@@ -15,11 +15,6 @@ const CurrencySchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  //API Timestamp
-  timestamp: {
-    type: String,
-    required: true
-  },
   //Timestamp at creation
   recieved: {
     type: Date,

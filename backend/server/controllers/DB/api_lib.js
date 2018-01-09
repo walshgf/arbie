@@ -37,11 +37,11 @@ const add_currency = (req, res) => {
 };
 //Add Arbitrage to DB
 const add_arb = (req, res) => {
-  const {buy_exchnage, sell_exchange, currency_type, percentage, buy_price, sell_price} = req.body;
-  if(percentage < arb_percent) return res.json(0);
-  const arb = new Arbitrage({buy_exchnage, sell_exchange, currency_type, percentage, buy_price, sell_price});
+  const {buy_exchange, sell_exchange, currency_type, percentage, buy_price, sell_price} = req.body;
+  if(percentage < arb_percent) return res.json(`below ${arb_percent}% `);
+  const arb = new Arbitrage({buy_exchange, sell_exchange, currency_type, percentage, buy_price, sell_price});
   arb.save((e) => {
-    return e ? res.json(0) : res.json(1);
+    return e ? res.json(e) : res.json(1);
   });
 };
 //Remove Exchange from DB

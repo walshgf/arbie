@@ -1,5 +1,6 @@
 import React from 'react';
 import './DonutChart.css';
+const arb_percent = require('./config').arb_percent;
 
 class DonutChart extends React.Component{
     constructor(props) {
@@ -35,14 +36,14 @@ class DonutChart extends React.Component{
         const indicatorStyle = {strokeWidth: this.state.strokeWidth, strokeDasharray: dashVal};
         const rotateVal = 'rotate(-90 '+halfSize+','+halfSize+')';
 
-        const decisionToTrade = this.props.value >= 5 ? 'Trade' : 'Hold';
+        const decisionToTrade = this.props.value >= arb_percent ? 'Trade' : 'Hold';
 
 
         return (
             <div>
                 <svg width={this.state.size} height={this.state.size} className ="donutchart">
                 <circle r={radius} cx={halfSize} cy={halfSize} transform={rotateVal} style={trackStyle} className="donutchart--track"/>
-                    <circle r={radius} cx={halfSize} cy={halfSize} transform={rotateVal} style={indicatorStyle} className={this.props.value >= 5 ? "donutchart--indicator--green" : "donutchart--indicator--red"}/>
+                    <circle r={radius} cx={halfSize} cy={halfSize} transform={rotateVal} style={indicatorStyle} className={this.props.value >= arb_percent ? "donutchart--indicator--green" : "donutchart--indicator--red"}/>
                     <text className="donutchart--text" x={halfSize} y={halfSize} style={{textAnchor:'middle'}} >
                         <tspan className="donutchart--text_val">{(this.props.value).toFixed(0)}</tspan>
                         <tspan className="donutchart--text_percent">%</tspan>
@@ -52,9 +53,9 @@ class DonutChart extends React.Component{
                 <div>
                     <p><b>We Recommend You {decisionToTrade}</b></p>
                     <p>Arbitrage Percentage: {(this.props.value).toFixed(2)}%</p>
-                    <div>HP:{(this.props.highPrice).toFixed(2)} LP:{(this.props.lowPrice).toFixed(2)}</div>
+                    <div> LP:${(this.props.lowPrice).toFixed(2)} HP:${(this.props.highPrice).toFixed(2)}</div>
                     <div>${(this.props.highPrice - this.props.lowPrice).toFixed(2)} Profit </div>
-                    <div id ={this.props.value >= 5 ? 'data' : 'hidden'}>
+                    <div id ={this.props.value >= arb_percent ? 'data' : 'hidden'}>
                     <p>Buy from: {this.state.lowSeller}</p>
                     <p>Sell to: {this.state.highBuyer}</p>
                     </div>
@@ -65,10 +66,5 @@ class DonutChart extends React.Component{
         );
     }
 }
-/*
-
-                    
-                    
-                    */
 
 export default DonutChart;

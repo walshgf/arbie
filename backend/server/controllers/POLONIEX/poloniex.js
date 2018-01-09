@@ -24,7 +24,7 @@ const returnTickerBTC = (req, res) => {
         if (err) res.json(err);
 
             let obj = {};
-            //if(!data) return res.json("no data");
+            if(!data) return res.json("no data");
             obj.bid = Number(data.USDT_BTC.highestBid);
             obj.ask = Number(data.USDT_BTC.lowestAsk);
             obj.time = new Date();

@@ -32,16 +32,13 @@ npm start
 ### Create A New Exchange
   ```javascript
   axios.post('[Server Address]/create/exchange', { 
-     name: ["Exchange Name"], 
-     status: ["buy" || "sell"],
-     percentage: [Number] 
+     name: ["Exchange Name"]
   }); // returns 1 | 0 
   ```
 ### Create A New Currency Entry 
   ```javascript
   axios.post('[Server Address]/create/currency', { 
     exchange: ["Exchange Name"], 
-    state: ["buy" || "sell"],
     name: ["Currency Name"],
     bid: [Bid Price],
     ask: [Ask Price],

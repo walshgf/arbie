@@ -4,15 +4,7 @@ import DonutChart from './DonutChart';
 import './Indicators.css';
 let axios = require('axios');
 const server = require('../Compare/config').server;
-// import {
-//     bitcoinSmallestBidExchange,
-//     bitcoinLargestAskExchange,
-//     percentageOfBitcoinArbitrageProfitable,
-//     ethereumSmallestBidExchange,
-//     ethereumLargestAskExchange,
-//     percentageOfEthereumArbitrageProfitable
-//     } from '../Compare/Compare';
-
+const arb_percent = require('./config').arb_percent;
 
 class Indicators extends React.Component {
     constructor() {
@@ -93,7 +85,8 @@ class Indicators extends React.Component {
                         exchange : trade.exchange,
                         name: trade.name
                     };
-                } else if (largestAskObject.largestAsk < trade.ask) {
+                }
+                if (largestAskObject.largestAsk < trade.ask) {
                     largestAskObject.largestAsk = trade.ask;
                     largestAskObject.exchange = trade.exchange;
                     largestAskObject.name = trade.name;
@@ -229,11 +222,13 @@ class Indicators extends React.Component {
             this.ethereumHighBuyer = ethereumLargestAskExchange ;
             this.ethereumHighPrice = ethereumLargestAskPrice;
             this.ethereumLowPrice = ethereumSmallestAskPrice;
+
+           
             this.setState({
                 btc:{
                     argVal: this.bitcoinArbitrageValue,
                     low:this.bitcoinLowSeller,
-                    high:this.bitcoinLowSeller,
+                    high:this.bitcoinHighBuyer,
                     LP:this.bitcoinLowPrice,
                     HP:this.bitcoinHighPrice
                 },
@@ -245,6 +240,40 @@ class Indicators extends React.Component {
                     HP:this.ethereumHighPrice   
                 }
             });
+            if(this.state.btc.argVal >= arb_percent){
+                //ADD ethereum to Db
+                console.log("eth working");
+                axios.post(`${server}/create/arb`, {
+                    buy_exchange: this.ethereumLowSeller, 
+                    sell_exchange: this.ethereumHighBuyer, 
+                    buy_price: this.ethereumLowPrice, 
+                    sell_price: this.ethereumHighPrice, 
+                    percentage: this.ethereumArbitrageValue, 
+                    currency_type: 'ETH_USD'
+                })
+                .then((res) => {
+                    console.log(res.data);
+                })
+                .catch(err => console.log(err));
+            }
+
+            if(this.state.eth.argVal >= arb_percent){
+                console.log("bit working");
+                //ADD ethereum to Db
+                axios.post(`${server}/create/arb`, {
+                    buy_exchange: this.bitcoinLowSeller, 
+                    sell_exchange: this.bitcoinHighBuyer, 
+                    buy_price: this.bitcoinLowPrice, 
+                    sell_price: this.bitcoinHighPrice, 
+                    percentage: this.bitcoinArbitrageValue, 
+                    currency_type: 'BTC_USD'
+                })
+                .then((res) => {
+
+                    console.log(res);
+                })
+                .catch(err => console.log(err));
+            }
             this.setState({
                 apiData: [],
                 done: false,
