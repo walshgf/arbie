@@ -16,7 +16,7 @@ const mapStateToProps = ({ state }) => ({
     prop: state.prop
 });
 
-export class AlexJoinedOnNewBranch extends Component {
+export class AlexFJoinedOnNewBranch extends Component {
     render() {
         const {
             action
