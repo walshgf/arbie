@@ -1,0 +1,48 @@
+.menu {
+	position: fixed;
+	top: 0;
+	right:0;
+	height: 100vh;
+	width: 70%;
+	background: #37476E;
+	@include center;
+	@include leftShadow;
+	z-index: 9;
+	transform: translateX(100%);
+	transition-duration:0.3s;
+	@media #{$mq-670} {
+		display: none;
+	}
+	&>.center {
+		flex-direction: row;
+		height: 100%;
+		&>nav {
+			@include center;
+			flex-direction: column;
+			height: 30%;
+			justify-content: space-between;
+			&>a {
+				background: transparent;
+				font-weight: 200;
+				font-size: 4vh;
+				margin: 0; padding: 0;
+				&:visited {
+					color: #fff;
+					text-decoration: none;
+				}
+				&:active {
+					color: #fff;
+					text-decoration: none;
+				}
+			}
+			&>.active {
+				color: #fff;
+				text-decoration: none;
+			}
+		}
+	}
+}
+
+.menu-show {
+	transform: translateX(0%);
+}
