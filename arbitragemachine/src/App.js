@@ -3,7 +3,6 @@ import { BrowserRouter, Route } from 'react-browser-router';
 // import './components/Navigation/Navigation.css';
 // import Navigation from './components/Navigation/Navigation';
 import Homepage from './components/Homepage/Homepage';
-import Indicators from './components/Indicators/Indicators';
 import Footer from './components/Footer/Footer';
 import Team from './components/Team/Team';
 import Display from './components/Display/Display';

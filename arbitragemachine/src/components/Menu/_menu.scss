@@ -8,7 +8,7 @@
 	@include center;
 	@include leftShadow;
 	z-index: 9;
-	transform: translateX(100%);
+	transform: translateX(110%);
 	transition-duration:0.3s;
 	@media #{$mq-670} {
 		display: none;
@@ -22,6 +22,7 @@
 			height: 30%;
 			justify-content: space-between;
 			&>a {
+				text-decoration: none;
 				background: transparent;
 				font-weight: 200;
 				font-size: 4vh;

@@ -6,9 +6,15 @@ const Menu = (props) => {
   	<section className={props.classes}>
   		<div className='center'>
   			<nav>
-          <Link to="/home">About Arbie</Link>
-          <Link to="/">Trading Tip</Link>
-        	<Link to="/team">Meet the Team</Link>
+          <Link
+            onClick={props.toggleMenu} 
+            to="/home">About Arbie</Link>
+          <Link
+            onClick={props.toggleMenu} 
+            to="/">Trading Tip</Link>
+        	<Link
+            onClick={props.toggleMenu} 
+            to="/team">Meet the Team</Link>
         </nav>
   		</div>
   	</section>    

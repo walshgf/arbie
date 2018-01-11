@@ -92,5 +92,11 @@ export const percentageOfArbitrageAvailable = (diff, high) => {
 }
 
 export const checkNull = (val) => {
-  return val === null ? 0 : val;
+  return val === null || val === Infinity ? 0 : val;
+}
+
+export const commafy = (x) => {
+    let parts = x.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
 }

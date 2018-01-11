@@ -543,107 +543,66 @@ th {
           text-decoration: none;
           color: #fff; }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box; }
 
 #hamburger {
   transform-origin: 0% 50%;
   cursor: pointer;
   transform: scale(0.65);
-  position: relative;
   width: 68px;
   height: 68px;
-  margin: 2px -30px 0 0;
   background: transparent;
+  z-index: 100000;
   transition-duration: 0.3s;
   transition-delay: 1s;
-  user-select: none; }
+  user-select: none;
+  position: relative;
+  margin: 1.5px -30px 0 0; }
   @media (min-width: 670px) {
     #hamburger {
       display: none; } }
 
 #top, #bottom1 {
   position: absolute;
-  display: block;
-  height: 4px;
-  width: 36px;
-  border-radius: 2px;
-  background: #f68084;
-  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #a6c0fe, #f68084);
-  background: linear-gradient(to right, #a6c0fe, #f68084); }
+  height: 2px;
+  width: 34px;
+  background: #fff; }
 
 #top {
-  top: 19px;
-  left: 16px; }
+  top: 21px;
+  left: 15px; }
 
 #bottom1 {
   top: 41px;
-  left: 16px; }
+  left: 15px; }
 
 #hamburger path, line {
+  stroke: #fff;
   stroke-linecap: round; }
 
 /* // Starting values */
 #top, #bottom1 {
-  -webkit-transform-origin: 34px 2px;
   transform-origin: 34px 2px;
-  -webkit-transform: rotate(0deg);
   transform: rotate(0deg);
-  -webkit-transition: all 0.5s cubic-bezier(0.8, -1.1, 0.5, 1.9);
   transition: all 0.5s cubic-bezier(0.8, -1.1, 0.5, 1.9); }
 
 #circle {
   stroke-dasharray: 1 100 32 300;
   stroke-dashoffset: 101;
-  -webkit-transition: all 0.75s ease;
   transition: all 0.75s ease; }
 
-.hamburglar::after {
-  content: "";
-  position: absolute;
-  top: calc(50% - 4px);
-  left: 15.45px;
-  width: 35px;
-  height: 4px;
-  border-radius: 5px;
-  transform: scaleX(0) translateX(3px);
-  transform-origin: 50% 50%;
-  transition: all 0.5s;
-  background: #f68084;
-  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #a6c0fe, #f68084);
-  background: linear-gradient(to right, #a6c0fe, #f68084); }
-
-/* // End values (animation done by transitions) */
-/* .hamburglar.is-closed { */
-/*   // The circle animation is done by changing two things:
-  // - a new 100px gap is swiped in from the left by changing offset
-  // - the 'burger' dash is increased from 32px to 190px */
 .hamburglar.is-closed #circle {
   stroke-dasharray: 1 100 190 300;
   stroke-dashoffset: 1; }
 
-/*   // Rotate the top and bottom 'bum' to make a cross, and shift them to
-  // the right a little bit */
 .hamburglar.is-closed #top {
-  -webkit-transform: translateX(-4.5px) rotate(-45deg);
-  transform: translateX(-4.5px) rotate(-45deg); }
+  transform: translateX(-2.5px) rotate(-45deg) translateY(-3px); }
 
 .hamburglar.is-closed #bottom1 {
-  -webkit-transform: translateX(-4.5px) rotate(45deg);
-  transform: translateX(-4.5px) rotate(45deg); }
-
-.hamburglar.is-closed.is-arrow::after {
-  transform: scaleX(1) translateX(0px);
-  transform-origin: 100% 50%;
-  transition: all 0.5s cubic-bezier(0.8, -1.1, 0.5, 1.9); }
-
-.hamburglar.is-closed.is-arrow > #top {
-  transform: translateX(0px) translateY(11px) rotate(45deg) scaleX(0.5); }
-
-.hamburglar.is-closed.is-arrow > #bottom1 {
-  transform: translateX(0px) translateY(-11px) rotate(-45deg) scaleX(0.5); }
+  transform: translateX(-4px) rotate(45deg) translateY(2px); }
 
 .menu {
   position: fixed;
@@ -657,7 +616,7 @@ th {
   align-items: center;
   box-shadow: -10px 0px 20px rgba(0, 0, 0, 0.19), -6px 0px 6px rgba(0, 0, 0, 0.23);
   z-index: 9;
-  transform: translateX(100%);
+  transform: translateX(110%);
   transition-duration: 0.3s; }
   @media (min-width: 670px) {
     .menu {
@@ -673,6 +632,7 @@ th {
       height: 30%;
       justify-content: space-between; }
       .menu > .center > nav > a {
+        text-decoration: none;
         background: transparent;
         font-weight: 200;
         font-size: 4vh;
@@ -693,14 +653,17 @@ th {
 
 .graphs {
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 50px);
   max-height: 700px;
   display: flex;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+  margin-top: 70px; }
   @media (min-width: 670px) {
     .graphs {
-      height: auto; } }
+      height: auto;
+      max-height: none;
+      margin-top: 100px; } }
   .graphs > div {
     display: flex;
     justify-content: center;
@@ -740,7 +703,7 @@ th {
     .graph {
       max-width: 330px;
       margin: 20px; } }
-  @media (min-width: 800px) {
+  @media (min-width: 957px) {
     .graph {
       max-width: 400px; } }
   .graph > div {
@@ -751,27 +714,80 @@ th {
     height: 100%;
     flex-direction: column; }
     .graph > div > h2 {
-      font-weight: 200; }
+      font-weight: 200;
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 2.5em;
+      margin-top: 0; }
     .graph > div > .circ {
       height: 100%;
       width: 100%;
       max-width: 250px;
-      max-height: 250px; }
+      max-height: 250px;
+      margin-bottom: 10px;
+      position: relative; }
       .graph > div > .circ > svg {
         transform: rotate(-90deg); }
         .graph > div > .circ > svg > circle {
           transition-timing-function: cubic-bezier(0.99, 0.01, 0.62, 0.94);
           transition: stroke-dashoffset 0.8s 0.15s, stroke-dasharray 0.8s 0.15s; }
+      .graph > div > .circ > .decision {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column; }
+        .graph > div > .circ > .decision > h3 {
+          font-size: 2em;
+          margin: 0;
+          margin-bottom: 10px; }
+        .graph > div > .circ > .decision > h4 {
+          font-size: 1em;
+          margin: 0;
+          font-weight: 200; }
 
 .info {
   display: flex;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+  width: 100%;
+  color: #5D5F78; }
   .info > div {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column; }
+    flex-direction: column;
+    width: 80%; }
     .info > div > h3 {
       font-weight: 200;
       margin: 0; }
+    .info > div > .prices {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 20px; }
+      .info > div > .prices > .price {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-size: 1.3em; }
+        .info > div > .prices > .price::before {
+          content: 'High:';
+          display: block;
+          text-align: center;
+          font-size: 0.8em;
+          color: #56D171;
+          font-weight: 800; }
+      .info > div > .prices > .price:last-of-type::before {
+        content: 'Low:';
+        color: #FC2E43; }
+    .info > div > .profit {
+      font-size: 1.3em;
+      font-weight: 600; }
