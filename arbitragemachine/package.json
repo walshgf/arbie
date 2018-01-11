@@ -4,10 +4,6 @@
   "private": true,
   "dependencies": {
     "axios": "^0.17.1",
-    "flickity": "^2.0.10",
-    "immutability-helper": "^2.6.4",
-    "node-sass-chokidar": "0.0.3",
-    "npm-run-all": "^4.1.2",
     "react": "^16.2.0",
     "react-browser-router": "^2.0.3",
     "react-dom": "^16.2.0",
@@ -15,12 +11,8 @@
     "react-scripts": "1.0.17"
   },
   "scripts": {
-    "build-css": "node-sass-chokidar src/ -o src/",
-    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
-    "start-js": "react-scripts start",
-    "start": "npm-run-all -p watch-css start-js",
-    "build-js": "react-scripts build",
-    "build": "npm-run-all build-css build-js",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
