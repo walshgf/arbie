@@ -18,7 +18,8 @@
 	@include center;
 }
 
-@import 'components/Nav/header';
-@import 'components/Nav/Burger/burger';
+@import 'components/Header/header';
+@import 'components/Header/Burger/burger';
 @import 'components/Menu/menu';
+@import 'components/Homepage/homepage';
 @import 'components/Indicators/graphs';

@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-browser-router';
-// import './components/Navigation/Navigation.css';
-// import Navigation from './components/Navigation/Navigation';
 import Homepage from './components/Homepage/Homepage';
 import Footer from './components/Footer/Footer';
 import Team from './components/Team/Team';
 import Display from './components/Display/Display';
-
-import Nav from './components/Nav/Nav';
+import Header from './components/Header/Header';
 import Menu from './components/Menu/Menu';
 import Graphs from './components/Indicators/Graphs';
 
 
-class App extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -40,8 +37,8 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className='App'>
-{/*          <Navigation />*/}
-          <Nav 
+
+          <Header 
             classes={this.state.burgerClasses}
             toggleMenu={this.toggleMenu} />
 
@@ -59,5 +56,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;

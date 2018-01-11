@@ -11,10 +11,11 @@ const Menu = (props) => {
             to="/home">About Arbie</Link>
           <Link
             onClick={props.toggleMenu} 
-            to="/">Trading Tip</Link>
+            to="/">My Currencies</Link>
         	<Link
             onClick={props.toggleMenu} 
             to="/team">Meet the Team</Link>
+          <button className='login'>Login</button>
         </nav>
   		</div>
   	</section>    

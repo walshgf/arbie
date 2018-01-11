@@ -27,6 +27,7 @@ export default class Graph extends Component {
 
   //when new data arrives perform operations
   componentWillReceiveProps = (nextProps) => {
+    console.log('received props');
   	const { data, type } = nextProps;
   	const currencyHighObj = findLargestAsk(data, type);
   	const currencyLowObj = findSmallestAsk(data, type);
@@ -151,8 +152,8 @@ export default class Graph extends Component {
               	className='buy-sell' 
               	id={this.state.arbitragePercent >= config.arb_percent ? 'data' : 'hidden'}
               	style={{ backgroundColor: this.props.color2}}>
+                <p>Sell: {this.state.currencyHighExchange}</p>
 	              <p>Buy: {this.state.currencyLowExchange}</p>
-	              <p>Sell: {this.state.currencyHighExchange}</p>
 	            </div>
     				</div>
     			</div>

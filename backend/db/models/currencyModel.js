@@ -2,23 +2,18 @@ const mongoose = require('mongoose');
 mongoose.models = {};
 mongoose.modelSchemas = {};
 
-const CurrencySchema = mongoose.Schema({
+const CurrencySchema = new mongoose.Schema({
   name:{
     type: String,
-    require: true
+    required: true
   },
   bid: {
     type: Number,
-    require: true
+    required: true
   },
   ask: {
     type: Number,
-    require: true
-  },
-  //API Timestamp
-  timestamp: {
-    type: String,
-    require: true
+    required: true
   },
   //Timestamp at creation
   recieved: {

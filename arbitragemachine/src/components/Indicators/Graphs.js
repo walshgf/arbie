@@ -17,6 +17,8 @@ export default class Graphs extends Component {
     this.currencies = [
       {type: "BTC_USD", heading: 'Bitcoin', color1: "#FFF056", color2: "#FE9C1F"},
       {type: "ETH_USD", heading: 'Ethereum', color1: "#A7CAFF", color2: "#4C99FF"},
+      {type: "BTC_USD", heading: 'Bitcoin', color1: "#FFF056", color2: "#FE9C1F"},
+      {type: "ETH_USD", heading: 'Ethereum', color1: "#A7CAFF", color2: "#4C99FF"},
     ]; 
     //Added colors to each currency to make the graphs feel
     //a little bit more familiar - these can be dynamic or part of the api
@@ -57,7 +59,7 @@ export default class Graphs extends Component {
   //when this.state.allActive is true all Graph
   //Components will animate changes in numeric values
   resize = () => {
-    this.setState({ allActive: window.innerWidth > 669 })
+    this.setState({ allActive: window.innerWidth > 669 });
   }
 
   //Allows state to keep track of the current visible Graph Component
