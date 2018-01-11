@@ -9,27 +9,11 @@ const arb_percent = require('./config').arb_percent;
 class Indicators extends React.Component {
     constructor() {
         super();
-        this.bitcoinArbitrageValue = null;
-        this.bitcoinLowSeller = null;
-        this.bitcoinHighBuyer = null;
-        this.bitcoinHighPrice = null;
-        this.bitcoinLowPrice = null;
-        this.ethereumArbitrageValue = null;
-        this.ethereumLowSeller = null;
-        this.ethereumHighBuyer = null;
-        this.ethereumHighPrice = null;
-        this.ethereumLowPrice = null;
-        this.state = {
-            apiData:[],
-            done: false, 
-            display: <div />,
-            btc:{argVal: null, low: null, high: null, LP: null, HP: null}, 
-            eth:{argVal: null, low: null, high: null, LP: null, HP: null}
-        }
+        this.apiData = [];
+        this.state = { display:[<div>Loading...</div>] };
     }
 
     findSmallestBid = (array, signal) => {
-        console.log(array);
         let smallestBidObject = {smallestBid : null, exchange : null, name: null};
         array.forEach((trade) => {
             if(trade.name === signal){
@@ -46,7 +30,6 @@ class Indicators extends React.Component {
                 }
             }
         });
-        console.log(smallestBidObject.exchange + " " + smallestBidObject.smallestBid);
         return smallestBidObject;
     }
     
@@ -69,7 +52,6 @@ class Indicators extends React.Component {
                 largestBidObject.name = trade.name;
             }}
         });
-        console.log(largestBidObject.exchange + " " + largestBidObject.largestBid);
         return largestBidObject;
     }
     
@@ -93,6 +75,7 @@ class Indicators extends React.Component {
                 }
             }
         });
+        console.log(`High:${largestAskObject.exchange}-${largestAskObject.largestAsk}-${largestAskObject.name}`);             
         return  largestAskObject;
     }
     // find Smallest ask
@@ -114,184 +97,52 @@ class Indicators extends React.Component {
                 }
             }
         });
+        console.log(`Low:${smallestAskObject.exchange}-${smallestAskObject.smallestAsk}-${smallestAskObject.name}`);               
         return  smallestAskObject;
     }
     
     //function to determine if arbitrage is available
-    percentageOfArbitrageAvailable = (diff, high) => {
-        return (diff * 100) / high;
-    }
+    percentageOfArbitrageAvailable = (diff, high) => (diff * 100) / high;
 
     componentDidMount(){   
         setInterval(() => {
-            axios.get(`${server}/get-producttickergdax`)
-            .then((res) => {
-                res.data.bid = Number(res.data.bid);
-                res.data.ask = Number(res.data.ask);
-                this.setState((props) => {
-                    props.apiData.push(res.data);  
-                });
-            })
-            .catch(err => console.log(err));
+            const exchanges = ['gdax', 'poloniex', 'gemini'];
+            const currencies = ["BTC_USD", "ETH_USD", "BTC_USD","BTC_USD","BTC_USD"];
 
-            axios.get(`${server}/get-geminiBTC`)
-            .then((res) => {
-                res.data.bid = Number(res.data.bid);
-                res.data.ask = Number(res.data.ask);
-                this.setState((props) => {
-                    props.apiData.push(res.data);  
-                });
-            })
-            .catch(err => console.log(err));
-
-            axios.get(`${server}/get-geminiETH`)
-            .then((res) => {
-                res.data.bid = Number(res.data.bid);
-                res.data.ask = Number(res.data.ask);
-                this.setState((props) => {
-                    props.apiData.push(res.data);  
-                });
-            })
-            .catch(err => console.log(err));
-
-            axios.get(`${server}/get-poloniexBTC`)
-            .then((res) => {
-                res.data.bid = Number(res.data.bid);
-                res.data.ask = Number(res.data.ask);
-                this.setState((props) => {
-                    props.apiData.push(res.data);  
-                });
-            })
-            .catch(err => console.log(err));
-
-            axios.get(`${server}/get-poloniexETH`)
-            .then((res) => {
-                res.data.bid = Number(res.data.bid);
-                res.data.ask = Number(res.data.ask);
-                this.setState((props) => {
-                    props.apiData.push(res.data);  
-                });
-            })
-            .catch(err => console.log(err));
-
-            if(this.state.apiData.length > 0){
-
-            console.log(this.findSmallestAsk(this.state.apiData, "BTC_USD"));
-            console.log(this.findLargestAsk(this.state.apiData, "BTC_USD"));
-
-
-
-            const bitcoinSmallestBidObject = this.findSmallestBid(this.state.apiData, "BTC_USD");
-            const bitcoinSmallestBidPrice = bitcoinSmallestBidObject.smallestBid;
-            const bitcoinSmallestBidExchange = bitcoinSmallestBidObject.exchange;
-
-            const bitcoinLargestBidObject = this.findLargestBid(this.state.apiData, "BTC_USD");
-            const bitcoinLargestBidPrice = bitcoinLargestBidObject.largestBid;
-            const bitcoinLargestBidExchange = bitcoinLargestBidObject.exchange;
-
-            const bitcoinLargestAskObject = this.findLargestAsk(this.state.apiData, "BTC_USD");
-            const bitcoinLargestAskPrice = bitcoinLargestAskObject.largestAsk;
-            const bitcoinLargestAskExchange = bitcoinLargestAskObject.exchange;
-
-            const bitcoinSmallestAskObject = this.findSmallestAsk(this.state.apiData, "BTC_USD");
-            const bitcoinSmallestAskPrice = bitcoinSmallestAskObject.smallestAsk;
-            const bitcoinSmallestAskExchange = bitcoinSmallestAskObject.exchange;
-
-            const percentageOfBitcoinArbitrageProfitable = this.percentageOfArbitrageAvailable(bitcoinLargestAskPrice - bitcoinSmallestAskPrice, bitcoinLargestAskPrice);
-
-            const ethereumSmallestBidObject = this.findSmallestBid(this.state.apiData, "ETH_USD");
-            const ethereumSmallestBidPrice = ethereumSmallestBidObject.smallestBid;
-            const ethereumSmallestBidExchange = ethereumSmallestBidObject.exchange;
-
-            const ethereumLargestBidObject = this.findLargestBid(this.state.apiData, "ETH_USD");
-            const ethereumLargestBidPrice = ethereumLargestBidObject.largestBid;
-            const ethereumLargestBidExchange = ethereumLargestBidObject.exchange;
-
-            const ethereumLargestAskObject = this.findLargestAsk(this.state.apiData, "ETH_USD");
-            const ethereumLargestAskPrice = ethereumLargestAskObject.largestAsk;
-            const ethereumLargestAskExchange = ethereumLargestAskObject.exchange;
-
-            const ethereumSmallestAskObject = this.findSmallestAsk(this.state.apiData, "ETH_USD");
-            const ethereumSmallestAskPrice = ethereumSmallestAskObject.smallestAsk;
-            const ethereumSmallestAskExchange = ethereumSmallestAskObject.exchange;
-
-            const percentageOfEthereumArbitrageProfitable = this.percentageOfArbitrageAvailable(ethereumLargestAskPrice - ethereumSmallestAskPrice, ethereumLargestAskPrice);
-
-            this.bitcoinArbitrageValue = percentageOfBitcoinArbitrageProfitable ;
-            this.bitcoinLowSeller = bitcoinSmallestAskExchange ;
-            this.bitcoinHighBuyer = bitcoinLargestAskExchange ;
-            this.bitcoinHighPrice = bitcoinLargestAskPrice;
-            this.bitcoinLowPrice = bitcoinSmallestAskPrice;
-            this.ethereumArbitrageValue = percentageOfEthereumArbitrageProfitable ;
-            this.ethereumLowSeller = ethereumSmallestAskExchange ;
-            this.ethereumHighBuyer = ethereumLargestAskExchange ;
-            this.ethereumHighPrice = ethereumLargestAskPrice;
-            this.ethereumLowPrice = ethereumSmallestAskPrice;
-
-           
-            this.setState({
-                btc:{
-                    argVal: this.bitcoinArbitrageValue,
-                    low:this.bitcoinLowSeller,
-                    high:this.bitcoinHighBuyer,
-                    LP:this.bitcoinLowPrice,
-                    HP:this.bitcoinHighPrice
-                },
-                eth: {
-                    argVal: this.ethereumArbitrageValue,
-                    low:this.ethereumLowSeller,
-                    high:this.ethereumHighBuyer,
-                    LP:this.ethereumLowPrice,
-                    HP:this.ethereumHighPrice   
+            for(let i = 0; i < exchanges.length; i++) {
+                for(let j = 0; j < currencies.length; j++) {
+                    axios.get(`${server}/data/${exchanges[i]}/${currencies[j]}`)
+                    .then((res) => {
+                        res.data.bid = Number(res.data.bid);
+                        res.data.ask = Number(res.data.ask);
+                        this.apiData.push(res.data);
+                    })
+                    .catch(err => console.log(err));
                 }
-            });
-            if(this.state.eth.argVal >= arb_percent){
-                //ADD ethereum to Db
-                axios.post(`${server}/create/arb`, {
-                    buy_exchange: this.ethereumLowSeller, 
-                    sell_exchange: this.ethereumHighBuyer, 
-                    buy_price: this.ethereumLowPrice, 
-                    sell_price: this.ethereumHighPrice, 
-                    percentage: this.ethereumArbitrageValue, 
-                    currency_type: 'ETH_USD'
-                })
-                .then(res => console.log(res.data))
-                .catch(err => console.log(err));
+            } //Loop through API calls dynamically 
+
+            if(this.apiData.length > 0){
+                const display = [];
+                currencies.forEach((currency) => { //Loop through currencies and create a display
+                    display.push(
+                        <label className="icons">Largest Possible {currency} Arbitrage Percent <br/><br/>
+                            <DonutChart key={currency} parent={this} type={currency}/>
+                        </label>);
+                });
+                if(display.length === currencies.length) this.setState({display}); //Display after all currencies are found
+                this.apiData = [];//Clear API Data before the next interval
             }
 
-            if(this.state.btc.argVal >= arb_percent){
-                //ADD ethereum to Db
-                axios.post(`${server}/create/arb`, {
-                    buy_exchange: this.bitcoinLowSeller, 
-                    sell_exchange: this.bitcoinHighBuyer, 
-                    buy_price: this.bitcoinLowPrice, 
-                    sell_price: this.bitcoinHighPrice, 
-                    percentage: this.bitcoinArbitrageValue, 
-                    currency_type: 'BTC_USD'
-                })
-                .then(res => console.log(res.data))
-                .catch(err => console.log(err));
-            }
-            this.setState({
-                apiData: [],
-                done: false,
-                display: <div className="container">
-                <label className="icons">Largest Possible BitCoin Arbitrage Percent <br/><br/>
-                    <DonutChart value={this.state.btc.argVal} lowSeller={this.state.btc.low} highBuyer={this.state.btc.high} highPrice={this.state.btc.HP} lowPrice={this.state.btc.LP}/>
-                </label>
-                <label className= "icons">Largest Possible Ethereum Arbitrage Percent <br/><br/>
-                    <DonutChart value={this.state.eth.argVal} lowSeller={this.state.eth.low} highBuyer={this.state.eth.high} highPrice={this.state.eth.HP} lowPrice={this.state.eth.LP}/>
-                </label>
-            </div>
-            });
-        }}, 5000); //End of Interval
+        }, 5000); //End of Interval
     }
 
     render() {
         return (
             <div>
                 <BrowserRouter><Link to="/historicalData" className="link">See Historical Data</Link></BrowserRouter>
+                <div className="container">     
                 {this.state.display} {/*Displays Only When Data Is Present*/}
+                </div>
             </div>
         );
     }

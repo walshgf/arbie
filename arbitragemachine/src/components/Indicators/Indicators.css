@@ -1,9 +1,17 @@
 .container {
     display: flex;
-    flex-flow: row wrap;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-around;
-    height: 800px;
+    height: 80%;    
     margin: 4em;
+    background: whitesmoke;
+}
+
+.container label {
+    display: inline-block;
+    widows: 20%;
+    background: rgb(167, 167, 167);
 }
 
 .icon {

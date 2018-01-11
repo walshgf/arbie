@@ -11,34 +11,26 @@ module.exports = (app) => {
     require('../controllers/AUTH/auth_controller')(app);
 
     app
-        .route('/get-productsgdax')
-        .get(getGdax.getProducts);
+        .route('/data/gdax/BTC_USD')
+        .get(getGdax.getBTCTicker);
+    app
+        .route('/data/gdax/ETH_USD')
+        .get(getGdax.getETHTicker);
     
-    app 
-        .route('/get-producttickergdax')
-        .get(getGdax.getProductTicker);
-
     app
-        .route('/get-producttradebtcgdax')
-        .get(getGdax.getProductTradeBTC);
-
-    app
-        .route('/get-producttradeethgdax')
-        .get(getGdax.getProductTradeETH);
-    app
-        .route('/get-poloniexETH')
+        .route('/data/poloniex/BTC_USD')
         .get(getPoloniex.returnTickerETH);
 
     app
-        .route('/get-poloniexBTC')
+        .route('/data/poloniex/ETH_USD')
         .get(getPoloniex.returnTickerBTC);
     
     app
-        .route('/get-geminiBTC')
+        .route('/data/gemini/BTC_USD')
         .get(getGemini.getTickerBTC);
 
     app
-        .route('/get-geminiETH')
+        .route('/data/gemini/ETH_USD')
         .get(getGemini.getTickerETH);
 
 };

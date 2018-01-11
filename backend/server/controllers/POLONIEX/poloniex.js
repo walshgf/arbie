@@ -1,8 +1,16 @@
 const Poloniex = require('poloniex-api-node');
 let poloniex = new Poloniex();
 
-const returnTickerETH = (req, res) => {
+// const return24Volume = (req, res) => poloniex.return24Volume((err, data) => err ? res.json(err.message) : res.json(data));
 
+// const returnTradeHistory = (req, res) => {
+//     let start = 1410158341;
+//     let end = 1410499372;
+
+//     poloniex.returnTradeHistory(currencyPair = "USDT_ETH", start, end, null, (err, data) => err ? res.json(err.message) : res.json(data));
+// };
+
+const returnTickerETH = (req, res) => {
     poloniex.returnTicker((err, data) => {
         if (err) return res.json(err);
         let obj = {};
@@ -15,10 +23,7 @@ const returnTickerETH = (req, res) => {
     });
 };
 
-
 const returnTickerBTC = (req, res) => {
-
-
     poloniex.returnTicker((err, data) => {
         if (err) return res.json(err);
         let obj = {};
@@ -32,18 +37,9 @@ const returnTickerBTC = (req, res) => {
     });    
 };
 
-const return24Volume = (req, res) => poloniex.return24Volume((err, data) => err ? res.json(err.message) : res.json(data));
-
-const returnTradeHistory = (req, res) => {
-    let start = 1410158341;
-    let end = 1410499372;
-
-    poloniex.returnTradeHistory(currencyPair = "USDT_ETH", start, end, null, (err, data) => err ? res.json(err.message) : res.json(data));
-};
-
 module.exports = {
     returnTickerETH,
     returnTickerBTC,
-    return24Volume,
-    returnTradeHistory,
+    // return24Volume,
+    // returnTradeHistory,
 }
