@@ -1,0 +1,22 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    height: 80%;    
+    margin: 4em;
+    background: whitesmoke;
+}
+
+.container label {
+    display: inline-block;
+    widows: 20%;
+    background: rgb(167, 167, 167);
+}
+
+.icon {
+    flex: 1;
+}
+.link {
+    margin: auto;
+}

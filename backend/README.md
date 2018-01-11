@@ -32,16 +32,13 @@ npm start
 ### Create A New Exchange
   ```javascript
   axios.post('[Server Address]/create/exchange', { 
-     name: ["Exchange Name"], 
-     status: ["buy" || "sell"],
-     percentage: [Number] 
+     name: ["Exchange Name"]
   }); // returns 1 | 0 
   ```
 ### Create A New Currency Entry 
   ```javascript
   axios.post('[Server Address]/create/currency', { 
     exchange: ["Exchange Name"], 
-    state: ["buy" || "sell"],
     name: ["Currency Name"],
     bid: [Bid Price],
     ask: [Ask Price],
@@ -51,9 +48,11 @@ npm start
 ### Create A New Arbitrage Entry
   ```javascript
   axios.post('[Server Address]/create/arb', {
-    exchange: [Exchange Name], 
-    state: ["buy" || "sell"],
-    name: [Currency Name],
+    buy_exchange: [Exchange Name], 
+    sell_exchange: [Exchange Name], 
+    currency_type: [Currency Name],
+    buy_price: [Buy Price],
+    sell_price: [Sell Price],
     percentage: [Arbitrage Percent]
   }); // returns 1 | 0
   ```
@@ -64,262 +63,19 @@ npm start
   //Returns an Array of Exchange Objects With The Format:
   ```
   ``` javascript
-[
-    {
-        "currencies": [
-            {
-                "recieved": "2018-01-05T06:08:52.982Z",
-                "_id": "5a4f173c055bce127832726b",
-                "name": "BTC_USD",
-                "bid": 1000,
-                "ask": 1000,
-                "timestamp": "00:00:00",
-                "__v": 0
-            }
-        ],
-        "_id": "5a4f170d055bce1278327268",
-        "name": "test_exchange",
-        "state": "buy",
-        "__v": 1
-    },
-    {
-        "currencies": [],
-        "_id": "5a4f1714055bce1278327269",
-        "name": "test_exchange",
-        "state": "sell",
-        "__v": 0
-    },
-    {
-        "currencies": [
-            {
-                "recieved": "2018-01-05T06:19:24.358Z",
-                "_id": "5a4f23c862e6661278d108da",
-                "name": "BTC_USD",
-                "bid": 1000,
-                "ask": 1000,
-                "timestamp": "00:00:00",
-                "__v": 0
-            },
-            {
-                "recieved": "2018-01-05T06:19:24.358Z",
-                "_id": "5a4f23c962e6661278d108db",
-                "name": "BTC_USD",
-                "bid": 1000,
-                "ask": 1000,
-                "timestamp": "00:00:00",
-                "__v": 0
-            }
-        ],
-        "_id": "5a4f238262e6661278d108d0",
-        "name": "test_exchange 2",
-        "state": "sell",
-        "__v": 2
-    },
-    {
-        "currencies": [
-            {
-                "recieved": "2018-01-05T06:19:24.358Z",
-                "_id": "5a4f23ae62e6661278d108d4",
-                "name": "BTC_USD",
-                "bid": 1000,
-                "ask": 1000,
-                "timestamp": "00:00:00",
-                "__v": 0
-            },
-            {
-                "recieved": "2018-01-05T06:19:24.358Z",
-                "_id": "5a4f23b062e6661278d108d5",
-                "name": "BTC_USD",
-                "bid": 1000,
-                "ask": 1000,
-                "timestamp": "00:00:00",
-                "__v": 0
-            }
-        ],
-        "_id": "5a4f238862e6661278d108d1",
-        "name": "test_exchange 2",
-        "state": "buy",
-        "__v": 2
-    },
-    {
-        "currencies": [
-            {
-                "recieved": "2018-01-05T06:19:24.358Z",
-                "_id": "5a4f23bc62e6661278d108d7",
-                "name": "BTC_USD",
-                "bid": 1000,
-                "ask": 1000,
-                "timestamp": "00:00:00",
-                "__v": 0
-            },
-            {
-                "recieved": "2018-01-05T06:19:24.358Z",
-                "_id": "5a4f23bd62e6661278d108d8",
-                "name": "BTC_USD",
-                "bid": 1000,
-                "ask": 1000,
-                "timestamp": "00:00:00",
-                "__v": 0
-            }
-        ],
-        "_id": "5a4f238e62e6661278d108d2",
-        "name": "test_exchange 3",
-        "state": "buy",
-        "__v": 2
-    },
-    {
-        "currencies": [
-            {
-                "recieved": "2018-01-05T06:19:24.358Z",
-                "_id": "5a4f23c462e6661278d108d9",
-                "name": "BTC_USD",
-                "bid": 1000,
-                "ask": 1000,
-                "timestamp": "00:00:00",
-                "__v": 0
-            }
-        ],
-        "_id": "5a4f239662e6661278d108d3",
-        "name": "test_exchange 3",
-        "state": "sell",
-        "__v": 1
-    }
-]
-  ```
-### Get All BUY Exchanges From Database
-  ```javascript
-  axios.get('[Server Address]/show/exchanges/buy');
-
-  //returns format:
-  ```
-  ```javascript
-  [
-    {
-        "currencies": [
-            {
-                "recieved": "2018-01-05T06:08:52.982Z",
-                "_id": "5a4f173c055bce127832726b",
-                "name": "BTC_USD",
-                "bid": 1000,
-                "ask": 1000,
-                "timestamp": "00:00:00",
-                "__v": 0
-            }
-        ],
-        "_id": "5a4f170d055bce1278327268",
-        "name": "test_exchange",
-        "state": "buy",
-        "__v": 1
-    },
-    {
-        "currencies": [
-            {
-                "recieved": "2018-01-05T06:19:24.358Z",
-                "_id": "5a4f23ae62e6661278d108d4",
-                "name": "BTC_USD",
-                "bid": 1000,
-                "ask": 1000,
-                "timestamp": "00:00:00",
-                "__v": 0
-            },
-            {
-                "recieved": "2018-01-05T06:19:24.358Z",
-                "_id": "5a4f23b062e6661278d108d5",
-                "name": "BTC_USD",
-                "bid": 1000,
-                "ask": 1000,
-                "timestamp": "00:00:00",
-                "__v": 0
-            }
-        ],
-        "_id": "5a4f238862e6661278d108d1",
-        "name": "test_exchange 2",
-        "state": "buy",
-        "__v": 2
-    },
-    {
-        "currencies": [
-            {
-                "recieved": "2018-01-05T06:19:24.358Z",
-                "_id": "5a4f23bc62e6661278d108d7",
-                "name": "BTC_USD",
-                "bid": 1000,
-                "ask": 1000,
-                "timestamp": "00:00:00",
-                "__v": 0
-            },
-            {
-                "recieved": "2018-01-05T06:19:24.358Z",
-                "_id": "5a4f23bd62e6661278d108d8",
-                "name": "BTC_USD",
-                "bid": 1000,
-                "ask": 1000,
-                "timestamp": "00:00:00",
-                "__v": 0
-            }
-        ],
-        "_id"
-  ```
-### Get ALL SELL Exchanges From Database
-  ```javascript
-  axios.get('[Server Address]/show/exchanges/sell');
-
-  //returns format:
-  ```
-  ```javascript
   [
     {
         "currencies": [],
-        "_id": "5a4f1714055bce1278327269",
-        "name": "test_exchange",
-        "state": "sell",
-        "__v": 0
+        "_id": "5a56b0d9f47b86097c875221",
+        "name": "gdax"
     },
     {
-        "currencies": [
-            {
-                "recieved": "2018-01-05T06:19:24.358Z",
-                "_id": "5a4f23c862e6661278d108da",
-                "name": "BTC_USD",
-                "bid": 1000,
-                "ask": 1000,
-                "timestamp": "00:00:00",
-                "__v": 0
-            },
-            {
-                "recieved": "2018-01-05T06:19:24.358Z",
-                "_id": "5a4f23c962e6661278d108db",
-                "name": "BTC_USD",
-                "bid": 1000,
-                "ask": 1000,
-                "timestamp": "00:00:00",
-                "__v": 0
-            }
-        ],
-        "_id": "5a4f238262e6661278d108d0",
-        "name": "test_exchange 2",
-        "state": "sell",
-        "__v": 2
-    },
-    {
-        "currencies": [
-            {
-                "recieved": "2018-01-05T06:19:24.358Z",
-                "_id": "5a4f23c462e6661278d108d9",
-                "name": "BTC_USD",
-                "bid": 1000,
-                "ask": 1000,
-                "timestamp": "00:00:00",
-                "__v": 0
-            }
-        ],
-        "_id": "5a4f239662e6661278d108d3",
-        "name": "test_exchange 3",
-        "state": "sell",
-        "__v": 1
+        "currencies": [],
+        "_id": "5a56b13dc9fdb628fcc78c0f",
+        "name": "poloniex"
     }
 ]
-```
+  ```
 ### Get All Currency Entries From Database
   ```javascript
   axios.get('[Server Address]/show/currencies');
@@ -334,8 +90,7 @@ npm start
         "name": "BTC_USD",
         "bid": 1000,
         "ask": 1000,
-        "timestamp": "00:00:00",
-        "__v": 0
+        "timestamp": "00:00:00"
     },
     {
         "recieved": "2018-01-05T06:08:52.982Z",
@@ -343,8 +98,7 @@ npm start
         "name": "BTC_USD",
         "bid": 1000,
         "ask": 1000,
-        "timestamp": "00:00:00",
-        "__v": 0
+        "timestamp": "00:00:00"
     },
     {
         "recieved": "2018-01-05T06:19:24.358Z",
@@ -352,8 +106,7 @@ npm start
         "name": "BTC_USD",
         "bid": 1000,
         "ask": 1000,
-        "timestamp": "00:00:00",
-        "__v": 0
+        "timestamp": "00:00:00"
     },
     {
         "recieved": "2018-01-05T06:19:24.358Z",
@@ -361,8 +114,7 @@ npm start
         "name": "BTC_USD",
         "bid": 1000,
         "ask": 1000,
-        "timestamp": "00:00:00",
-        "__v": 0
+        "timestamp": "00:00:00"
     },
     {
         "recieved": "2018-01-05T06:19:24.358Z",
@@ -370,8 +122,7 @@ npm start
         "name": "BTC_USD",
         "bid": 1000,
         "ask": 1000,
-        "timestamp": "00:00:00",
-        "__v": 0
+        "timestamp": "00:00:00"
     },
     {
         "recieved": "2018-01-05T06:19:24.358Z",
@@ -379,8 +130,7 @@ npm start
         "name": "BTC_USD",
         "bid": 1000,
         "ask": 1000,
-        "timestamp": "00:00:00",
-        "__v": 0
+        "timestamp": "00:00:00"
     },
     {
         "recieved": "2018-01-05T06:19:24.358Z",
@@ -388,8 +138,7 @@ npm start
         "name": "BTC_USD",
         "bid": 1000,
         "ask": 1000,
-        "timestamp": "00:00:00",
-        "__v": 0
+        "timestamp": "00:00:00"
     },
     {
         "recieved": "2018-01-05T06:19:24.358Z",
@@ -397,8 +146,7 @@ npm start
         "name": "BTC_USD",
         "bid": 1000,
         "ask": 1000,
-        "timestamp": "00:00:00",
-        "__v": 0
+        "timestamp": "00:00:00"
     },
     {
         "recieved": "2018-01-05T06:19:24.358Z",
@@ -406,8 +154,7 @@ npm start
         "name": "BTC_USD",
         "bid": 1000,
         "ask": 1000,
-        "timestamp": "00:00:00",
-        "__v": 0
+        "timestamp": "00:00:00"
     },
     {
         "recieved": "2018-01-05T06:19:24.358Z",
@@ -415,8 +162,7 @@ npm start
         "name": "BTC_USD",
         "bid": 1000,
         "ask": 1000,
-        "timestamp": "00:00:00",
-        "__v": 0
+        "timestamp": "00:00:00"
     },
     {
         "recieved": "2018-01-05T06:19:24.358Z",
@@ -424,8 +170,7 @@ npm start
         "name": "BTC_USD",
         "bid": 1000,
         "ask": 1000,
-        "timestamp": "00:00:00",
-        "__v": 0
+        "timestamp": "00:00:00"
     },
     {
         "recieved": "2018-01-05T06:19:24.358Z",
@@ -433,8 +178,7 @@ npm start
         "name": "BTC_USD",
         "bid": 1000,
         "ask": 1000,
-        "timestamp": "00:00:00",
-        "__v": 0
+        "timestamp": "00:00:00"
     },
     {
         "recieved": "2018-01-05T06:19:24.358Z",
@@ -442,8 +186,7 @@ npm start
         "name": "BTC_USD",
         "bid": 1000,
         "ask": 1000,
-        "timestamp": "00:00:00",
-        "__v": 0
+        "timestamp": "00:00:00"
     }
 ]
   ```
@@ -454,69 +197,88 @@ npm start
   //returns format:
   ```
   ```javascript
-  [
-    {
-        "recieved": "2018-01-05T06:14:27.195Z",
-        "_id": "5a4f17e4fd589630582bfc38",
-        "exchange": "test_exchange",
-        "state": "buy",
-        "name": "BTC_USD",
-        "price": 5000,
-        "percentage": 5,
-        "__v": 0
-    },
-    {
-        "recieved": "2018-01-05T06:19:24.360Z",
-        "_id": "5a4f254562e6661278d108df",
-        "exchange": "test_exchange 3",
-        "state": "sell",
-        "name": "BTC_USD",
-        "price": 7000,
-        "percentage": 5,
-        "__v": 0
-    }
-]
+    [
+        {
+            "recieved": "2018-01-11T01:08:15.039Z",
+            "found_by": "APP",
+            "_id": "5a56b9317c4b991ec43b3277",
+            "buy_exchange": "GDAX",
+            "sell_exchange": "GEMINI",
+            "timestamp": "2018-01-11T01:09:05.045Z",
+            "currency_type": "BTC_USD",
+            "percentage": 0.22783364268668432,
+            "buy_price": 14674.59,
+            "sell_price": 14708.1,
+            "profit": 33.51000000000022
+        },
+        {
+            "recieved": "2018-01-11T01:08:15.039Z",
+            "found_by": "APP",
+            "_id": "5a56b92c7c4b991ec43b3276",
+            "buy_exchange": "GDAX",
+            "sell_exchange": "GEMINI",
+            "timestamp": "2018-01-11T01:09:00.002Z",
+            "currency_type": "BTC_USD",
+            "percentage": 0.21412810138842867,
+            "buy_price": 14670,
+            "sell_price": 14701.48,
+            "profit": 31.479999999999563
+        },
+        {
+            "recieved": "2018-01-11T01:08:15.039Z",
+            "found_by": "APP",
+            "_id": "5a56b92b7c4b991ec43b3275",
+            "buy_exchange": "POLONIEX",
+            "sell_exchange": "GEMINI",
+            "timestamp": "2018-01-11T01:08:59.996Z",
+            "currency_type": "ETH_USD",
+            "percentage": 0.4135217315866405,
+            "buy_price": 1314.37221613,
+            "sell_price": 1319.83,
+            "profit": 5.4577838699999575
+        },
+        {
+            "recieved": "2018-01-11T01:08:15.039Z",
+            "found_by": "APP",
+            "_id": "5a56b9277c4b991ec43b3274",
+            "buy_exchange": "GDAX",
+            "sell_exchange": "GEMINI",
+            "timestamp": "2018-01-11T01:08:55.077Z",
+            "currency_type": "BTC_USD",
+            "percentage": 0.2231675232417956,
+            "buy_price": 14669.15,
+            "sell_price": 14701.96,
+            "profit": 32.80999999999949
+        },
+        {
+            "recieved": "2018-01-11T01:08:15.039Z",
+            "found_by": "APP",
+            "_id": "5a56b9277c4b991ec43b3273",
+            "buy_exchange": "POLONIEX",
+            "sell_exchange": "GEMINI",
+            "timestamp": "2018-01-11T01:08:55.070Z",
+            "currency_type": "ETH_USD",
+            "percentage": 0.3433012358783888,
+            "buy_price": 1314.3722,
+            "sell_price": 1318.9,
+            "profit": 4.52780000000007
+        },
+        {
+            "recieved": "2018-01-11T01:08:15.039Z",
+            "found_by": "APP",
+            "_id": "5a56b9217c4b991ec43b3272",
+            "buy_exchange": "POLONIEX",
+            "sell_exchange": "GEMINI",
+            "timestamp": "2018-01-11T01:08:49.307Z",
+            "currency_type": "ETH_USD",
+            "percentage": 0.5991967670028191,
+            "buy_price": 1310.99719384,
+            "sell_price": 1318.9,
+            "profit": 7.902806160000182
+        }
+    ]
 ```
-### Get All BUY Arbitrages From The Database
-  ```javascript
-  axios.get('[Server Address]/show/arbs/buy');
 
-  //returns format:
-  ```
-  ```javascript
-  [
-    {
-        "recieved": "2018-01-05T06:14:27.195Z",
-        "_id": "5a4f17e4fd589630582bfc38",
-        "exchange": "test_exchange",
-        "state": "buy",
-        "name": "BTC_USD",
-        "price": 5000,
-        "percentage": 5,
-        "__v": 0
-    }
-]
-```
-### Get All SELL Arbitrages From The Database
-  ```javascript
-  axios.get('[Server Address]/show/arbs/sell');
-
-  //returns format:
-  ```
-  ```javascript
-  [
-    {
-        "recieved": "2018-01-05T06:19:24.360Z",
-        "_id": "5a4f254562e6661278d108df",
-        "exchange": "test_exchange 3",
-        "state": "sell",
-        "name": "BTC_USD",
-        "price": 7000,
-        "percentage": 5,
-        "__v": 0
-    }
-]
-```
 ### Get Exchange By ID
   ```javascript
   axios.get('[Server Address]/show/exchange/[id]');
@@ -524,24 +286,12 @@ npm start
   //returns format:
   ```
   ```javascript
-  {
-    "currencies": [
-        {
-            "recieved": "2018-01-05T06:08:52.982Z",
-            "_id": "5a4f173c055bce127832726b",
-            "name": "BTC_USD",
-            "bid": 1000,
-            "ask": 1000,
-            "timestamp": "00:00:00",
-            "__v": 0
-        }
-    ],
-    "_id": "5a4f170d055bce1278327268",
-    "name": "test_exchange",
-    "state": "buy",
-    "__v": 1
-}
-```
+    {
+        "currencies": [],
+        "_id": "5a56b0d9f47b86097c875221",
+        "name": "gdax"
+    }
+  ```
 ### Get Currency By ID
   ```javascript
   axios.get('[Server Address]/show/currency/[id]');
@@ -555,8 +305,7 @@ npm start
     "name": "BTC_USD",
     "bid": 1000,
     "ask": 1000,
-    "timestamp": "00:00:00",
-    "__v": 0
+    "timestamp": "00:00:00"
 }
 ```
 ### Get Arbitrage By ID
@@ -566,29 +315,33 @@ npm start
   //returns format:
   ```
   ```javascript
-  {
-    "recieved": "2018-01-05T06:19:24.360Z",
-    "_id": "5a4f254562e6661278d108df",
-    "exchange": "test_exchange 3",
-    "state": "sell",
-    "name": "BTC_USD",
-    "percentage": 5,
-    "__v": 0
+{
+    "recieved": "2018-01-11T01:08:15.039Z",
+    "found_by": "APP",
+    "_id": "5a56b9217c4b991ec43b3272",
+    "buy_exchange": "POLONIEX",
+    "sell_exchange": "GEMINI",
+    "timestamp": "2018-01-11T01:08:49.307Z",
+    "currency_type": "ETH_USD",
+    "percentage": 0.5991967670028191,
+    "buy_price": 1310.99719384,
+    "sell_price": 1318.9,
+    "profit": 7.902806160000182
 }
   ```
 ### Remove Exchange By ID
   ```javascript
-  axios.delete('[Server Address]/remove/exchange/:id');
+  axios.delete('[Server Address]/remove/exchange/[id]');
   //returns the removed ID
   ```
 ### Remove Currency By ID
   ```javascript
-  axios.delete('[Server Address]/remove/currency/:id');
+  axios.delete('[Server Address]/remove/currency/[id]');
   //returns the removed ID
   ```
 ### Remove Arbitrage By ID
   ```javascript
-  axios.delete('[Server Address]/remove/arb/:id');
+  axios.delete('[Server Address]/remove/arb/[id]');
   //returns the removed ID
   ```
 ### Remove All Exchanges & Currencies
@@ -606,3 +359,51 @@ npm start
   axios.delete('[Server Address]/remove/arbs');
   //return 1 | 0
   ```
+## AUTHORIZATION API
+
+### CREATE NEW USER
+  ```javascript
+  axios.post('/create/user', {
+     //user info
+  });
+  ```
+### LOGIN USER
+```javascript
+  route.post('/login', {
+      username: [username],
+      password: [password]
+  });
+```
+### LOGOUT USER
+```javascript
+axios.get('/logout', {
+    headers:{
+        token: [JSON Web Token]
+    }
+});
+```
+### FIND ALL USERS
+```javascript
+  axios.get('/find/user/all');
+```
+### Find USER BY ID
+```javascript
+  axios.get('/find/user/[id]');
+```
+### VERIFY AUTHORIZATION
+```javascript
+  axios.get('/verify', {
+      headers:{
+          token: [JSON Web Token]
+      }
+  });
+```
+### REMOVE USER BY ID
+```javascript
+  axios.delete('/remove/user/[id]', {
+      headers:{
+          token: [JSON Web Token] //Verify Admin | User Account
+      }
+  });
+```
+
