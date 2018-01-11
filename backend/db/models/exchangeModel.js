@@ -2,14 +2,10 @@ const mongoose = require('mongoose');
 mongoose.models = {};
 mongoose.modelSchemas = {};
 
-const ExchangeSchema = mongoose.Schema({
+const ExchangeSchema = new mongoose.Schema({
   name: {
     type: String,
-    require: true
-  },
-  state: {
-    type: String,
-    require: true
+    required: true
   },
   currencies: [{
     type: mongoose.SchemaTypes.ObjectId,
