@@ -12,16 +12,13 @@ const getTickerBTC = (req, res) => {
                 obj.time = new Date(response.data.volume.timestamp);
                 obj.exchange = "GEMINI";
                 obj.name = "BTC_USD";
-                res.json(obj);
+                return res.json(obj);
             })
-            .catch((err) => {
-                res.json(err);
-            });
+            .catch(err => res.json(err));
 };         
 
 
 const getTickerETH = (req, res) => {
-
     axios
         .get(`https://api.gemini.com/v1/pubticker/ethusd`)
             .then((response) => {
@@ -32,11 +29,9 @@ const getTickerETH = (req, res) => {
                 obj.time = new Date(response.data.volume.timestamp);
                 obj.exchange = "GEMINI";
                 obj.name = "ETH_USD";
-                res.json(obj);
+                return res.json(obj);
             })
-            .catch((err) => {
-                res.json(err);
-            });
+            .catch((err) => res.json(err));
 };         
 
 module.exports = {

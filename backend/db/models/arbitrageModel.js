@@ -21,16 +21,24 @@ const ArbitrageSchema = new mongoose.Schema({
   },
   buy_price: {
     type: Number,
-    reguired: true
+    required: true
   },
   sell_price: {
     type: Number,
-    reguired: true
+    required: true
+  },
+  profit: {
+    type: Number,
+    required: true
   },
   //Timestamp at creation
   recieved: {
     type: Date,
     default: Date.now()
+  },
+  timestamp:{
+    type: Date,
+    required: true
   },
   found_by: {
     type: String,

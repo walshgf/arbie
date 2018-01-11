@@ -125,51 +125,56 @@ class Indicators extends React.Component {
     componentDidMount(){   
         setInterval(() => {
             axios.get(`${server}/get-producttickergdax`)
-            .then((res1) => {
-                res1.data.bid = Number(res1.data.bid);
-                res1.data.ask = Number(res1.data.ask);
-                axios.get(`${server}/get-geminiBTC`)
-                .then((res2) => {
-                    res2.data.bid = Number(res2.data.bid);
-                    res2.data.ask = Number(res2.data.ask);
-                    axios.get(`${server}/get-geminiETH`)
-                    .then((res3) => {
-                        res3.data.bid = Number(res3.data.bid);
-                        res3.data.ask = Number(res3.data.ask);
-                        axios.get(`${server}/get-poloniexBTC`)
-                        .then((res4) => {
-                            res4.data.bid = Number(res4.data.bid);
-                            res4.data.ask = Number(res4.data.ask);
-                            axios.get(`${server}/get-poloniexETH`)
-                            .then((res5) => {
-                                res5.data.bid = Number(res5.data.bid);
-                                res5.data.ask = Number(res5.data.ask);
-                                this.setState((props) => {
-                                    props.apiData.push(res1.data);
-                                    props.apiData.push(res2.data);
-                                    props.apiData.push(res3.data);
-                                    props.apiData.push(res4.data);
-                                    props.apiData.push(res5.data);
-                                });
-                            })
-                            .catch(err => console.log(err));
-                        })
-                        .catch(err => console.log(err));
-                    })
-                    .catch(err => console.log(err));
-                })
-                .catch(err => console.log(err));
+            .then((res) => {
+                res.data.bid = Number(res.data.bid);
+                res.data.ask = Number(res.data.ask);
+                this.setState((props) => {
+                    props.apiData.push(res.data);  
+                });
             })
             .catch(err => console.log(err));
 
-            
+            axios.get(`${server}/get-geminiBTC`)
+            .then((res) => {
+                res.data.bid = Number(res.data.bid);
+                res.data.ask = Number(res.data.ask);
+                this.setState((props) => {
+                    props.apiData.push(res.data);  
+                });
+            })
+            .catch(err => console.log(err));
 
-            
-            
-            
+            axios.get(`${server}/get-geminiETH`)
+            .then((res) => {
+                res.data.bid = Number(res.data.bid);
+                res.data.ask = Number(res.data.ask);
+                this.setState((props) => {
+                    props.apiData.push(res.data);  
+                });
+            })
+            .catch(err => console.log(err));
 
-            if(this.state.apiData.length === 5) this.setState({done: true});
-            if(this.state.done){
+            axios.get(`${server}/get-poloniexBTC`)
+            .then((res) => {
+                res.data.bid = Number(res.data.bid);
+                res.data.ask = Number(res.data.ask);
+                this.setState((props) => {
+                    props.apiData.push(res.data);  
+                });
+            })
+            .catch(err => console.log(err));
+
+            axios.get(`${server}/get-poloniexETH`)
+            .then((res) => {
+                res.data.bid = Number(res.data.bid);
+                res.data.ask = Number(res.data.ask);
+                this.setState((props) => {
+                    props.apiData.push(res.data);  
+                });
+            })
+            .catch(err => console.log(err));
+
+            if(this.state.apiData.length > 0){
 
             console.log(this.findSmallestAsk(this.state.apiData, "BTC_USD"));
             console.log(this.findLargestAsk(this.state.apiData, "BTC_USD"));
@@ -192,7 +197,7 @@ class Indicators extends React.Component {
             const bitcoinSmallestAskPrice = bitcoinSmallestAskObject.smallestAsk;
             const bitcoinSmallestAskExchange = bitcoinSmallestAskObject.exchange;
 
-            const percentageOfBitcoinArbitrageProfitable = this.percentageOfArbitrageAvailable(this.bitcoinHighPrice - this.bitcoinLowPrice, bitcoinLargestAskPrice);
+            const percentageOfBitcoinArbitrageProfitable = this.percentageOfArbitrageAvailable(bitcoinLargestAskPrice - bitcoinSmallestAskPrice, bitcoinLargestAskPrice);
 
             const ethereumSmallestBidObject = this.findSmallestBid(this.state.apiData, "ETH_USD");
             const ethereumSmallestBidPrice = ethereumSmallestBidObject.smallestBid;
@@ -210,9 +215,9 @@ class Indicators extends React.Component {
             const ethereumSmallestAskPrice = ethereumSmallestAskObject.smallestAsk;
             const ethereumSmallestAskExchange = ethereumSmallestAskObject.exchange;
 
-            const percentageOfEthereumArbitrageProfitable = this.percentageOfArbitrageAvailable(this.ethereumHighPrice - this.ethereumLowPrice, ethereumLargestAskPrice);
+            const percentageOfEthereumArbitrageProfitable = this.percentageOfArbitrageAvailable(ethereumLargestAskPrice - ethereumSmallestAskPrice, ethereumLargestAskPrice);
 
-            this.bitcoinArbitrageValue = percentageOfBitcoinArbitrageProfitable;
+            this.bitcoinArbitrageValue = percentageOfBitcoinArbitrageProfitable ;
             this.bitcoinLowSeller = bitcoinSmallestAskExchange ;
             this.bitcoinHighBuyer = bitcoinLargestAskExchange ;
             this.bitcoinHighPrice = bitcoinLargestAskPrice;
@@ -240,9 +245,8 @@ class Indicators extends React.Component {
                     HP:this.ethereumHighPrice   
                 }
             });
-            if(this.state.btc.argVal >= arb_percent){
+            if(this.state.eth.argVal >= arb_percent){
                 //ADD ethereum to Db
-                console.log("eth working");
                 axios.post(`${server}/create/arb`, {
                     buy_exchange: this.ethereumLowSeller, 
                     sell_exchange: this.ethereumHighBuyer, 
@@ -251,14 +255,11 @@ class Indicators extends React.Component {
                     percentage: this.ethereumArbitrageValue, 
                     currency_type: 'ETH_USD'
                 })
-                .then((res) => {
-                    console.log(res.data);
-                })
+                .then(res => console.log(res.data))
                 .catch(err => console.log(err));
             }
 
-            if(this.state.eth.argVal >= arb_percent){
-                console.log("bit working");
+            if(this.state.btc.argVal >= arb_percent){
                 //ADD ethereum to Db
                 axios.post(`${server}/create/arb`, {
                     buy_exchange: this.bitcoinLowSeller, 
@@ -268,10 +269,7 @@ class Indicators extends React.Component {
                     percentage: this.bitcoinArbitrageValue, 
                     currency_type: 'BTC_USD'
                 })
-                .then((res) => {
-
-                    console.log(res);
-                })
+                .then(res => console.log(res.data))
                 .catch(err => console.log(err));
             }
             this.setState({
@@ -286,15 +284,14 @@ class Indicators extends React.Component {
                 </label>
             </div>
             });
-        }
-        }, 5000);
+        }}, 5000); //End of Interval
     }
 
     render() {
         return (
             <div>
                 <BrowserRouter><Link to="/historicalData" className="link">See Historical Data</Link></BrowserRouter>
-                {this.state.display}
+                {this.state.display} {/*Displays Only When Data Is Present*/}
             </div>
         );
     }

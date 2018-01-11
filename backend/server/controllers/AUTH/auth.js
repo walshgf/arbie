@@ -39,21 +39,21 @@ const login = (req, res) => {
 };
 
 const find_all = (req, res) => {
-  User.find({})
+  User.find({}, {username:1})
   .exec((err, users) => {
     return err ? res.status(500).json(err) : res.json(users);
   });
 };
 
 const find_user = (req, res) => {
-  User.findById(req.params.id)
+  User.findById(req.params.id, {username: 1})
   .exec((err, user) => {
     return err ? res.status(422).json(err) : res.json(user);
   });
 };
 
 const remove_user = (req, res) => {
-  User.findByIdAndRemove(req.params.id)
+  User.findByIdAndRemove(req.params.id, {username: 1})
   .exec((err, removed) => {
     return err || !removed ? res.status(422).json(0) : res.json(1);
   });
@@ -61,7 +61,7 @@ const remove_user = (req, res) => {
 
 const logout = (req, res) => {
   const user = jwt.decode(req.headers.token, secret);
-  User.findOne({username: user.username, hash: user.hash, key: user.key})
+  User.findOne({username: user.username, hash: user.hash, key: user.key}, {username:1})
   .exec((err, found) => {
     if(err || !found ) return res.status(401).json(0);
     found.key = 0;
@@ -73,7 +73,7 @@ const logout = (req, res) => {
 
 const verify = (req, res) => {
   const user = jwt.decode(req.headers.token, secret);
-  User.findOne({username: user.username, hash: user.hash, key: user.key})
+  User.findOne({username: user.username, hash: user.hash, key: user.key}, {username:1})
   .exec((err, user) => {
     if(err || !user) res.status(401).json(0);
     res.json(1);

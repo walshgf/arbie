@@ -7,10 +7,6 @@ const ExchangeSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  state: {
-    type: String,
-    required: true
-  },
   currencies: [{
     type: mongoose.SchemaTypes.ObjectId,
     ref: "Currency"
