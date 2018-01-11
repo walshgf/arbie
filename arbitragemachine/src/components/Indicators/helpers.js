@@ -1,3 +1,23 @@
+export const findSmallestBid = (array, signal) => {
+    let smallestBidObject = {smallestBid : null, exchange : null, name: null};
+    array.forEach((trade) => {
+        if(trade.name === signal){
+            if (smallestBidObject.smallestBid === null) {
+                smallestBidObject = {
+                    smallestBid: trade.bid, 
+                    exchange: trade.exchange,
+                    name: trade.name
+                };
+            } else if (smallestBidObject.smallestBid > trade.bid) {
+                smallestBidObject.smallestBid = trade.bid;
+                smallestBidObject.exchange = trade.exchange;
+                smallestBidObject.name = trade.name;
+            }
+        }
+    });
+    return smallestBidObject;
+}
+
 // find largest bid
 export const findLargestBid = (array, signal) => {
     let largestBidObject = {largestBid : null, exchange : null, name: null};
@@ -17,31 +37,8 @@ export const findLargestBid = (array, signal) => {
             largestBidObject.name = trade.name;
         }}
     });
-    console.log(largestBidObject.exchange + " " + largestBidObject.largestBid);
     return largestBidObject;
 }
-
-export const findSmallestBid = (array, signal) => {
-        console.log(array);
-        let smallestBidObject = {smallestBid : null, exchange : null, name: null};
-        array.forEach((trade) => {
-            if(trade.name === signal){
-                if (smallestBidObject.smallestBid === null) {
-                    smallestBidObject = {
-                        smallestBid: trade.bid, 
-                        exchange: trade.exchange,
-                        name: trade.name
-                    };
-                } else if (smallestBidObject.smallestBid > trade.bid) {
-                    smallestBidObject.smallestBid = trade.bid;
-                    smallestBidObject.exchange = trade.exchange;
-                    smallestBidObject.name = trade.name;
-                }
-            }
-        });
-        console.log(smallestBidObject.exchange + " " + smallestBidObject.smallestBid);
-        return smallestBidObject;
-    }
 
 // find largest ask
 export const findLargestAsk = (array, signal) => {
@@ -55,13 +52,15 @@ export const findLargestAsk = (array, signal) => {
                     exchange : trade.exchange,
                     name: trade.name
                 };
-            } else if (largestAskObject.largestAsk < trade.ask) {
+            }
+            if (largestAskObject.largestAsk < trade.ask) {
                 largestAskObject.largestAsk = trade.ask;
                 largestAskObject.exchange = trade.exchange;
                 largestAskObject.name = trade.name;
             }
         }
     });
+    console.log(`High:${largestAskObject.exchange}-${largestAskObject.largestAsk}-${largestAskObject.name}`);             
     return  largestAskObject;
 }
 // find Smallest ask
@@ -83,18 +82,20 @@ export const findSmallestAsk = (array, signal) => {
             }
         }
     });
+    console.log(`Low:${smallestAskObject.exchange}-${smallestAskObject.smallestAsk}-${smallestAskObject.name}`);               
     return  smallestAskObject;
 }
-
+    
 //function to determine if arbitrage is available
-export const percentageOfArbitrageAvailable = (diff, high) => {
-    return (diff * 100) / high;
-}
+export const percentageOfArbitrageAvailable = (diff, high) => (diff * 100) / high;
 
+
+//checks for null and infinite values and returns 0
 export const checkNull = (val) => {
   return val === null || val === Infinity ? 0 : val;
 }
 
+//formats dollar values (USD)
 export const commafy = (x) => {
     let parts = x.toString().split(".");
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");

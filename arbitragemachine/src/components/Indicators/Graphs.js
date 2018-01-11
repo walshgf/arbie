@@ -1,13 +1,5 @@
 import React, { Component } from 'react';
 import Flickity from 'flickity';
-import { 
-	findSmallestBid, 
-	findLargestBid, 
-	findLargestAsk, 
-	findSmallestAsk,
-	percentageOfArbitrageAvailable,
-	checkNull
-} from './helpers';
 import update from 'immutability-helper';
 import Axios from 'axios';
 import Graph from './Graph';
@@ -18,16 +10,23 @@ export default class Graphs extends Component {
   	super(props);
   	this.state = {
       apiData:[],
-      btc:{argVal: null, low: null, high: null, LP: null, HP: null}, 
-      eth:{argVal: null, low: null, high: null, LP: null, HP: null},
       allActive: false,
       curIndex: 0
     }
+    this.exchanges = ['gdax', 'poloniex', 'gemini'];
+    this.currencies = [
+      {type: "BTC_USD", heading: 'Bitcoin', color1: "#FFF056", color2: "#FE9C1F"},
+      {type: "ETH_USD", heading: 'Ethereum', color1: "#A7CAFF", color2: "#4C99FF"},
+    ]; 
+    //Added colors to each currency to make the graphs feel
+    //a little bit more familiar - these can be dynamic or part of the api
   }
 
   componentDidMount = () => {
+    //Start fetching data
     this.init();
     setInterval(this.init, 5000);
+    //Build slider component => each slide is the Graph Component (Graph.js)
     const sldr = document.getElementById('graphs');
     const options = {
       cellSelector: '.graph',
@@ -40,138 +39,80 @@ export default class Graphs extends Component {
       watchCSS: true,
     };
     this.flkty = new Flickity(sldr, options);
+    //Attach listener to animate only the visible Graph Component
     this.flkty.on('cellSelect', this.updateSelected);
+    //Add resize handler to animate all graphs when slider is destroyed
     this.resize();
     window.addEventListener('resize', this.resize, false);
   }
 
   componentWillUnmount = () => {
     window.removeEventListener('resize', this.resize, false);
+    if(this.flkty) {
+      this.flkty.off('cellSelect', this.updateSelected);
+      this.flkty.destroy()
+    }
   }
 
+  //when this.state.allActive is true all Graph
+  //Components will animate changes in numeric values
   resize = () => {
     this.setState({ allActive: window.innerWidth > 669 })
   }
 
+  //Allows state to keep track of the current visible Graph Component
   updateSelected = () => {
     const index = this.flkty.selectedIndex;
     this.setState({ curIndex: index });
   }
 
-  init = () => {   
-    Axios.all([
-      Axios.get(`${server}/get-producttickergdax`),
-      Axios.get(`${server}/get-geminiBTC`),
-      Axios.get(`${server}/get-geminiETH`),
-      Axios.get(`${server}/get-poloniexBTC`),
-      Axios.get(`${server}/get-poloniexETH`),
-    ]).then(res => {
-      res.forEach(response => {
-        response.data.bid = Number(response.data.bid);
-        response.data.ask = Number(response.data.ask);
-        this.setState(prevState => {
-          const ns = update(prevState.apiData, {$push: [response.data]});
-          return { apiData: ns }
+  init = () => { 
+    //Create an array of URLs
+    const http = [];
+    for(let i = 0; i < this.exchanges.length; i++) {
+      for(let j = 0; j < this.currencies.length; j++) {
+        const url = `${server}/data/${this.exchanges[i]}/${this.currencies[j].type}`;
+        http.push(url);
+      }
+    }
+    //Make GET request to each of the urls in http array
+    Axios.all(http.map(url => Axios.get(url)))
+      .then(res => {
+        //Loop through each response object and create numbers from Bid and Ask
+        res.forEach(response => {
+          response.data.bid = Number(response.data.bid);
+          response.data.ask = Number(response.data.ask);
+          //Set state without mutation 
+          //update function comes from (immutability-helper)
+          this.setState(prevState => {
+            const ns = update(prevState.apiData, {$push: [response.data]}); //THIS IS A COPY OF THE STATE OBJECT THAT HAS BEEN GIVEN THE RESPONSE DATA
+            return { apiData: ns }
+          });
         });
-      });
-    }).catch(err => console.log(err));
+      }).catch(err => console.log(err));
 
-    if(this.state.apiData.length === 5) this.setState({done: true});
-    if(this.state.done){
-
-      console.log(findSmallestAsk(this.state.apiData, "BTC_USD"));
-      console.log(findLargestAsk(this.state.apiData, "BTC_USD"));
-
-      const bitcoinSmallestBidObject = findSmallestBid(this.state.apiData, "BTC_USD");
-      const bitcoinSmallestBidPrice = bitcoinSmallestBidObject.smallestBid;
-      const bitcoinSmallestBidExchange = bitcoinSmallestBidObject.exchange;
-
-      const bitcoinLargestBidObject = findLargestBid(this.state.apiData, "BTC_USD");
-      const bitcoinLargestBidPrice = bitcoinLargestBidObject.largestBid;
-      const bitcoinLargestBidExchange = bitcoinLargestBidObject.exchange;
-
-      const bitcoinLargestAskObject = findLargestAsk(this.state.apiData, "BTC_USD");
-      const bitcoinLargestAskPrice = bitcoinLargestAskObject.largestAsk;
-      const bitcoinLargestAskExchange = bitcoinLargestAskObject.exchange;
-
-      const bitcoinSmallestAskObject = findSmallestAsk(this.state.apiData, "BTC_USD");
-      const bitcoinSmallestAskPrice = bitcoinSmallestAskObject.smallestAsk;
-      const bitcoinSmallestAskExchange = bitcoinSmallestAskObject.exchange;
-
-      const percentageOfBitcoinArbitrageProfitable = percentageOfArbitrageAvailable(this.bitcoinHighPrice - this.bitcoinLowPrice, bitcoinLargestAskPrice);
-
-      const ethereumSmallestBidObject = findSmallestBid(this.state.apiData, "ETH_USD");
-      const ethereumSmallestBidPrice = ethereumSmallestBidObject.smallestBid;
-      const ethereumSmallestBidExchange = ethereumSmallestBidObject.exchange;
-
-      const ethereumLargestBidObject = findLargestBid(this.state.apiData, "ETH_USD");
-      const ethereumLargestBidPrice = ethereumLargestBidObject.largestBid;
-      const ethereumLargestBidExchange = ethereumLargestBidObject.exchange;
-
-      const ethereumLargestAskObject = findLargestAsk(this.state.apiData, "ETH_USD");
-      const ethereumLargestAskPrice = ethereumLargestAskObject.largestAsk;
-      const ethereumLargestAskExchange = ethereumLargestAskObject.exchange;
-
-      const ethereumSmallestAskObject = findSmallestAsk(this.state.apiData, "ETH_USD");
-      const ethereumSmallestAskPrice = ethereumSmallestAskObject.smallestAsk;
-      const ethereumSmallestAskExchange = ethereumSmallestAskObject.exchange;
-
-      const percentageOfEthereumArbitrageProfitable = percentageOfArbitrageAvailable(this.ethereumHighPrice - this.ethereumLowPrice, ethereumLargestAskPrice);
-
-      this.bitcoinArbitrageValue = percentageOfBitcoinArbitrageProfitable;
-      this.bitcoinLowSeller = bitcoinSmallestAskExchange ;
-      this.bitcoinHighBuyer = bitcoinLargestAskExchange ;
-      this.bitcoinHighPrice = bitcoinLargestAskPrice;
-      this.bitcoinLowPrice = bitcoinSmallestAskPrice;
-      this.ethereumArbitrageValue = percentageOfEthereumArbitrageProfitable ;
-      this.ethereumLowSeller = ethereumSmallestAskExchange ;
-      this.ethereumHighBuyer = ethereumLargestAskExchange ;
-      this.ethereumHighPrice = ethereumLargestAskPrice;
-      this.ethereumLowPrice = ethereumSmallestAskPrice;
-      this.setState({
-        btc:{
-          argVal: this.bitcoinArbitrageValue,
-          low:this.bitcoinLowSeller,
-          high:this.bitcoinLowSeller,
-          LP:this.bitcoinLowPrice,
-          HP:this.bitcoinHighPrice
-        },
-        eth: {
-          argVal: this.ethereumArbitrageValue,
-          low:this.ethereumLowSeller,
-          high:this.ethereumHighBuyer,
-          LP:this.ethereumLowPrice,
-          HP:this.ethereumHighPrice   
-        },
-        apiData: []
-      });
-  	}
+    //Set aside to create a loader while data is being fetched
+    // if(this.state.apiData.length > 0) this.setState({done: true});
 	}
 
   render = () => {
     return (
     	<section className='graphs'>
     		<div id='graphs'>
-        	<Graph 
-        		heading="Bitcoin"
-        		value={checkNull(this.state.btc.argVal)} 
-          	lowSeller={checkNull(this.state.btc.low)} 
-          	highBuyer={checkNull(this.state.btc.high)} 
-          	highPrice={checkNull(this.state.btc.HP)} 
-          	lowPrice={checkNull(this.state.btc.LP)}
-            color1="#FFF056"
-            color2="#FE9C1F"
-          	active={this.state.allActive || this.state.curIndex === 0} />
-          <Graph 
-        		heading="Ethereum"
-        		value={checkNull(this.state.eth.argVal)} 
-          	lowSeller={checkNull(this.state.eth.low)} 
-          	highBuyer={checkNull(this.state.eth.high)} 
-          	highPrice={checkNull(this.state.eth.HP)} 
-          	lowPrice={checkNull(this.state.eth.LP)} 
-            color1="#A7CAFF"
-            color2="#4C99FF"
-          	active={this.state.allActive || this.state.curIndex === 1} />
+          {
+            this.currencies.map((currency, i) => {
+              return (
+                <Graph
+                  key={i} 
+                  type={currency.type}
+                  heading={currency.heading}
+                  data={this.state.apiData}
+                  color1={currency.color1}
+                  color2={currency.color2}
+                  active={this.state.allActive || this.state.curIndex === i} />
+              );
+            })
+          }
     		</div>
     	</section> 
     );

@@ -672,7 +672,7 @@ th {
     height: 100%;
     flex-direction: row;
     flex-wrap: wrap;
-    max-width: 1000px; }
+    max-width: 1300px; }
     .graphs > div > .flickity-viewport {
       height: 100%;
       width: 100%;
@@ -702,7 +702,10 @@ th {
   @media (min-width: 670px) {
     .graph {
       max-width: 330px;
-      margin: 20px; } }
+      margin: 20px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+      border-radius: 5px;
+      padding-top: 20px; } }
   @media (min-width: 957px) {
     .graph {
       max-width: 400px; } }
@@ -724,8 +727,8 @@ th {
       width: 100%;
       max-width: 250px;
       max-height: 250px;
-      margin-bottom: 10px;
-      position: relative; }
+      position: relative;
+      margin-bottom: -25px; }
       .graph > div > .circ > svg {
         transform: rotate(-90deg); }
         .graph > div > .circ > svg > circle {
@@ -755,13 +758,14 @@ th {
   justify-content: center;
   align-items: center;
   width: 100%;
-  color: #5D5F78; }
+  color: #5D5F78;
+  text-align: center; }
   .info > div {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 80%; }
+    width: 100%; }
     .info > div > h3 {
       font-weight: 200;
       margin: 0; }
@@ -770,8 +774,9 @@ th {
       justify-content: center;
       align-items: center;
       justify-content: space-between;
-      width: 100%;
-      margin-bottom: 20px; }
+      margin-bottom: 20px;
+      max-width: 300px;
+      width: 90%; }
       .info > div > .prices > .price {
         display: flex;
         justify-content: center;
@@ -791,3 +796,28 @@ th {
     .info > div > .profit {
       font-size: 1.3em;
       font-weight: 600; }
+    .info > div > .buy-sell {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: calc(110% + 3px);
+      height: 50px;
+      background: #989898; }
+      @media (min-width: 670px) {
+        .info > div > .buy-sell {
+          border-bottom-left-radius: 5px;
+          border-bottom-right-radius: 5px;
+          width: calc(110% + 4px); } }
+      .info > div > .buy-sell > p {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: #fff;
+        height: 100%; }
+        .info > div > .buy-sell > p:first-of-type {
+          border-right: 1px solid #fff; }
