@@ -1,0 +1,182 @@
+//NESTED SELECTORS MIMIC THE STRUCTURE OF THE DOM TREE
+
+.graphs {
+	width: 100%;
+	height: calc(100vh - 50px);
+	max-height: 700px;
+	@include center;
+	margin-top: 70px;
+	//MEDIA QUERY FOR 670 WIDTH (IPAD)
+	@media #{$mq-670} {
+		height: auto;
+		max-height: none;
+		margin-top: 100px;
+	}
+	&>div {
+		@include center;
+		width: 100%;
+		height: 100%;
+		flex-direction: row;
+		flex-wrap: wrap;
+		max-width: 1300px;
+		//ELEMENTS ADDED BY SLIDER
+		&>.flickity-viewport {
+			height: 100%;
+			width: 100%;
+			@include center;
+			&>.flickity-slider {
+				height: 100%;
+				width: 100%;
+				@include center;
+			}
+		}
+	}
+}
+
+//REMOVES THE SLIDER FROM THE DOM AT 670 WIDTH
+#graphs::after {
+    content: 'flickity';
+    display: none;
+    @media #{$mq-670} {
+        content: '';
+    }
+}
+
+//GRAPH COMPONENT DOM TREE
+.graph {
+	height: 100%;
+	width: 100%;
+	@include center;
+	//ADJUST MAXWIDTH FOR DIFFERENT SCREENS 
+	//ALLOWING FOR SIDE BY SIDE VIEW
+	@media #{$mq-670} {
+		max-width: 330px;
+		margin: 20px;
+		//CREATES A CARD FROM EACH OF THE GRAPH COMPONENTS
+		@include headerShadow;
+		border-radius: 5px;
+		padding-top: 20px;
+	}
+	@media #{$mq-957} {
+		max-width: 400px;
+	}
+	&>div {
+		@include center;
+		width:90%;
+		height: 100%;
+		flex-direction: column;
+		&>h2 {
+			font-weight: 200;
+			text-align: center;
+			margin-bottom: 10px;
+			font-size: 2.5em;
+			margin-top: 0;
+		}
+		//RESPONSIVE SVG CAPPING OFF AT 250PX HEIGHT AND WIDTH
+		&>.circ {
+			height: 100%;
+			width: 100%;
+			max-width: 250px;
+			max-height: 250px;
+			position: relative;
+			margin-bottom: -25px;
+			&>svg{
+				transform: rotate(-90deg);
+				&>circle {
+					transition-timing-function: cubic-bezier(0.99, 0.01, 0.62, 0.94);
+					transition: stroke-dashoffset 0.8s 0.15s, stroke-dasharray 0.8s 0.15s;
+				}
+			}
+			//ELEMENTS THAT SIT IN THE CENTER OF EACH CIRCLE
+			&>.decision {
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 100%;
+				width: 100%;
+				@include center;
+				flex-direction: column;
+				&>h3 {
+					font-size: 2em;
+					margin: 0;
+					margin-bottom: 10px;
+				}
+				&>h4 {
+					font-size: 1em;
+					margin: 0;
+					font-weight: 200;
+				}
+			}
+		}
+	}
+}
+
+//ELEMENTS SITTING BELOW THE SVG CIRCLES
+.info {
+	@include center;
+	width: 100%;
+	color: #5D5F78;
+	text-align: center;
+	&>div {
+		@include center;
+		flex-direction: column;
+		width: 100%;
+		&>h3 {
+			font-weight: 200;
+			margin: 0;
+		}
+		&>.prices {
+			@include center;
+			justify-content: space-between;
+			margin-bottom: 20px;
+			max-width: 300px;
+			width: 90%;
+			&>.price {
+				@include center;
+				flex-direction: column;
+				font-size: 1.3em;
+				&::before {
+					content: 'High:';
+					display: block;
+					text-align: center;
+					font-size: 0.8em;
+					color: #56D171;
+					font-weight: 800;
+				}
+			}
+			&>.price:last-of-type::before {
+				content: 'Low:';
+				color: #FC2E43;
+			}
+		}
+		&>.profit {
+			font-size: 1.3em;
+			font-weight: 600;
+		}
+		//CREATES A CARD-LIKE LAYOUT FOOTER BY SPANNING THE FULL WIDTH
+		&>.buy-sell {
+			margin-top: 20px;
+			@include center;
+			flex-direction: row;
+			flex-wrap: wrap;
+			width: calc(110% + 3px);
+			height: 50px;
+			background: #989898;
+			@media #{$mq-670} {
+				border-bottom-left-radius: 5px;
+				border-bottom-right-radius: 5px;
+				width: calc(110% + 4px);
+			}
+			&>p {
+				width: 50%;
+				@include center;
+				text-align: center;
+				color: #fff;
+				height: 100%;
+				&:first-of-type {
+					border-right: 1px solid #fff;
+				}
+			}
+		}
+	}
+}

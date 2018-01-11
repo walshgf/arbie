@@ -1,0 +1,24 @@
+@import 'components/reset';
+@import 'components/variables';
+@import 'components/flickity';
+
+
+#root {
+	font-family: -apple-system, BlinkMacSystemFont, “Segoe UI”, Roboto, Helvetica, Arial, sans-serif;
+}
+
+.App {
+	margin-top: 50px;
+	@media #{$mq-670} {
+		margin-top: 80px;
+	}
+}
+
+.center {
+	@include center;
+}
+
+@import 'components/Nav/header';
+@import 'components/Nav/Burger/burger';
+@import 'components/Menu/menu';
+@import 'components/Indicators/graphs';
