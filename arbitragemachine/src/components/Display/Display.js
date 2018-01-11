@@ -3,7 +3,7 @@ import React from 'react';
 export default function DisplayData() {
     return (
         <div id="main-container">
-            <div id="main" className="wrapper clearfix">
+            <div id="main" class="wrapper clearfix">
                 
                 <article>
                     <header>

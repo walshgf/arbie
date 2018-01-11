@@ -1,9 +1,10 @@
 import React from 'react';
+import '../Navigation/Navigation.css';
 
 export default function Homepage() {
     return (
         <div id="main-container">
-            <div id="main" className="wrapper clearfix">
+            <div id="main" class="wrapper clearfix">
                 
                 <article>
                     <header>
