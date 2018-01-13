@@ -11,16 +11,46 @@
 	@media #{$mq-670} {
 		height: 80px;
 	}
+	@media #{$mq-1070} {
+		height: 100%;
+		width: 200px;
+		@include rightShadow;
+	}
 	&>.center {
 		flex-direction: row;
 		justify-content: space-between;
 		height: 100%;
 		width: 90%;
-		&>h1 {
-			font-size: 2em;
-			color: #FFF;
-			font-weight: 200;
-			margin: 0;
+		@media #{$mq-1070} {
+			flex-direction: column;
+			justify-content: flex-start;
+			width: 100%;
+			margin-top: 60px;
+		}
+		&>.logo {
+			height: 90%;
+			width: auto;
+			@include center;
+			@media #{$mq-1070} {
+				height: 70px;
+			}
+			&>img {
+				height: 40px;
+				width: auto;
+				@media #{$mq-670} {
+					height: 55px;
+				}
+			}
+			&>h1 {
+				text-transform: lowercase;
+				font-size: 2em;
+				color: #FFF;
+				font-weight: 200;
+				margin: 0;
+				@media #{$mq-670} {
+					font-size: 2.5em;
+				}
+			}
 		}
 		&>.header-nav {
 			display: none;
@@ -32,8 +62,13 @@
 				width: 100%;	
 				justify-content: flex-end;
 			}
+			@media #{$mq-1070} {
+				flex-direction: column;
+				justify-content: flex-start;
+				margin-top: 30px;
+			}
 			&>a {
-				color: #fff;
+				color: #B4CBF5;
 				margin: 0; padding: 0;
 				margin: 0 20px;
 				background: transparent;
@@ -43,7 +78,11 @@
 				text-decoration: none;
 				&:visited {
 					text-decoration: none;
-					color:#fff;
+					color: #B4CBF5;
+				}
+				@media #{$mq-1070} {
+					margin: 15px 0px;
+					font-size: 1.5em;
 				}
 			}
 		}

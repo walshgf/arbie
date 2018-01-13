@@ -13,6 +13,7 @@ export default class Graphs extends Component {
       allActive: false,
       curIndex: 0
     }
+    this.timer = null;
     this.exchanges = ['gdax', 'poloniex', 'gemini'];
     this.currencies = [
       {type: "BTC_USD", heading: 'Bitcoin', color1: "#FFF056", color2: "#FE9C1F"},
@@ -25,20 +26,22 @@ export default class Graphs extends Component {
   }
 
   componentDidMount = () => {
+    window.scrollTo(0, 0);
     //Start fetching data
     this.init();
-    setInterval(this.init, 5000);
+    this.timer = setInterval(this.init, 5000);
     //Build slider component => each slide is the Graph Component (Graph.js)
     const sldr = document.getElementById('graphs');
     const options = {
       cellSelector: '.graph',
       setGallerySize: false,
-      contain: true,
       initialIndex: 0,
       accessibility: true,
-      prevNextButtons: false,
+      cellAlign: 'center',
       pageDots: false,
       watchCSS: true,
+      selectedAttraction: 0.1,
+      friction: 0.6
     };
     this.flkty = new Flickity(sldr, options);
     //Attach listener to animate only the visible Graph Component
@@ -49,6 +52,7 @@ export default class Graphs extends Component {
   }
 
   componentWillUnmount = () => {
+    clearInterval(this.timer);
     window.removeEventListener('resize', this.resize, false);
     if(this.flkty) {
       this.flkty.off('cellSelect', this.updateSelected);
@@ -106,6 +110,7 @@ export default class Graphs extends Component {
               return (
                 <Graph
                   key={i} 
+                  index={i}
                   type={currency.type}
                   heading={currency.heading}
                   data={this.state.apiData}

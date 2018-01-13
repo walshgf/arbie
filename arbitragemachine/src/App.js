@@ -14,6 +14,7 @@ export default class App extends Component {
     super(props);
     this.state = {
       menuToggle: true,
+      pageClasses: 'page',
       burgerClasses : 'hamburglar is-open',
       menuClasses: 'menu'
     }
@@ -27,8 +28,9 @@ export default class App extends Component {
                           "hamburglar is-closed" : 
                           "hamburglar is-open",
           menuClasses: (prevState.menuClasses === "menu") ? 
-                        "menu menu-show" : 
-                        "menu",
+                        "menu menu-show" : "menu",
+          pageClasses: (prevState.pageClasses === 'page') ?
+                        'page page-move' : 'page'
       }
     });
   }
@@ -46,10 +48,12 @@ export default class App extends Component {
             classes={this.state.menuClasses}
             toggleMenu={this.toggleMenu} />
 
-          <Route path="/home" component={Homepage} />
-          <Route exact path="/" component={Graphs} />
-          <Route path="/team" component={Team} />
-          <Route path="/historicalData" component={Display} />
+          <div className={this.state.pageClasses}>
+            <Route path="/home" component={Homepage} />
+            <Route exact path="/" component={Graphs} />
+            <Route path="/team" component={Team} />
+            <Route path="/historicalData" component={Display} />
+          </div>
           <Footer />
         </div>
       </BrowserRouter>

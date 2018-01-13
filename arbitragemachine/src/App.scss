@@ -8,9 +8,27 @@
 }
 
 .App {
-	margin-top: 50px;
-	@media #{$mq-670} {
-		margin-top: 80px;
+	&>.page {	
+		margin-top: 50px;
+		transition-duration: 0.3s;
+		@media #{$mq-670} {
+			margin-top: 80px;
+		}
+		@media #{$mq-1070} {
+			margin-top: 0;
+		}
+		@media #{$mq-1070} {
+			width: calc(100% - 200px);
+			position: relative;
+			left: 200px;
+		}
+	}
+	&>.page-move {
+		transform: translateX(-70%);
+		@media #{$mq-670} {
+			transform: translateX(0%);
+		}
+
 	}
 }
 
@@ -23,3 +41,6 @@
 @import 'components/Menu/menu';
 @import 'components/Homepage/homepage';
 @import 'components/Indicators/graphs';
+@import 'components/Team/team.scss';
+
+

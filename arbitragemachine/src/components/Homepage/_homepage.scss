@@ -1,6 +1,7 @@
 .about {
-	margin: auto;
+	margin: 0 auto;
 	background: url('img/concrete.png') repeat center;
+	min-height: 100vh;
 	&>div {
 		@include center;
 		flex-direction: column;
@@ -53,9 +54,9 @@
 			@media #{$mq-1150} {
 				margin-top: 10px;
 				border-radius: 5px;
-				@include headerShadow;
+				@include cardShadow;
 				background: #fff;
-				width: 500px;
+				width: 450px;
 				padding: 20px 30px;
 			}
 			&>h3 {

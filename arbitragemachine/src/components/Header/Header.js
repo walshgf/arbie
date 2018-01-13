@@ -6,7 +6,10 @@ const Nav = (props) => {
 	return (
 	  <header className='header'>
 	    <div className='center'>
-				<h1>ARBIE</h1>
+				<div className='logo'>
+					<img src='arbieLogo.png' alt='Arbie' />
+					<h1>RBIE</h1>
+				</div>
 	      <nav className='header-nav'>
 	        <Link to="/home">About Arbie</Link>
 	        <Link to="/">My Currencies</Link>

@@ -3,14 +3,12 @@
 .graphs {
 	width: 100%;
 	height: calc(100vh - 50px);
-	max-height: 700px;
+	// max-height: 700px;
 	@include center;
-	margin-top: 70px;
 	//MEDIA QUERY FOR 670 WIDTH (IPAD)
 	@media #{$mq-670} {
 		height: auto;
 		max-height: none;
-		margin-top: 100px;
 	}
 	&>div {
 		@include center;
@@ -19,6 +17,12 @@
 		flex-direction: row;
 		flex-wrap: wrap;
 		max-width: 1300px;
+		@media #{$mq-670} {
+			margin-top: 30px;
+		}	
+		@media #{$mq-1070} {
+			margin-top: 60px;
+		}	
 		//ELEMENTS ADDED BY SLIDER
 		&>.flickity-viewport {
 			height: 100%;
@@ -44,24 +48,41 @@
 
 //GRAPH COMPONENT DOM TREE
 .graph {
-	height: 100%;
+	height: auto;
 	width: 100%;
 	@include center;
 	//ADJUST MAXWIDTH FOR DIFFERENT SCREENS 
 	//ALLOWING FOR SIDE BY SIDE VIEW
+	@include cardShadow;
+	max-width:450px;
+	transition-duration: 0.3s;
+	transform: scale(0.5);
+	padding-top: 20px;
 	@media #{$mq-670} {
-		max-width: 330px;
-		margin: 20px;
+		// max-width: 290px;
+		width: 40%;
 		//CREATES A CARD FROM EACH OF THE GRAPH COMPONENTS
-		@include headerShadow;
 		border-radius: 5px;
-		padding-top: 20px;
-	}
-	@media #{$mq-890} {
-		margin: 40px;
+		margin-bottom: 40px;
+		max-width: none;
+		transform: scale(1);
+		&:nth-of-type(even) {
+			margin-left: 20px;
+		}
+		&:nth-of-type(odd) {
+			margin-right: 20px;
+		}
 	}
 	@media #{$mq-957} {
-		max-width: 400px;
+		width: 40%;
+		max-width: 375px;
+		margin-bottom: 5%;
+		&:nth-of-type(even) {
+			margin-left: 2.5%;
+		}
+		&:nth-of-type(odd) {
+			margin-right: 2.5%;
+		}
 	}
 	&>div {
 		@include center;
@@ -77,12 +98,14 @@
 		}
 		//RESPONSIVE SVG CAPPING OFF AT 250PX HEIGHT AND WIDTH
 		&>.circ {
-			height: 100%;
-			width: 100%;
-			max-width: 250px;
-			max-height: 250px;
+			height: 85%;
+			width: 85%;
 			position: relative;
 			margin-bottom: -25px;
+			@media #{$mq-670} {
+				max-width: 250px;
+				max-height: 250px;
+			}
 			&>svg{
 				transform: rotate(-90deg);
 				&>circle {
@@ -112,6 +135,10 @@
 			}
 		}
 	}
+}
+
+.is-selected {
+	transform: scale(1);
 }
 
 //ELEMENTS SITTING BELOW THE SVG CIRCLES

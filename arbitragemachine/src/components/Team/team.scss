@@ -1,0 +1,142 @@
+.team {
+	width: 100%;
+	&>.centerer {
+		@include center;
+		flex-direction: row;
+		flex-wrap: wrap;
+		width: 100%;
+		&>h2 {
+			font-size: 1.75em;
+			width: 100%;
+			color: #597CD0;
+			text-align: center;
+			margin-top: 50px;
+			margin-bottom: 50px;
+			@include center;
+			&>div {
+				transform: translateY(-20px);
+				transition-duration: 0.3s;
+				opacity: 0;
+			}
+		}
+		&>.dude {
+			width: 85%;
+			@include center;
+			flex-direction: column;
+			max-width: 400px;
+			position: relative;
+			overflow: hidden;
+			margin-bottom: 20px;
+			@include headerShadow;
+			transform: translateY(100px);
+			opacity: 0;
+			transition-duration: 0.5s;
+			@media #{$mq-670} {
+				width: calc(50% - 20px);
+				margin: 0 10px 20px 10px;
+				@include cardShadow;
+
+			}
+			&::after,
+			&::before {
+				content: '';
+				position: absolute;
+				top: 0; left: 0;
+				height: 100%; width: 50%;
+				background: rgba(#92C5F2, 0.75);
+				z-index: 2;
+				transform: scaleY(0);
+				transform-origin: 50% 0%;
+				transition-duration: 0.3s;
+				transition-delay: 0.2s;
+			}
+			&::before {
+				transform-origin: 50% 100%;
+				left: auto; right: 0;
+			}
+			&>.author {
+				width: auto;
+				max-width: 400px;
+				height: auto;
+				min-height: 350px;
+				@include cardShadow;
+				color: #fff;
+				transition-duration: 0.5s;
+				user-select: none;
+				@media #{$mq-670} {
+					width: 100%;
+					height: auto;
+				}
+			}
+			&>.overlay {
+				height: 100%; width: 100%;
+				position: absolute;
+				bottom: 0; left: 0;
+				@include center;
+				flex-direction: column;
+				z-index: 3;
+				&>h3 {
+					text-align: center;
+					color: #161E28; 
+					font-size: 1.5em;
+					user-select: none;
+					&>b {
+						@include center;
+						&>div {
+							transform: translateY(-20px);
+							opacity: 0;
+							transition-duration: 0.2s;
+							// &:nth-of-type(even) {
+							// 	transform: translateY(20px);
+							// }
+						}
+					}
+				}
+				&>p {
+					width: 90%;
+					transform: translateY(50px);
+					opacity: 0;
+					transition-duration: 0.3s;
+					line-height: 1.5;
+					color: #0E1319;
+					user-select: none;
+					font-weight: 500;
+				}
+			}
+		}
+		&>.dude-active {
+			&::after,
+			&::before {
+				transform: scaleY(1);
+				transition-delay: 0s;
+			}
+			&>.author {
+				transform: scale(1.1);
+			}
+			//Animate letters of each persons name
+			&>.overlay>h3>b>div {
+				transform: translateY(0px);
+				opacity: 1;
+				// &:nth-of-type(even) {
+				// 	transform: translateY(0px);
+				// }
+			}
+			&>.overlay>p {
+				transform: translateY(0px);
+				opacity: 1;
+				transition-delay: 0.2s;
+			}
+		}
+	}
+	//Animates entrance to the page
+	&>.centerer-show {
+		&>h2>div {
+			transform: translateY(0px);
+			opacity: 1;
+		}
+		&>.dude {
+			transform: translateY(0px);
+			opacity: 1;
+		}
+	}
+}

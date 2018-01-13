@@ -77,11 +77,16 @@ export default class Graph extends Component {
     const circ = (Math.PI * (2 * 200));
     const arbCirc = this.state.arbitragePercent * circ;
     const strokeDashoffset = arbCirc / config.arb_percent;
-    const graphVal = strokeDashoffset === 0 || isNaN(strokeDashoffset) ? circ : arbCirc / config.arb_percent;
+    let graphVal = strokeDashoffset === 0 || isNaN(strokeDashoffset) ? circ : arbCirc / config.arb_percent;
+    graphVal = graphVal > circ ? circ : graphVal; 
     //The graph displays the current Arbitrage / config arbitrage
     //When the graph is full the current data gets posted to the DB
     return (
-    	<div className='graph'>
+    	<div 
+        className='graph'
+        style={{
+          zIndex: this.props.index + 1
+        }}>
     		<div>
     			<h2
     				style={{
