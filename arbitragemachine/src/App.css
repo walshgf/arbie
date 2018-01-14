@@ -816,17 +816,17 @@ th {
             font-size: 1em;
             max-width: 600px; } }
 
-.graphs {
+.currencies {
   width: 100%;
-  height: calc(100vh - 50px);
   display: flex;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+  flex-direction: column; }
   @media (min-width: 670px) {
-    .graphs {
+    .currencies {
       height: auto;
       max-height: none; } }
-  .graphs > div {
+  .currencies > div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -834,92 +834,104 @@ th {
     height: 100%;
     flex-direction: row;
     flex-wrap: wrap;
-    max-width: 1300px; }
-    @media (min-width: 670px) {
-      .graphs > div {
-        margin-top: 30px; } }
+    max-width: 1300px;
+    margin-top: 30px; }
     @media (min-width: 1070px) {
-      .graphs > div {
+      .currencies > div {
         margin-top: 60px; } }
-    .graphs > div > .flickity-viewport {
+    .currencies > div > .flickity-viewport {
       height: 100%;
       width: 100%;
       display: flex;
       justify-content: center;
       align-items: center; }
-      .graphs > div > .flickity-viewport > .flickity-slider {
+      .currencies > div > .flickity-viewport > .flickity-slider {
         height: 100%;
         width: 100%;
         display: flex;
         justify-content: center;
         align-items: center; }
 
-#graphs::after {
+.slider {
+  transition-duration: 0.3s; }
+
+.slider-move {
+  transform: translateY(100%); }
+
+#currencies::after {
   content: 'flickity';
   display: none; }
   @media (min-width: 670px) {
-    #graphs::after {
+    #currencies::after {
       content: ''; } }
 
-.graph {
+.circle-graph {
   height: auto;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 50px 100px rgba(50, 50, 93, 0.15), 0 15px 35px rgba(50, 50, 93, 0.2), 0 5px 15px rgba(0, 0, 0, 0.12);
   max-width: 450px;
   transition-duration: 0.3s;
-  transform: scale(0.5);
-  padding-top: 20px; }
+  position: relative;
+  perspective: 1000px;
+  width: 90%;
+  margin-bottom: 30px;
+  border-radius: 5px; }
   @media (min-width: 670px) {
-    .graph {
+    .circle-graph {
       width: 40%;
-      border-radius: 5px;
       margin-bottom: 40px;
       max-width: none;
       transform: scale(1); }
-      .graph:nth-of-type(even) {
+      .circle-graph:nth-of-type(even) {
         margin-left: 20px; }
-      .graph:nth-of-type(odd) {
+      .circle-graph:nth-of-type(odd) {
         margin-right: 20px; } }
   @media (min-width: 957px) {
-    .graph {
+    .circle-graph {
       width: 40%;
       max-width: 375px;
       margin-bottom: 5%; }
-      .graph:nth-of-type(even) {
+      .circle-graph:nth-of-type(even) {
         margin-left: 2.5%; }
-      .graph:nth-of-type(odd) {
+      .circle-graph:nth-of-type(odd) {
         margin-right: 2.5%; } }
-  .graph > div {
+  .circle-graph > .center {
+    padding-top: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 90%;
+    width: 100%;
     height: 100%;
-    flex-direction: column; }
-    .graph > div > h2 {
+    flex-direction: column;
+    backface-visibility: hidden;
+    transition-duration: 0.3s;
+    box-shadow: 0 50px 100px rgba(50, 50, 93, 0.15), 0 15px 35px rgba(50, 50, 93, 0.2), 0 5px 15px rgba(0, 0, 0, 0.12);
+    border-radius: 5px;
+    position: relative;
+    background: #fff; }
+    .circle-graph > .center > h2 {
       font-weight: 200;
       text-align: center;
       margin-bottom: 10px;
       font-size: 2.5em;
       margin-top: 0; }
-    .graph > div > .circ {
-      height: 85%;
-      width: 85%;
+    .circle-graph > .center > .circ {
+      height: 75%;
+      width: 75%;
       position: relative;
       margin-bottom: -25px; }
       @media (min-width: 670px) {
-        .graph > div > .circ {
+        .circle-graph > .center > .circ {
           max-width: 250px;
           max-height: 250px; } }
-      .graph > div > .circ > svg {
+      .circle-graph > .center > .circ > svg {
         transform: rotate(-90deg); }
-        .graph > div > .circ > svg > circle {
+        .circle-graph > .center > .circ > svg > circle {
           transition-timing-function: cubic-bezier(0.99, 0.01, 0.62, 0.94);
           transition: stroke-dashoffset 0.8s 0.15s, stroke-dasharray 0.8s 0.15s; }
-      .graph > div > .circ > .decision {
+      .circle-graph > .center > .circ > .decision {
         position: absolute;
         top: 0;
         left: 0;
@@ -929,14 +941,36 @@ th {
         justify-content: center;
         align-items: center;
         flex-direction: column; }
-        .graph > div > .circ > .decision > h3 {
+        .circle-graph > .center > .circ > .decision > h3 {
           font-size: 2em;
           margin: 0;
           margin-bottom: 10px; }
-        .graph > div > .circ > .decision > h4 {
+        .circle-graph > .center > .circ > .decision > h4 {
           font-size: 1em;
           margin: 0;
           font-weight: 200; }
+  .circle-graph > .center-rotate {
+    transform: rotateY(-180deg); }
+
+.flip {
+  outline: none;
+  border: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  backgroundColor: green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 60px; }
+  @media (min-width: 670px) {
+    .flip {
+      height: 40px;
+      width: 40px; } }
+  .flip > svg {
+    height: 100%;
+    width: 100%; }
 
 .is-selected {
   transform: scale(1); }
@@ -964,7 +998,7 @@ th {
       justify-content: space-between;
       margin-bottom: 20px;
       max-width: 300px;
-      width: 90%; }
+      width: 85%; }
       .info > div > .prices > .price {
         display: flex;
         justify-content: center;
@@ -991,14 +1025,11 @@ th {
       align-items: center;
       flex-direction: row;
       flex-wrap: wrap;
-      width: calc(110% + 3px);
+      width: 100%;
       height: 50px;
-      background: #989898; }
-      @media (min-width: 670px) {
-        .info > div > .buy-sell {
-          border-bottom-left-radius: 5px;
-          border-bottom-right-radius: 5px;
-          width: calc(110% + 4px); } }
+      background: #989898;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px; }
       .info > div > .buy-sell > p {
         width: 50%;
         display: flex;
@@ -1009,6 +1040,78 @@ th {
         height: 100%; }
         .info > div > .buy-sell > p:first-of-type {
           border-right: 1px solid #fff; }
+
+.currency {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: #fff;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+  transition-duration: 0.3s;
+  border-radius: 5px; }
+  .currency > .lines {
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 50px 100px rgba(50, 50, 93, 0.15), 0 15px 35px rgba(50, 50, 93, 0.2), 0 5px 15px rgba(0, 0, 0, 0.12);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 20px;
+    position: relative;
+    border-radius: 5px; }
+    .currency > .lines > h2 {
+      margin: 0;
+      font-weight: 200;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 2.5em;
+      margin-top: 0; }
+    .currency > .lines > .line-graph {
+      height: 40%;
+      width: 75%;
+      margin-right: -5%;
+      box-sizing: border-box;
+      border-left: 1px solid #6E7AC7;
+      border-bottom: 1px solid #6E7AC7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      position: relative; }
+      .currency > .lines > .line-graph > .line {
+        height: 100%;
+        width: 8.5%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-items: flex-end;
+        position: relative;
+        box-sizing: border-box; }
+        .currency > .lines > .line-graph > .line > .graph-bar {
+          position: absolute;
+          bottom: 0;
+          height: 50%;
+          width: 50%;
+          margin: auto; }
+      .currency > .lines > .line-graph > .line:nth-of-type(odd)::after {
+        content: attr(data-time);
+        margin-bottom: -20px;
+        font-size: 0.8em;
+        color: attr(data-color); }
+    .currency > .lines > label {
+      margin-top: 25px; }
+
+.currency-show {
+  transform: rotateY(0deg); }
 
 .team {
   width: 100%; }

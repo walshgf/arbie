@@ -1,10 +1,11 @@
-//NESTED SELECTORS MIMIC THE STRUCTURE OF THE DOM TREE
+//Nested selectors mimic the structure of the dom tree
 
-.graphs {
+.currencies {
 	width: 100%;
-	height: calc(100vh - 50px);
+	// height: calc(100vh - 50px);
 	// max-height: 700px;
 	@include center;
+	flex-direction: column;
 	//MEDIA QUERY FOR 670 WIDTH (IPAD)
 	@media #{$mq-670} {
 		height: auto;
@@ -17,9 +18,10 @@
 		flex-direction: row;
 		flex-wrap: wrap;
 		max-width: 1300px;
-		@media #{$mq-670} {
-			margin-top: 30px;
-		}	
+		margin-top: 30px;
+		// @media #{$mq-670} {
+		// 	margin-top: 30px;
+		// }	
 		@media #{$mq-1070} {
 			margin-top: 60px;
 		}	
@@ -37,8 +39,16 @@
 	}
 }
 
-//REMOVES THE SLIDER FROM THE DOM AT 670 WIDTH
-#graphs::after {
+.slider {
+	transition-duration: 0.3s;
+}
+
+.slider-move {
+	transform: translateY(100%);
+}
+
+//Removes slider from the dom at 670 width
+#currencies::after {
     content: 'flickity';
     display: none;
     @media #{$mq-670} {
@@ -46,23 +56,26 @@
     }
 }
 
-//GRAPH COMPONENT DOM TREE
-.graph {
+//CircleGraph component
+.circle-graph {
 	height: auto;
 	width: 100%;
 	@include center;
-	//ADJUST MAXWIDTH FOR DIFFERENT SCREENS 
-	//ALLOWING FOR SIDE BY SIDE VIEW
-	@include cardShadow;
+	//Adjust max width for different screens
+	//creates grid view
 	max-width:450px;
 	transition-duration: 0.3s;
-	transform: scale(0.5);
-	padding-top: 20px;
+	// transform: scale(0.5);
+	position: relative;
+	perspective: 1000px;
+	width: 90%;
+	margin-bottom: 30px;
+	border-radius: 5px;
 	@media #{$mq-670} {
 		// max-width: 290px;
 		width: 40%;
-		//CREATES A CARD FROM EACH OF THE GRAPH COMPONENTS
-		border-radius: 5px;
+		//creates a card layout
+		// border-radius: 5px;
 		margin-bottom: 40px;
 		max-width: none;
 		transform: scale(1);
@@ -84,11 +97,18 @@
 			margin-right: 2.5%;
 		}
 	}
-	&>div {
+	&>.center {
+		padding-top: 20px;
 		@include center;
-		width:90%;
+		width: 100%;
 		height: 100%;
 		flex-direction: column;
+		backface-visibility: hidden;
+		transition-duration: 0.3s;
+		@include cardShadow;
+		border-radius: 5px;
+		position: relative;
+		background: #fff;
 		&>h2 {
 			font-weight: 200;
 			text-align: center;
@@ -96,10 +116,10 @@
 			font-size: 2.5em;
 			margin-top: 0;
 		}
-		//RESPONSIVE SVG CAPPING OFF AT 250PX HEIGHT AND WIDTH
+		//Responsive svg circle capped off at 250px height and width
 		&>.circ {
-			height: 85%;
-			width: 85%;
+			height: 75%;
+			width: 75%;
 			position: relative;
 			margin-bottom: -25px;
 			@media #{$mq-670} {
@@ -113,7 +133,8 @@
 					transition: stroke-dashoffset 0.8s 0.15s, stroke-dasharray 0.8s 0.15s;
 				}
 			}
-			//ELEMENTS THAT SIT IN THE CENTER OF EACH CIRCLE
+			//Elements that are placed in the center
+			//of the circle graph
 			&>.decision {
 				position: absolute;
 				top: 0;
@@ -135,13 +156,34 @@
 			}
 		}
 	}
+	&>.center-rotate {
+		transform: rotateY(-180deg);
+	}
 }
 
+.flip {
+	outline: none; border: none;
+	position: absolute;
+	top: 0; right: 0;
+	backgroundColor: green;
+	@include center;
+	height: 50px; width: 60px;
+	@media #{$mq-670} {
+		height: 40px; width: 40px;
+	}
+	&>svg {
+		height: 100%;
+		width: 100%;
+	}
+}
+
+
+//active class for slider component
 .is-selected {
 	transform: scale(1);
 }
 
-//ELEMENTS SITTING BELOW THE SVG CIRCLES
+//Elements sitting below the svg circles
 .info {
 	@include center;
 	width: 100%;
@@ -160,7 +202,7 @@
 			justify-content: space-between;
 			margin-bottom: 20px;
 			max-width: 300px;
-			width: 90%;
+			width: 85%;
 			&>.price {
 				@include center;
 				flex-direction: column;
@@ -183,20 +225,22 @@
 			font-size: 1.3em;
 			font-weight: 600;
 		}
-		//CREATES A CARD-LIKE LAYOUT FOOTER BY SPANNING THE FULL WIDTH
+		//creates a card layout footer 
+		//these can be buttons
 		&>.buy-sell {
 			margin-top: 20px;
 			@include center;
 			flex-direction: row;
 			flex-wrap: wrap;
-			width: calc(110% + 3px);
+			width: 100%;
 			height: 50px;
 			background: #989898;
-			@media #{$mq-670} {
-				border-bottom-left-radius: 5px;
-				border-bottom-right-radius: 5px;
-				width: calc(110% + 4px);
-			}
+			border-bottom-left-radius: 5px;
+			border-bottom-right-radius: 5px;
+			// @media #{$mq-670} {
+			// 	border-bottom-left-radius: 5px;
+			// 	border-bottom-right-radius: 5px;
+			// }
 			&>p {
 				width: 50%;
 				@include center;

@@ -6,7 +6,7 @@ import Team from './components/Team/Team';
 import Display from './components/Display/Display';
 import Header from './components/Header/Header';
 import Menu from './components/Menu/Menu';
-import Graphs from './components/Indicators/Graphs';
+import Currencies from './components/Indicators/Currencies';
 
 
 export default class App extends Component {
@@ -16,7 +16,8 @@ export default class App extends Component {
       menuToggle: true,
       pageClasses: 'page',
       burgerClasses : 'hamburglar is-open',
-      menuClasses: 'menu'
+      menuClasses: 'menu',
+      currentCurrency: ''
     }
   }
 
@@ -35,7 +36,7 @@ export default class App extends Component {
     });
   }
 
-  render() {
+  render = () => {
     return (
       <BrowserRouter>
         <div className='App'>
@@ -50,7 +51,13 @@ export default class App extends Component {
 
           <div className={this.state.pageClasses}>
             <Route path="/home" component={Homepage} />
-            <Route exact path="/" component={Graphs} />
+            <Route 
+              exact path="/" 
+              render={() =>
+                <Currencies
+                  setCurrency={this.setCurrency} />
+              } 
+            />
             <Route path="/team" component={Team} />
             <Route path="/historicalData" component={Display} />
           </div>

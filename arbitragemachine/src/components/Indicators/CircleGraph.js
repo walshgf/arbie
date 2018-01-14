@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
+import Currency from '../Currency/Currency';
 import { 
 	findLargestAsk, 
 	findSmallestAsk,
 	percentageOfArbitrageAvailable,
 	checkNull,
 	commafy 
-} from './helpers';
+} from '../../helpers';
 import Axios from 'axios';
 import config from './config.js';
 const server = require('../Compare/config').server;
 
-export default class Graph extends Component {
+export default class CircleGraph extends Component {
   constructor(props) {
   	super(props);
   	this.state = {
@@ -21,13 +22,14 @@ export default class Graph extends Component {
   		currencyLowPrice: 0, 
   		currencyLowExchange: '',
   		arbitragePercent: 0,
-  		decisionToTrade: ''
+  		decisionToTrade: '',
+      frontClasses: 'center',
+      backClasses: 'currency'
   	}
   }
 
   //when new data arrives perform operations
   componentWillReceiveProps = (nextProps) => {
-    console.log('received props');
   	const { data, type } = nextProps;
   	const currencyHighObj = findLargestAsk(data, type);
   	const currencyLowObj = findSmallestAsk(data, type);
@@ -71,6 +73,17 @@ export default class Graph extends Component {
     .catch(err => console.log(err));
   }
 
+  flip = () => {
+    this.setState(prevState => {
+      return {
+        frontClasses: prevState.frontClasses === 'center' ? 
+                      'center center-rotate' : 'center',
+        backClasses: prevState.backClasses === 'currency' ? 
+                      'currency currency-show' : 'currency'
+      }
+    });
+  }
+
   render = () => {
   	//Calculates the circumference of the svg
   	//as well as the strokeDashoffset that creates the graph
@@ -83,15 +96,24 @@ export default class Graph extends Component {
     //When the graph is full the current data gets posted to the DB
     return (
     	<div 
-        className='graph'
+        className='circle-graph'
         style={{
           zIndex: this.props.index + 1
         }}>
-    		<div>
-    			<h2
-    				style={{
-    					color: this.props.color2
-    				}}>{this.props.heading}</h2>
+    		<div className={this.state.frontClasses}>
+          <button 
+            className='flip'
+            onClick={this.flip}>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+              <path fill={this.props.color2} d="M25,13C13.44,13,1,16.442,1,24c0,6.689,9.745,10.152,20,10.86v6.185L32.629,32L21,22.955v5.893C11.799,28.141,7,25.131,7,24 c0-1.285,6.189-5,18-5s18,3.715,18,5c0,0.553-1.579,2.211-6.272,3.538L36,27.743v6.174l1.24-0.307C44.823,31.734,49,28.321,49,24 C49,16.442,36.56,13,25,13z"/>
+            </svg>
+          </button>
+    			<h2 
+            onClick={this.setCurrency}
+            style={{
+              color: this.props.color2,
+              textDecoration: 'none'
+            }}>{this.props.heading}</h2>
     			<div className='circ'>
     				<svg 
 							viewBox="0 0 500 500" 
@@ -124,7 +146,7 @@ export default class Graph extends Component {
 								//animate changes to the percentage
 								style={{
 									strokeDasharray: circ,
-									strokeDashoffset: this.props.active ? circ - graphVal : circ
+									strokeDashoffset: circ - graphVal
 								}} />
 						</svg>
 						<div className='decision'>
@@ -157,12 +179,18 @@ export default class Graph extends Component {
               	className='buy-sell' 
               	id={this.state.arbitragePercent >= config.arb_percent ? 'data' : 'hidden'}
               	style={{ backgroundColor: this.props.color2}}>
-                <p>Sell: {this.state.currencyHighExchange}</p>
-	              <p>Buy: {this.state.currencyLowExchange}</p>
+                <p><strong>Sell:&nbsp;</strong> {this.state.currencyHighExchange}</p>
+	              <p><strong>Buy:&nbsp;</strong> {this.state.currencyLowExchange}</p>
 	            </div>
     				</div>
     			</div>
     		</div>
+        <Currency
+          currency={this.props.heading}
+          classes={this.state.backClasses}
+          color1={this.props.color1}
+          color2={this.props.color2}
+          flip={this.flip} />
     	</div>   
     );
   }

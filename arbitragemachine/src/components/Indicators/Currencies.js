@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import Flickity from 'flickity';
+// import Flickity from 'flickity';
 import update from 'immutability-helper';
 import Axios from 'axios';
-import Graph from './Graph';
+import CircleGraph from './CircleGraph';
 const server = require('../Compare/config').server;
 
-export default class Graphs extends Component {
+export default class Currencies extends Component {
   constructor(props) {
   	super(props);
   	this.state = {
-      apiData:[],
+      circleData:[],
       allActive: false,
-      curIndex: 0
+      curIndex: 0,
     }
     this.timer = null;
     this.exchanges = ['gdax', 'poloniex', 'gemini'];
@@ -27,28 +27,29 @@ export default class Graphs extends Component {
 
   componentDidMount = () => {
     window.scrollTo(0, 0);
-    //Start fetching data
-    this.init();
-    this.timer = setInterval(this.init, 5000);
-    //Build slider component => each slide is the Graph Component (Graph.js)
-    const sldr = document.getElementById('graphs');
-    const options = {
-      cellSelector: '.graph',
-      setGallerySize: false,
-      initialIndex: 0,
-      accessibility: true,
-      cellAlign: 'center',
-      pageDots: false,
-      watchCSS: true,
-      selectedAttraction: 0.1,
-      friction: 0.6
-    };
-    this.flkty = new Flickity(sldr, options);
+    //Build slider component => each slide is the CircleGraph Component (CircleGraph.js)
+    // const sldr = document.getElementById('currencies');
+    // const options = {
+    //   cellSelector: '.circle-graph',
+    //   setGallerySize: false,
+    //   initialIndex: 0,
+    //   accessibility: true,
+    //   cellAlign: 'center',
+    //   pageDots: false,
+    //   watchCSS: true,
+    //   selectedAttraction: 0.1,
+    //   friction: 0.6
+    // };
+    // this.flkty = new Flickity(sldr, options);
     //Attach listener to animate only the visible Graph Component
-    this.flkty.on('cellSelect', this.updateSelected);
+    // this.flkty.on('cellSelect', this.updateSelected);
     //Add resize handler to animate all graphs when slider is destroyed
     this.resize();
     window.addEventListener('resize', this.resize, false);
+    window.onbeforeunload = clearInterval(this.timer);
+    //Start fetching data
+    this.init();
+    this.timer = setInterval(this.init, 5000);
   }
 
   componentWillUnmount = () => {
@@ -73,6 +74,7 @@ export default class Graphs extends Component {
   }
 
   init = () => { 
+    this.setState({ circleDate: [] });
     //Create an array of URLs
     const http = [];
     for(let i = 0; i < this.exchanges.length; i++) {
@@ -91,32 +93,33 @@ export default class Graphs extends Component {
           //Set state without mutation 
           //update function comes from (immutability-helper)
           this.setState(prevState => {
-            const ns = update(prevState.apiData, {$push: [response.data]}); //THIS IS A COPY OF THE STATE OBJECT THAT HAS BEEN GIVEN THE RESPONSE DATA
-            return { apiData: ns }
+            const ns = update(prevState.circleData, {$push: [response.data]}); //THIS IS A COPY OF THE STATE OBJECT THAT HAS BEEN GIVEN THE RESPONSE DATA
+            return { circleData: ns }
           });
         });
       }).catch(err => console.log(err));
 
     //Set aside to create a loader while data is being fetched
-    // if(this.state.apiData.length > 0) this.setState({done: true});
+    // if(this.state.circleData.length > 0) this.setState({done: true});
 	}
 
   render = () => {
     return (
-    	<section className='graphs'>
-    		<div id='graphs'>
+    	<section className='currencies'>
+    		<div 
+          id='currencies'>
           {
             this.currencies.map((currency, i) => {
               return (
-                <Graph
+                <CircleGraph
                   key={i} 
                   index={i}
                   type={currency.type}
                   heading={currency.heading}
-                  data={this.state.apiData}
+                  data={this.state.circleData}
                   color1={currency.color1}
                   color2={currency.color2}
-                  active={this.state.allActive || this.state.curIndex === i} />
+                  currency={currency} />
               );
             })
           }

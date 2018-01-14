@@ -101,3 +101,20 @@ export const commafy = (x) => {
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return parts.join(".");
 }
+
+export const capitalize = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+export const hexToRgbA = (hex, opacity) => {
+    let c;
+    if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
+        c= hex.substring(1).split('');
+        if(c.length== 3){
+            c= [c[0], c[0], c[1], c[1], c[2], c[2]];
+        }
+        c= '0x'+c.join('');
+        return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+','+ opacity +')';
+    }
+    throw new Error('Bad Hex');
+}
